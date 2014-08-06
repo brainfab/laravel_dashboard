@@ -1,0 +1,77 @@
+settings:
+  title: Настройки
+  icon: fa-cogs
+content:
+  title: Контент
+  sub:
+    slides:
+      title: Слайды
+      icon: fa-picture-o
+    topics:
+      title: Статьи
+    pages:
+      title: 'Статические страницы'
+    contacts:
+      title: 'Страница "Контакты"'
+    about:
+      title: 'Страница "О нас"'
+    delivery:
+      title: 'Страница "Доставка"'
+    rules:
+      title: 'Страница "Правила"'
+shop:
+  title: Магазин
+  icon: fa-shopping-cart
+  sub:
+    orders:
+      title: Заказы
+      icon: fa-money
+    order_statuses:
+      title: 'Статусы заказа'
+      icon: fa-bars
+libs:
+  title: Библиотеки
+  icon: fa-archive
+  sub:
+    deliveries:
+      title: 'Способы доставки'
+      icon: fa-truck
+    payment_types:
+      title: 'Способы оплаты'
+      icon: fa-credit-card
+    brands:
+      title: Производители
+    countries:
+      title: Страны
+    regions:
+      title: Области
+    cities:
+      title: Города
+catalog:
+  title: Каталог
+  icon: fa-folder-open-o
+  sub:
+    categories:
+      title: Категории
+    products:
+      title: Товары
+    properties:
+      title: 'Свойства товаров'
+service:
+  title: Сервисы
+  icon: fa-th-large
+  sub:
+    comments:
+      title: Комментарии
+      icon: fa-comments
+    subscribers:
+      title: Подписчики
+      icon: fa-users
+users:
+  title: Пользователи
+  icon: fa-users
+calendar:
+  title: Календарь
+  icon: fa-calendar
+tests:
+  title: Tests

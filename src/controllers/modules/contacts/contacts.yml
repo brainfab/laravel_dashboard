@@ -1,0 +1,17 @@
+title: Контакты
+single: Контакты
+model: Settings
+fields:
+  contacts_page:
+    title: Текст
+    type: rich
+sort: 'id ASC'
+tabs: {  }
+actions:
+actions:
+  list:
+    hide:
+      - id
+  edit:
+    hide:
+      - id

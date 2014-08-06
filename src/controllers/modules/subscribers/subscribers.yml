@@ -1,0 +1,39 @@
+title: Подписчики
+single: Subscriber
+model: Subscriber
+fields:
+  id:
+    title: Id
+    readonly: true
+    type: text
+  name:
+    title: Имя
+    type: text
+  email:
+    title: Email
+    type: text
+  id_user:
+    title: id пользователя
+    type: text
+  is_active:
+    title: Подписан
+    type: checkbox
+  _created_at:
+    title: Добавлен
+    type: datepicker
+    timepicker: true
+  _updated_at:
+    title: Изменен
+    type: datepicker
+    timepicker: true
+sort: 'id ASC'
+tabs: {  }
+actions:
+  list: {  }
+  delete: true
+  edit:
+    hide:
+      - id
+  add:
+    hide:
+      - id

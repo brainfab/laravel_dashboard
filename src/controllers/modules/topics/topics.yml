@@ -1,0 +1,44 @@
+title: Статьи
+single: Статьи
+model: Topics
+fields:
+  id:
+    title: Id
+    readonly: true
+    type: text
+  title:
+    title: Заголовок
+    type: text
+  _slug:
+    title: Ссылка
+    type: text
+  notice:
+    title: Описание краткое
+    type: area
+  text:
+    title: Текст
+    type: rich
+  date:
+    title: Дата
+    type: datepicker
+    timepicker: true
+  is_active:
+    title: Активна
+    type: checkbox
+  image:
+    title: Изображение
+    type: image
+sort: 'id ASC'
+tabs: {  }
+actions:
+  list:
+    hide:
+      - notice
+      - text
+  delete: true
+  edit:
+    hide:
+      - id
+  add:
+    hide:
+      - id

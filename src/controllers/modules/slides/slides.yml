@@ -1,0 +1,35 @@
+title: Слайды
+single: Слайды
+model: Slide
+sortability: true
+fields:
+  id:
+    title: Id
+    readonly: true
+    type: text
+  title:
+    title: Заголовок
+    type: text
+  caption:
+    title: Описание
+    type: area
+  link:
+    title: Ссылка
+    type: text
+  slide:
+    title: Изображение
+    type: image
+sort: '_position ASC'
+per_page: 1
+tabs: {  }
+actions:
+  list:
+    hide:
+      - caption
+  delete: true
+  edit:
+    hide:
+      - id
+  add:
+    hide:
+      - id

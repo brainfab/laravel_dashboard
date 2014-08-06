@@ -1,0 +1,42 @@
+title: Настройки
+single: Настройки
+model: Settings
+fields:
+  id:
+    title: Id
+    readonly: true
+    type: text
+  email:
+    title: Email
+    type: text
+  fax:
+    title: Факс
+    type: text
+  phone:
+    title: Телефон
+    type: text
+  robots:
+    title: robots.txt
+    type: area
+#  contacts_page:
+#    title: ContactsPage
+#    type: area
+#  about_page:
+#    title: AboutPage
+#    type: area
+#  delivery_page:
+#    title: DeliveryPage
+#    type: area
+#  rules_page:
+#    title: RulesPage
+#    type: area
+sort: 'id ASC'
+tabs: {  }
+actions:
+actions:
+  list:
+    hide:
+      - id
+  edit:
+    hide:
+      - id

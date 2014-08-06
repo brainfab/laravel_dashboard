@@ -1,0 +1,1 @@
+<span class="readonly_text_field">{{$field_value}}</span>

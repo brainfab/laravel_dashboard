@@ -1,0 +1,17 @@
+title: Доставка
+single: Доставка
+model: Settings
+fields:
+  delivery_page:
+    title: Текст
+    type: rich
+sort: 'id ASC'
+tabs: {  }
+actions:
+actions:
+  list:
+    hide:
+      - id
+  edit:
+    hide:
+      - id

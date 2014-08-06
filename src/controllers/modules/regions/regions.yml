@@ -1,0 +1,36 @@
+title: Области
+single: Области
+model: Region
+fields:
+  id:
+    title: Id
+    readonly: true
+    type: text
+  title:
+    title: Название
+    type: text
+  id_country:
+    title: Страна
+    type: select
+#  _created_at:
+#    title: CreatedAt
+#    type: datepicker
+#    timepicker: true
+#  _updated_at:
+#    title: UpdatedAt
+#    type: datepicker
+#    timepicker: true
+  _slug:
+    title: Символьный код
+    type: text
+sort: 'id ASC'
+tabs: {  }
+actions:
+  list: {  }
+  delete: true
+  edit:
+    hide:
+      - id
+  add:
+    hide:
+      - id

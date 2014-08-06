@@ -1,0 +1,29 @@
+title: Способы оплаты
+single: PaymentType
+model: PaymentType
+fields:
+  id:
+    title: Id
+    readonly: true
+    type: text
+  title:
+    title: Заголовок
+    type: text
+  description:
+    title: Описание
+    type: area
+  is_active:
+    title: Активен
+    type: checkbox
+sort: 'id ASC'
+tabs: {  }
+actions:
+  list:
+    fields: [id, title, is_active]
+  delete: true
+  edit:
+    hide:
+      - id
+  add:
+    hide:
+      - id

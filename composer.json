@@ -1,0 +1,28 @@
+{
+    "name": "small-team/admin",
+    "description": "",
+    "authors": [
+        {
+            "name": "Max Kovpak",
+            "email": "max_kovpak@hotmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations",
+            "src/helpers",
+            "src/controllers",
+            "src/commands",
+            "src/libs/tools",
+            "src/libs/tools/yaml"
+        ],
+        "psr-0": {
+            "Vendor\\Admin\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}

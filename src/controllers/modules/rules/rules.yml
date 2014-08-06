@@ -1,0 +1,17 @@
+title: Правила
+single: Правила
+model: Settings
+fields:
+  rules_page:
+    title: Текст
+    type: rich
+sort: 'id ASC'
+tabs: {  }
+actions:
+actions:
+  list:
+    hide:
+      - id
+  edit:
+    hide:
+      - id

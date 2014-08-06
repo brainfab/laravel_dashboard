@@ -1,0 +1,45 @@
+title: Заказы
+single: Order
+model: Order
+fields:
+  id:
+    title: Id
+    readonly: true
+    type: text
+  id_order_status:
+    title: Статус заказа
+    type: select
+  amount:
+    title: Сумма
+    type: text
+  id_delivery:
+    title: Способ доставки
+    type: select
+  id_payment_type:
+    title: Способ оплаты
+    type: select
+  is_canceled:
+    title: Отменен
+    type: checkbox
+  id_user:
+    title: Пользователь
+    type: select
+  _created_at:
+    title: Создан
+    type: datepicker
+    timepicker: true
+  _updated_at:
+    title: Изменен
+    type: datepicker
+    timepicker: true
+sort: 'id ASC'
+tabs: {  }
+actions:
+  list: {  }
+  delete: true
+  edit:
+    hide:
+      - id
+  add:
+    hide:
+      - id

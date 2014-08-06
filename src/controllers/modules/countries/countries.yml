@@ -1,0 +1,33 @@
+title: Страны
+single: Страны
+model: Country
+fields:
+  id:
+    title: Id
+    readonly: true
+    type: text
+  title:
+    title: Название
+    type: text
+#  _created_at:
+#    title: CreatedAt
+#    type: datepicker
+#    timepicker: true
+#  _updated_at:
+#    title: UpdatedAt
+#    type: datepicker
+#    timepicker: true
+  _slug:
+    title: Символьный код
+    type: text
+sort: 'title ASC'
+tabs: {  }
+actions:
+  list: {  }
+  delete: true
+  edit:
+    hide:
+      - id
+  add:
+    hide:
+      - id

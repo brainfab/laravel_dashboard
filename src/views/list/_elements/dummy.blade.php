@@ -1,0 +1,1 @@
+<span class="readonly_text_field {$field_info.class}" style="{$field_info.style}">{$field_info.text}</span>
