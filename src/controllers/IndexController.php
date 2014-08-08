@@ -12,7 +12,7 @@ class IndexController extends SmallTeam\Admin\BaseController {
     }
 
     public function anyLogin() {
-        if(Admin::isLoggedIn()) {
+        if(SmallTeam\Admin\Admin::isLoggedIn()) {
             return Redirect::to('admin/');
         }
         $this->view->setLayoutTemplate('admin::default_login');
@@ -21,7 +21,7 @@ class IndexController extends SmallTeam\Admin\BaseController {
         $login = isset($_POST['login']) ? trim(strip_tags($_POST['login'])) : false;
         $pass = isset($_POST['password']) ? $_POST['password'] : false;
         if($login && $pass) {
-            if(Admin::login($login, $pass)) {
+            if(SmallTeam\Admin\Admin::login($login, $pass)) {
                 return Redirect::to('admin/');
             } else {
                 $this->view->error = 'Логин или пароль введены не верно';
@@ -32,7 +32,7 @@ class IndexController extends SmallTeam\Admin\BaseController {
     }
 
     public function anyLogout() {
-        Admin::logout();
+        SmallTeam\Admin\Admin::logout();
         return Redirect::to('admin/login');
     }
 }
