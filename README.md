@@ -5,23 +5,23 @@ Install laravel framework
 
 Add admin package to require in composer.json and run composer update:
 
-"small-team/laravel-admin": "dev-master"
+<pre>"small-team/laravel-admin": "dev-master"</pre>
 
 After updating composer, add the ServiceProvider to the providers array in app/config/app.php:
 
-'SmallTeam\Admin\AdminServiceProvider',
+<pre>'SmallTeam\Admin\AdminServiceProvider',</pre>
 
 Update class loader:
 
-$ php artisan dump-autoload
+<pre>$ php artisan dump-autoload</pre>
 
 Init admin dashboard:
 
-$ php artisan admin:init
+<pre>$ php artisan admin:init</pre>
 
 Run migrate:
 
-$ php artisan migrate --package=small-team/laravel-admin
+<pre>$ php artisan migrate --package=small-team/laravel-admin</pre>
 
 
 :)
