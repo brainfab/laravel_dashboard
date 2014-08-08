@@ -22,3 +22,6 @@ $ php artisan admin:init
 Run migrate:
 
 $ php artisan migrate --package=small-team/laravel-admin
+
+
+:)
