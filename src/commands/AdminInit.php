@@ -46,7 +46,7 @@ class AdminInit extends Command {
         File::copyDirectory(__DIR__.'/../config/', app_path().'/../admin/config');
 
         $this->info('Start migration...');
-        $this->call('migrate --package=small-team/laravel-admin --force');
+        exec('php artisan migrate --package=small-team/laravel-admin --force');
         $this->info('All done!');
     }
 
