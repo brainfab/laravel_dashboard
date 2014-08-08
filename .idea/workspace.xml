@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ef77132c-2b85-4fa7-ae5b-3e243dd739e9" name="Default" comment="fix tables names and run migration on init">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/migrations/2014_07_21_215511_init.php" afterPath="$PROJECT_DIR$/src/migrations/2014_07_21_215511_init.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/Admin.php" afterPath="$PROJECT_DIR$/src/models/Admin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/commands/AdminInit.php" afterPath="$PROJECT_DIR$/src/commands/AdminInit.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    <list default="true" id="ef77132c-2b85-4fa7-ae5b-3e243dd739e9" name="Default" comment="">
+      <change type="DELETED" beforePath="D:\web\github\laravel_dashboard\.idea\.name" afterPath="" />
+      <change type="DELETED" beforePath="D:\web\github\laravel_dashboard\.idea\encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\web\github\laravel_dashboard\.idea\laravel_dashboard.iml" afterPath="" />
+      <change type="DELETED" beforePath="D:\web\github\laravel_dashboard\.idea\misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\web\github\laravel_dashboard\.idea\modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\web\github\laravel_dashboard\.idea\scopes\scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\web\github\laravel_dashboard\.idea\vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\web\github\laravel_dashboard\.idea\workspace.xml" afterPath="" />
     </list>
     <ignored path="laravel_dashboard.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -273,7 +276,13 @@
       <option name="project" value="LOCAL" />
       <updated>1407536620060</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="fix tables names and run migration on init">
+      <created>1407537254220</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1407537254220</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -318,7 +327,8 @@
       <TodoPanelSettings />
     </option>
     <MESSAGE value="commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit" />
+    <MESSAGE value="fix tables names and run migration on init" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix tables names and run migration on init" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
