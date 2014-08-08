@@ -18,7 +18,3 @@ Update class loader:
 Init admin dashboard:
 
 <pre>$ php artisan admin:init</pre>
-
-Run migrate:
-
-<pre>$ php artisan migrate --package=small-team/laravel-admin</pre>
