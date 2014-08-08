@@ -22,6 +22,3 @@ Init admin dashboard:
 Run migrate:
 
 <pre>$ php artisan migrate --package=small-team/laravel-admin</pre>
-
-
-:)
