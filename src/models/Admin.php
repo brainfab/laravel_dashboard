@@ -20,7 +20,7 @@ class Admin extends Eloquent {
 	 *
 	 * @var string
 	 */
-	protected $table = 'admins';
+	protected $table = 'st_admins';
 
 	/**
 	 * The attributes excluded from the model's JSON form.

@@ -12,8 +12,8 @@ class Init extends Migration {
 	 */
 	public function up()
 	{
-        // Creates the admins table
-        Schema::create('admins', function($table)
+        // Creates the st_admins table
+        Schema::create('st_admins', function($table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -23,10 +23,10 @@ class Init extends Migration {
         });
 
         //default admin
-        DB::table('admins')->insert(array('login' => 'admin', 'password' => '21232f297a57a5a743894a0e4a801fc3'));
+        DB::table('st_admins')->insert(array('login' => 'admin', 'password' => '21232f297a57a5a743894a0e4a801fc3'));
 
-        // Creates the settings table
-        Schema::create('settings', function($table)
+        // Creates the st_settings table
+        Schema::create('st_settings', function($table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -45,8 +45,8 @@ class Init extends Migration {
 	 */
 	public function down()
 	{
-        Schema::drop('admins');
-        Schema::drop('settings');
+        Schema::drop('st_admins');
+        Schema::drop('st_settings');
 	}
 
 }

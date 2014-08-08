@@ -39,11 +39,14 @@ class AdminInit extends Command {
 	 */
 	public function fire()
 	{
-//        File::copyDirectory(__DIR__.'/../public/', public_path());
+        File::copyDirectory(__DIR__.'/../public/', public_path());
         File::makeDirectory(app_path().'/../admin/', 777, true, true);
         File::makeDirectory(app_path().'/../admin/modules', 777, true, true);
         File::makeDirectory(app_path().'/../admin/config', 777, true, true);
         File::copyDirectory(__DIR__.'/../config/', app_path().'/../admin/config');
+
+        $this->info('Start migration...');
+        $this->call('migrate --package=small-team/laravel-admin --force');
         $this->info('All done!');
     }
 
