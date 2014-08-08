@@ -1,9 +1,6 @@
 <?php
-namespace Vendor\Admin;
+namespace SmallTeam\Admin;
 
-use StringTools;
-use ModelStructure;
-use sfYaml;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -52,12 +49,12 @@ class AdminGenController extends Command {
 /**
  * @date: '.date('d.m.Y H:i:s').'
  */
-class __MODULE__Controller extends __TYPE__Controller{
+class __MODULE__Controller extends SmallTeam\Admin\__TYPE__Controller{
 
 }
 ';
 
-        $path = __DIR__ . '/../controllers/modules/'.StringTools::directorize(StringTools::pluralize($model)).'/';
+        $path = app_path() . '/../admin/modules/'.StringTools::directorize(StringTools::pluralize($model)).'/';
         if(!is_dir($path)) {
             File::makeDirectory($path, 755);
         }
@@ -110,7 +107,7 @@ class __MODULE__Controller extends __TYPE__Controller{
         }
 
         //add to menu
-        $menu_file_path = __DIR__ . '/../config/menu.yml';
+        $menu_file_path = app_path() . '/../admin/config/menu.yml';
         if (is_file($menu_file_path)) {
             $menu = sfYaml::load($menu_file_path);
         } else {

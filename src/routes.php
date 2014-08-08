@@ -9,7 +9,6 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-
 Route::group(array('prefix' => 'admin'), function () {
 
     Route::pattern('id', '[0-9]+');
@@ -36,8 +35,8 @@ Route::group(array('prefix' => 'admin'), function () {
             }
         }
 
-        $controller = isset($result['controller']) && !empty($result['controller']) ? ucfirst(StringTools::functionalize($result['controller'])) : false;
-        $action = isset($result['action']) && !empty($result['action']) ? ucfirst(StringTools::functionalize($result['action'])) : false;
+        $controller = isset($result['controller']) && !empty($result['controller']) ? ucfirst(SmallTeam\Admin\StringTools::functionalize($result['controller'])) : false;
+        $action = isset($result['action']) && !empty($result['action']) ? ucfirst(SmallTeam\Admin\StringTools::functionalize($result['action'])) : false;
         $current_page = isset($result['current_page']) && intval($result['current_page']) ? intval($result['current_page']) : false;
 
         if($controller && $action) {

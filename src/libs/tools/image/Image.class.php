@@ -1,4 +1,6 @@
 <?php
+namespace SmallTeam\Admin;
+
 /**
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @copyright SmallTeam (c) 2014
@@ -29,7 +31,7 @@ Class Image {
 
             $engine = AdminConfig::getConfig('image_engine');
             $engine = $engine && in_array($engine, array('GD', 'IMagick')) ? $engine : 'GD';
-            $engine_class = $engine.'ImageEngine';
+            $engine_class = 'SmallTeam\Admin\\'.$engine.'ImageEngine';
             self::$_engines[$engine] = new $engine_class;
             self::$_active_engine = self::$_engines[$engine];
         }

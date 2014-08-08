@@ -1,4 +1,5 @@
 <?php
+namespace SmallTeam\Admin;
 
 class DateHelper {
     public static function process() {

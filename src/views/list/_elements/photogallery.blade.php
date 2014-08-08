@@ -1,5 +1,3 @@
-{include file="files_upload_settigs.tpl"}
-
 <input type="hidden" value="{$object.id}" class="field_key">
 <input type="hidden" value="{$module.name}" class="module_name">
 <input type="hidden" value="{if isset($field_info.file_model_name)}{$field_info.file_model_name}{else}{$module.model}{/if}" class="field_model">

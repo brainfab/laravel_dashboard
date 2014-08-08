@@ -3,7 +3,7 @@
 
 <div class="row mb10">
     <div class="col-sm-12">
-        {{{AdminMessagesHelper::process()}}}
+        {{{SmallTeam\Admin\AdminMessagesHelper::process()}}}
     </div>
 </div>
 <div class="jarviswidget jarviswidget-color-white" id="wid-id-0" data-widget-editbutton="false" data-widget-sortable="false"  data-widget-deletebutton="false">
@@ -22,15 +22,12 @@
             <?php  $remainder = "1"; ?>
         <?php endif ?>
 
-    </header><!-- widget div-->
+    </header>
 
     <div>
-        <!-- widget edit box -->
         <div class="jarviswidget-editbox">
+        </div>
 
-        </div><!-- end widget edit box -->
-
-        <!-- widget content -->
         <div class="widget-body no-padding">
             <?php  if(isset($module['detail_top_actions']) && count($module['detail_top_actions'])): ?>
                 <div class="widget-body-toolbar">
@@ -123,10 +120,8 @@
                     </div>
                 </div>
             </div>
-
-
-        </div><!-- end widget content -->
-    </div><!-- end widget div -->
+        </div>
+    </div>
 
 </div>
 

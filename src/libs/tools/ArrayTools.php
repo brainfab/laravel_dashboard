@@ -1,4 +1,5 @@
 <?php
+namespace SmallTeam\Admin;
 
 class ArrayTools {
     static public function getDeepArrayValue($array, $what = null) {

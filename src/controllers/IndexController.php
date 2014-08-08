@@ -1,10 +1,11 @@
 <?php
+
 /**
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @copyright SmallTeam (c) 2014
  */
 
-class IndexController extends BaseController {
+class IndexController extends SmallTeam\Admin\BaseController {
     public function getIndex() {
         $this->view->setTemplate('admin::index');
         return $this->view->make($this);

@@ -17,11 +17,12 @@
             "src/helpers",
             "src/controllers",
             "src/commands",
+            "src/models",
             "src/libs/tools",
             "src/libs/tools/yaml"
         ],
         "psr-0": {
-            "Vendor\\Admin\\": "src/"
+            "SmallTeam\\Admin\\": "src/"
         }
     },
     "minimum-stability": "stable"

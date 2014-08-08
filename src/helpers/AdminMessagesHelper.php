@@ -1,4 +1,5 @@
 <?php
+namespace SmallTeam\Admin;
 
 /**
  * Author: Max Kovpak <max_kovpak@hotmail.com>

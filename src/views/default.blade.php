@@ -5,6 +5,8 @@
 </head>
 <body>
 
+@include ('admin::files_upload_settings');
+
 <header id="header">
     <div id="logo-group">
 

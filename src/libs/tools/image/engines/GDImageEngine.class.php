@@ -1,4 +1,8 @@
 <?php
+namespace SmallTeam\Admin;
+
+use \Exception;
+
 /**
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @copyright SmallTeam (c) 2014

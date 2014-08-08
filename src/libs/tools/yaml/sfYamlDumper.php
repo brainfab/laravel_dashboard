@@ -1,4 +1,5 @@
 <?php
+namespace SmallTeam\Admin;
 
 /*
  * This file is part of the symfony package.

@@ -1,4 +1,6 @@
 <?php
+namespace SmallTeam\Admin;
+
 class AdminConfig {
     protected static $_config = null;
 
@@ -17,12 +19,12 @@ class AdminConfig {
     }
 
     public static function getConfigPath() {
-        return dirname(__FILE__).'/../config/config.yml';
+        return app_path().'/../admin/config/config.yml';
     }
 
     protected static function loadConfigs() {
         if(is_null(self::$_config)) {
-            $config_path = dirname(__FILE__).'/../config/config.yml';
+            $config_path = app_path().'/../admin/config/config.yml';
             self::$_config = is_file($config_path) ? sfYaml::load($config_path) : array();
         }
     }

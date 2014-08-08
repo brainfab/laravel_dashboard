@@ -1,5 +1,5 @@
 <?php
-$pages_count = $pager['pages_count'];
+$pages_count = isset($pager['pages_count']) ? intval($pager['pages_count']) : 0;
 $post_link = isset($post_link) ? $post_link : '';
 ?>
 <ul class="pagination pagination-xs no-margin pull-right">

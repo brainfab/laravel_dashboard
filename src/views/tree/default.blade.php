@@ -1,15 +1,10 @@
 <div class="jarviswidget well" id="categories-tree">
-<!-- widget div-->
 <div>
 
-<!-- widget edit box -->
 <div class="jarviswidget-editbox">
-    <!-- This area used as dropdown edit box -->
 
 </div>
-<!-- end widget edit box -->
 
-<!-- widget content -->
 <div class="widget-body">
 
 <div id="nestable-menu">
@@ -36,12 +31,11 @@
 </div>
 
 </div>
-<!-- end widget content -->
 
 </div>
-<!-- end widget div -->
 
 </div>
+
 <script src="/admin/js/plugin/jquery-nestable/jquery.nestable.min.js"></script>
 
 <script>

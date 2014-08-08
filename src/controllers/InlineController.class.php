@@ -1,4 +1,14 @@
 <?php
+namespace SmallTeam\Admin;
+
+use Illuminate\Database\Eloquent\Model as Eloquent,
+    Illuminate\Support\Facades\DB,
+    Illuminate\Support\Facades\Input,
+    Illuminate\Support\Facades\Redirect,
+    Illuminate\Support\Facades\Paginator,
+    Illuminate\Support\Facades\Session,
+    Illuminate\Support\Facades\File;
+
 /**
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @copyright SmallTeam (c) 2014

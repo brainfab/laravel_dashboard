@@ -12,25 +12,19 @@
 
     <form id="table-data-form" action="/{{$app_name}}/{{$module['name']}}/" method="post" enctype="multipart/form-data">
         <div>
-
-            <!-- widget edit box -->
             <div class="jarviswidget-editbox">
-                <!-- This area used as dropdown edit box -->
-
             </div>
-            <!-- end widget edit box -->
 
-            <!-- widget content -->
             <div class="widget-body no-padding">
-                {{{AdminMessagesHelper::process()}}}
+                {{{SmallTeam\Admin\AdminMessagesHelper::process()}}}
                 <div class="widget-body-toolbar">
                     <div class="btn-group">
-                        @if ($module['parent'] == 'Inline')
+                        @if (isset($module['parent']) && $module['parent'] == 'Inline')
                             <input id="inline_module_type" value="1" type="hidden">
                         @endif
                         <a class="list_tab_item list_item_filter list_item_active btn btn-sm btn-warning" href="/{{$app_name}}/"><i class="fa fa-reply"></i></a>
                         @if (isset($module['actions']['add']))
-                            @if ($module['parent'] == 'Inline')
+                            @if (isset($module['parent']) && $module['parent'] == 'Inline')
                                 <span title="Добавить {{$module['single']}}" id="add-empty-row" class="list_tab_item list_item_add cp btn-primary btn-sm btn" href="/{{$app_name}}/{{$module['name']}}/add/{{{ isset($id_category) ? 'c/'.$id_category : '' }}}">Добавить <i class="fa fa-plus"></i></span>
                             @else
                                 <a title="Добавить {{$module['single']}}" class="list_tab_item list_item_add btn-primary btn-sm btn" href="/{{$app_name}}/{{$module['name']}}/add/{{{ isset($id_category) ? 'c/'.$id_category : '' }}}">Добавить <i class="fa fa-plus"></i></a>
@@ -67,7 +61,7 @@
 
                             <td class="td_left header tacw40"><input id="general-checkbox" type="checkbox"/></td>
 
-                            @if ($module['parent'] != 'Inline')
+                            @if (isset($module['parent']) && $module['parent'] != 'Inline')
                                 <td class="tools-cell-in-list" style="text-align: center; width: 118px;"><div style="width: 98px;"></div></td>
                             @endif
 
@@ -92,24 +86,24 @@
                                     <td class="td_left">
                                         <input name="items[{{$row[$key_field]}}]" type="checkbox" class="tacw40 row_item_id select_this_item_input" id="row-item-id-{{$row[$key_field]}}" />
                                     </td>
-                                    @if ($module['parent'] != 'Inline')
+                                    @if (isset($module['parent']) && $module['parent'] != 'Inline')
                                         <td class="{{$module['name']}}_actions_cell">
                                             <div class="btn-group">
-                                                @if ($module['parent'] == 'List' && isset($module['actions']['edit']))
+                                                @if (isset($module['parent']) && $module['parent'] == 'List' && isset($module['actions']['edit']))
                                                     <a class="edit_object btn btn-sm btn-success" title="редактировать" href="/{{$app_name}}/{{$module['name']}}/edit/{{$row[$key_field]}}/"><i class="fa fa-edit"></i></a>
                                                 @endif
 
-                                                @if ($module['parent'] == 'List' && isset($module['actions']['delete']) && $module['actions']['delete'])
+                                                @if (isset($module['parent']) && $module['parent'] == 'List' && isset($module['actions']['delete']) && $module['actions']['delete'])
                                                     <a onclick="if(!confirm('Удалить выбранный элемент?')) return false;" class="edit_object btn btn-sm btn-danger" title="удалить" href="/{{$app_name}}/{{$module['name']}}/delete_item/{{$row[$key_field]}}/"><i class="fa fa-times"></i></a>
                                                 @endif
                                                 <a href="#" style="width: 34px;" class="dropdown-toggle btn btn-info btn-sm tools-list-btn" data-toggle="dropdown"><i class="fa fa-bars"></i></a>
                                                 <ul class="dropdown-menu tal">
-                                                    @if ($module['parent'] == 'List' && isset($module['actions']['edit']))
+                                                    @if (isset($module['parent']) && $module['parent'] == 'List' && isset($module['actions']['edit']))
                                                         <li>
                                                             <a class="edit_object" title="редактировать" href="/{{$app_name}}/{{$module['name']}}/edit/{{$row[$key_field]}}/"><i class="fa fa-edit"></i> редактировать</a>
                                                         </li>
                                                     @endif
-                                                    @if ($module['parent'] == 'List' && isset($module['actions']['delete']) && $module['actions']['delete'])
+                                                    @if (isset($module['parent']) && $module['parent'] == 'List' && isset($module['actions']['delete']) && $module['actions']['delete'])
                                                         <li>
                                                             <a onclick="if(!confirm('Удалить выбранный элемент?')) return false;" class="edit_object" title="удалить" href="/{{$app_name}}/{{$module['name']}}/delete_item/{{$row[$key_field]}}/"><i class="fa fa-times"></i> удалить</a>
                                                         </li>
@@ -133,7 +127,7 @@
                                             <?php continue; ?>
                                         @endif
                                         <td class="@if (isset($field_info['align']))data-cell-align-{{$field_info['align']}} @else tac @endif data_cell data_cell_{{$field_name}} {{$module['name']}}_data_cell_{{$field_name}}">
-                                            @if( $module['parent'] != 'Inline')
+                                            @if(isset($module['parent']) &&  $module['parent'] != 'Inline')
                                                 @if( isset($field_info['link']))<a href="/{{$app_name}}/{{$module['name']}}/edit/{{$row[$key_field]}}"> @endif
                                                 <span<?php if(isset($field_info['max_height'])): ?> style="max-height: {{$field_info['max_height']}}px; overflow: hidden; display: block" @endif >
                                                 <?php $object = $row; ?>
@@ -183,34 +177,24 @@
                                 @if (isset($module['actions']['delete']))
                                     <span class="group_delete_handler btn btn-danger btn-sm">удалить</span>
                                 @endif
-                                @if( isset($module['is_active']))
-                                    <span class="group_active_handler btn btn-default btn-sm">сделать активными</span>
-                                    <span class="group_not_active_handler btn btn-default btn-sm">сделать не активными</span>
-                                @endif
-                                @if (isset($module['fields']['add_points']))
-                                    <span class="plus add_points_handler btn btn-default btn-sm" onclick="addPointsPopup(false);">добавить баллов выбраным</span>
-                                @endif
                                 @if (isset($module['group_actions']) && count($module['group_actions']))
                                     @foreach ($module['group_actions'] as $item)
                                         <span class="group_action_handler  btn btn-default btn-sm" id="action{{{ isset($item['confirm']) ? '-confirm' : '' }}}-{{$item['action']}}">{{$item['title']}}</span>
                                     @endforeach
                                 @endif
-                                @if ($module['parent'] == 'Inline' && (isset($module['actions']['add']) || isset($module['actions']['edit'])))
+                                @if (isset($module['parent']) && $module['parent'] == 'Inline' && (isset($module['actions']['add']) || isset($module['actions']['edit'])))
                                     <span onclick="showLoader();$('#table-data-form').submit()" class="button ml20 cp inline_handler button btn btn-success btn-sm">сохранить</span>
                                     <a href="/{{$app_name}}/{{$module['name']}}/" class="button inline_handler cp ml20 btn-warning btn btn-sm">отмена</a>
                                 @endif
                             </div>
                         </div>
-                        @if (isset($module['per_page']) && $module['parent'] != 'Single')
+                        @if (isset($module['per_page']) && isset($module['parent']) && $module['parent'] != 'Single')
                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">@include ("admin::list._paging")</div>
                         @endif
                     </div>
                 </div>
             </div>
-            <!-- end widget content -->
-
         </div>
-        <!-- end widget div -->
     </form>
 @if (!isset($just_content) || !$just_content)
 </div>

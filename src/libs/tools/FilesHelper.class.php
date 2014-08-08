@@ -1,4 +1,10 @@
 <?php
+namespace SmallTeam\Admin;
+
+use Illuminate\Support\Facades\File,
+    Illuminate\Database\Eloquent\Model as Eloquent,
+    \Exception;
+
 /**
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @copyright SmallTeam (c) 2014

@@ -14,15 +14,18 @@
             @endif
 
             <div class="caption">
+
                 @include("admin::files_upload_btn")
+
                 @if (((!isset($field_info['delete'])) || (isset($field_info['delete']) && $field_info['delete'])) && (isset($field_value) && isset($field_value['link'])))
                     <div class="image_btn_container">
-                        <span title="Удалить файл:::admin/{{$module['name']}}/delete_file/{{$object[$key_field]}}::image-preview-{{$field_name}}-{{$object[$key_field]}}::{{$field_name}}::{{$field_value['full_name']}}:::" class=" btn btn-xs btn-danger c_r delete_file_handler">удалить</span>
+                        @include("admin::file_delete_btn")
                     </div>
                 @endif
                 <div class="clear"></div>
             </div>
         </div>
+
         <div class="clear"></div>
         <div class="input_description"><small>@if (isset($field_info['description']))<i class="fa fa-info">&nbsp;&nbsp;</i>{{$field_info['description']}} @endif</small></div>
         <div class="errors_block">

@@ -1,4 +1,11 @@
 <?php
+namespace SmallTeam\Admin;
+
+use Illuminate\Database\Eloquent\Model as Eloquent,
+    Illuminate\Support\Facades\DB,
+    Illuminate\Support\Facades\Input,
+    Illuminate\Support\Facades\Redirect;
+
 /**
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @copyright SmallTeam (c) 2014

@@ -1,14 +1,22 @@
 <?php
 
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
-
-
 /**
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @copyright SmallTeam (c) 2014
  */
+
+namespace SmallTeam\Admin;
+
+use Illuminate\Routing\Controller,
+    Illuminate\Support\Facades\DB,
+    Illuminate\Support\Facades\Session,
+    Illuminate\Database\Eloquent\Model as Eloquent,
+    Illuminate\Support\Facades\Input,
+    Illuminate\Support\Facades\Redirect,
+    Illuminate\Support\Facades\Paginator,
+    Illuminate\Support\Facades\Route,
+    Illuminate\Support\Facades\Request,
+    Illuminate\Support\Facades\File;
 
 class BaseController extends Controller {
 
@@ -87,7 +95,7 @@ class BaseController extends Controller {
      * @description Pre action
      * */
     public function preAction() {
-        $structure_path = dirname(__FILE__).'/modules/'.$this->_module_name.'/' . $this->_module_name . '.yml';
+        $structure_path = app_path().'/../admin/modules/'.$this->_module_name.'/' . $this->_module_name . '.yml';
         $this->_module          = is_file($structure_path) ? sfYaml::load($structure_path) : array();
         $this->view->app_name = 'admin';
         $this->view->module_name = $this->_module;
@@ -95,10 +103,12 @@ class BaseController extends Controller {
         if (!$this->_module) {
             return true;
         }
-
+        $parent = null;
         foreach(self::$available_types as $type) {
-            if (@is_a($this, $type.'Controller')) $this->setModuleParam('parent', $type);
+            if (@is_a($this, 'SmallTeam\Admin\\'.$type.'Controller')) $parent = $type;
         }
+        $parent = is_null($parent) ? 'List' : $parent;
+        $this->setModuleParam('parent', $parent);
 
         /* Build model structure info */
         $this->_ms = ModelStructure::getStructure($this->_module['model']);
@@ -621,7 +631,7 @@ class BaseController extends Controller {
      * @return void
      * */
     protected function performMenu() {
-        $file = dirname(__FILE__).'/../config/menu.yml';
+        $file = app_path().'/../admin/config/menu.yml';
 
         $menu_data = (is_file($file) ? sfYaml::load($file) : array());
 

@@ -1,4 +1,8 @@
 <?php
+namespace SmallTeam\Admin;
+
+use Illuminate\Support\Facades\Session,
+    Illuminate\Support\Facades\View;
 
 class ViewHelper {
 

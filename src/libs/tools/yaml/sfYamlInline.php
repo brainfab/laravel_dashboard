@@ -1,4 +1,7 @@
 <?php
+namespace SmallTeam\Admin;
+
+use \InvalidArgumentException;
 
 /*
  * This file is part of the symfony package.

@@ -1,4 +1,8 @@
 <?php
+namespace SmallTeam\Admin;
+
+use Illuminate\Database\Eloquent\Model as Eloquent,
+    Illuminate\Support\Facades\DB;
 
 class ModelStructure {
 
