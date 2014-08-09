@@ -1,5 +1,3 @@
-
-
 @if (!isset($just_content) || !$just_content)
 <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-0" data-widget-editbutton="false" data-widget-sortable="false" data-widget-deletebutton="false">
 <header>
@@ -25,9 +23,9 @@
                         <a class="list_tab_item list_item_filter list_item_active btn btn-sm btn-warning" href="/{{$app_name}}/"><i class="fa fa-reply"></i></a>
                         @if (isset($module['actions']['add']))
                             @if (isset($module['parent']) && $module['parent'] == 'Inline')
-                                <span title="Добавить {{$module['single']}}" id="add-empty-row" class="list_tab_item list_item_add cp btn-primary btn-sm btn" href="/{{$app_name}}/{{$module['name']}}/add/{{{ isset($id_category) ? 'c/'.$id_category : '' }}}">Добавить <i class="fa fa-plus"></i></span>
+                                <span title="Добавить {{{ isset($module['single']) ? $module['single'] : '' }}}" id="add-empty-row" class="list_tab_item list_item_add cp btn-primary btn-sm btn" href="/{{$app_name}}/{{$module['name']}}/add/{{{ isset($id_category) ? 'c/'.$id_category : '' }}}">Добавить <i class="fa fa-plus"></i></span>
                             @else
-                                <a title="Добавить {{$module['single']}}" class="list_tab_item list_item_add btn-primary btn-sm btn" href="/{{$app_name}}/{{$module['name']}}/add/{{{ isset($id_category) ? 'c/'.$id_category : '' }}}">Добавить <i class="fa fa-plus"></i></a>
+                                <a title="Добавить {{{ isset($module['single']) ? $module['single'] : '' }}}" class="list_tab_item list_item_add btn-primary btn-sm btn" href="/{{$app_name}}/{{$module['name']}}/add/{{{ isset($id_category) ? 'c/'.$id_category : '' }}}">Добавить <i class="fa fa-plus"></i></a>
                             @endif
                         @endif
                         @if (isset($module['custom_default_top']) && count($module['custom_default_top']))
