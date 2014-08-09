@@ -14,7 +14,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt10">
             <div class="row">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
-                    <label class="input_label">{{$field_info['re_title']}}:</label>
+                    <label class="input_label">{{{ isset($field_info['re_title']) ? $field_info['re_title'] : 'Повторите пароль'  }}}:</label>
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 text-left">
                     <input class="form-control input_text" type="password" name="data[re_password]" value=""/>

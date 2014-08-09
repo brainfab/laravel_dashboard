@@ -13,10 +13,9 @@ Route::group(array('prefix' => 'admin'), function () {
 
     Route::pattern('id', '[0-9]+');
     Route::pattern('page_number', '[0-9]+');
-    Route::any('/save_order_elements', 'BaseController@anySaveOrderElements');
-    Route::any('/upload_file', 'BaseController@anyUploadFile');
-    Route::any('/upload_files', 'BaseController@anyUploadFiles');
-//    Route::any('/{module}/delete_file.json', 'BaseController@anyDeleteFile');
+    Route::any('/save_order_elements', 'SmallTeam\Admin\BaseController@anySaveOrderElements');
+    Route::any('/upload_file', 'SmallTeam\Admin\BaseController@anyUploadFile');
+    Route::any('/upload_files', 'SmallTeam\Admin\BaseController@anyUploadFiles');
 
     if(isset($_SERVER['REQUEST_URI'])) {
         $uri = str_replace(array('/admin', '?'.$_SERVER['QUERY_STRING']), '', $_SERVER['REQUEST_URI']);
