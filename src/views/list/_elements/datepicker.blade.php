@@ -27,7 +27,7 @@
 <div class="editable_field_block datepicker_holder @if (isset($field_error) && $field_error)) has_errors @endif">
     <div class="datetimepicker  input-group" style="width: 200px;">
         <div class="input_disable_container">
-        <input style="width: 331px" data-format="@if (isset($field_info['timepicker']))dd.MM.yyyy hh:mm:ss @else dd.MM.yyyy @endif"  class="form-control @if (isset($field_info['timepicker'])) timepicker_input @endif datepicker_input" name="{{$field_input_name}}" type="text" value="@if (empty($field_value)) {{{CurdateHelper::process()}}} @else {{{ DateHelper::process($field_value, $format) }}} @endif"/>
+        <input style="width: 331px" data-format="@if (isset($field_info['timepicker']))dd.MM.yyyy hh:mm:ss @else dd.MM.yyyy @endif"  class="form-control @if (isset($field_info['timepicker'])) timepicker_input @endif datepicker_input" name="{{$field_input_name}}" type="text" value="@if (empty($field_value)) {{{SmallTeam\Admin\CurdateHelper::process()}}} @else {{{ SmallTeam\Admin\DateHelper::process($field_value, $format) }}} @endif"/>
         <div class="disable_overlay"></div>
         </div>
         <span class="btn btn-default add-on input-group-addon"><i class="fa-calendar fa"></i></span>

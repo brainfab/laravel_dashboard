@@ -3,6 +3,6 @@ namespace SmallTeam\Admin;
 
 class CurdateHelper {
     public static function process($format = 'd-m-Y H:i:s') {
-        echo date($format);
+        return date($format);
     }
 }
