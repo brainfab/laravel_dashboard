@@ -1,1 +1,1 @@
-{{{ isset($field_value) ? $field_value : '' }}}
+{{{ isset($field_value) ? strip_tags($field_value) : '' }}}
