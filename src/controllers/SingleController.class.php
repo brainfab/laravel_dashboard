@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent,
  * @copyright SmallTeam (c) 2014
  */
  
-class SingleController extends BaseController {
+class SingleController extends AdminBaseController {
 
     public function anyIndex() {
         $this->view->setTemplate('admin::list/_info');

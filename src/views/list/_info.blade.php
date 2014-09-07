@@ -54,7 +54,7 @@
                                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 text-left">
                                             <?php
                                                 $field_value = isset($object[$field_name]) ? $object[$field_name] : '';
-                                                $field_error = isset($errors) && is_array($errors) && isset($errors[$field_name]) ? $errors[$field_name] : null;
+                                                $field_error = isset($_errors) && $_errors->has($field_name) ? $_errors->get($field_name) : null;
 
                                                 if(in_array($field_info['type'], array('select','radioselect'))) {
                                                     $field_input_name = "data[".($field_info['local_field'])."]";
@@ -77,7 +77,7 @@
                                             <div class="input_field">
                                                 <?php
                                                     $field_value = isset($object[$field_name]) ? $object[$field_name] : '';
-                                                    $field_error = isset($errors) && is_array($errors) && isset($errors[$field_name]) ? $errors[$field_name] : null;
+                                                    $field_error = isset($_errors) && $_errors->has($field_name) ? $_errors->get($field_name) : null;
 
                                                     if(in_array($field_info['type'] ,array('select','radioselect'))) {
                                                         $field_input_name = "data[".($field_info['local_field'])."]";

@@ -1,18 +1,21 @@
 <?php
+namespace SmallTeam\Admin;
+
+use Illuminate\Support\Facades\Redirect;
 
 /**
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @copyright SmallTeam (c) 2014
  */
 
-class IndexController extends SmallTeam\Admin\BaseController {
+class AdminIndexController extends AdminBaseController {
     public function getIndex() {
         $this->view->setTemplate('admin::index');
         return $this->view->make($this);
     }
 
     public function anyLogin() {
-        if(SmallTeam\Admin\Admin::isLoggedIn()) {
+        if(Admin::isLoggedIn()) {
             return Redirect::to('admin/');
         }
         $this->view->setLayoutTemplate('admin::default_login');
@@ -21,7 +24,7 @@ class IndexController extends SmallTeam\Admin\BaseController {
         $login = isset($_POST['login']) ? trim(strip_tags($_POST['login'])) : false;
         $pass = isset($_POST['password']) ? $_POST['password'] : false;
         if($login && $pass) {
-            if(SmallTeam\Admin\Admin::login($login, $pass)) {
+            if(Admin::login($login, $pass)) {
                 return Redirect::to('admin/');
             } else {
                 $this->view->error = 'Логин или пароль введены не верно';
@@ -32,7 +35,7 @@ class IndexController extends SmallTeam\Admin\BaseController {
     }
 
     public function anyLogout() {
-        SmallTeam\Admin\Admin::logout();
+        Admin::logout();
         return Redirect::to('admin/login');
     }
 }

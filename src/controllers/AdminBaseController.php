@@ -16,9 +16,11 @@ use Illuminate\Routing\Controller,
     Illuminate\Support\Facades\Paginator,
     Illuminate\Support\Facades\Route,
     Illuminate\Support\Facades\Request,
+    SmallTeam\SmartModel\SmartModel,
     Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 
-class BaseController extends Controller {
+class AdminBaseController extends Controller {
 
     protected $_module  = null;
 
@@ -762,7 +764,7 @@ class BaseController extends Controller {
     /**
      * @description Do something after save object
      * @param array $data
-     * @param Eloquent $object|null
+     * @param SmartModel $object|null
      * @param bool $was_new
      * */
     public function afterSuccessfulSave($data, $object = null, $was_new = false){
@@ -789,7 +791,7 @@ class BaseController extends Controller {
      * @description move up model element action
      * */
     public function anyMoveUp() {
-        /** @var Eloquent $object  */
+        /** @var SmartModel $object  */
         $object = call_user_func(array($this->_module['model'], 'find'), Input::get('id'));
         if ($object) $object->moveBack();
         return Redirect::to('admin/' . $this->_module_name . '/');
@@ -799,7 +801,7 @@ class BaseController extends Controller {
      * @description move down model element action
      * */
     public function anyMoveDown() {
-        /** @var Eloquent $object  */
+        /** @var SmartModel $object  */
         $object = call_user_func(array($this->_module['model'], 'find'), Input::get('id'));
         if ($object) $object->moveForward();
         return Redirect::to('admin/' . $this->_module_name . '/');
@@ -809,7 +811,7 @@ class BaseController extends Controller {
      * @description move to top model element action
      * */
     public function anyMoveTop() {
-        /** @var Eloquent $object  */
+        /** @var SmartModel $object  */
         $object = call_user_func(array($this->_module['model'], 'find'), Input::get('id'));
         if ($object) $object->moveFirst();
         return Redirect::to('admin/' . $this->_module_name . '/');
@@ -819,7 +821,7 @@ class BaseController extends Controller {
      * @description move to bottom model element action
      * */
     public function anyMoveBottom() {
-        /** @var Eloquent $object  */
+        /** @var SmartModel $object  */
         $object = call_user_func(array($this->_module['model'], 'find'), Input::get('id'));
         if ($object) $object->moveLast();
         return Redirect::to('admin/' . $this->_module_name . '/');
@@ -833,7 +835,7 @@ class BaseController extends Controller {
             die();
         $model = Input::get('model');
         foreach($data as $el) {
-            /** @var Eloquent $model  */
+            /** @var SmartModel $model  */
             $object = $model::find($el['el_id']);
             if($object) {
                 $object->_position = $el['el_pos'];
@@ -851,7 +853,7 @@ class BaseController extends Controller {
             die();
         $model = Input::get('model');
         foreach($data as $el) {
-            /** @var Eloquent $model  */
+            /** @var SmartModel $model  */
             $object = $model::find($el['el_id']);
             if($object) {
                 $object->_position = $el['el_pos'];
@@ -867,12 +869,13 @@ class BaseController extends Controller {
     public function anyUploadFile() {
         if(!Request::ajax() || !($model = Input::get('model')) || !($id = Input::get('id')))
             die();
-        /** @var Eloquent $model  */
+        /** @var SmartModel $model  */
+        /** @var SmartModel $object  */
         $object = $model::find($id);
         if(is_object($object) && !empty($_FILES) && count($_FILES)>0){
-            FilesHelper::create($object)->saveFiles();
+            $object->saveFiles();
             $object = $object->toArray();
-            echo json_encode(array('preview'=>$object['image']['sizes']['show_gallery']['link'],'original'=>$object['image']['link']));
+            return Response::json(array('preview'=>$object['image']['sizes']['show_gallery']['link'],'original'=>$object['image']['link']));
         }
         die();
     }
@@ -883,12 +886,13 @@ class BaseController extends Controller {
     public function anyUploadFiles() {
         if(!Request::ajax() || !($model = Input::get('model')) || !($id = Input::get('id')))
             die();
-        /** @var Eloquent $model  */
+        /** @var SmartModel $model  */
+        /** @var SmartModel $object  */
         $object = $model::find($id);
         if($object && !empty($_FILES) && count($_FILES)>0){
-            FilesHelper::create($object)->saveFiles();
+            $object->saveFiles();
             $object = $object->toArray();
-            echo json_encode(array('object'=>$object));
+            return Response::json(array('object'=>$object));
         }
         die();
     }
@@ -899,13 +903,13 @@ class BaseController extends Controller {
     public function anyDeleteFile($id) {
         if (!$this->requireAction('edit',false)) die('false no action edit');
         $model = $this->_module['model'];
+        /** @var SmartModel $object  */
         if ($id && ($name = Input::get('name')) && ($rel = Input::get('rel')) && $object = $model::find($id)) {
-            FilesHelper::create($object)->removeFile($rel, $name);
-            echo json_encode(array('error' => false));
+            $object->removeFile($rel, $name);
+            return Response::json(array('error' => false));
         } else {
-            echo json_encode(array('error' => true));
+            return Response::json(array('error' => true));
         }
-        die();
     }
 
 	/**
@@ -984,14 +988,21 @@ class BaseController extends Controller {
 
     /**
      * @description Merge object with data
-     * @param Eloquent $object
+     * @param SmartModel $object
      * @param array $data
      * */
     public function mergeData(&$object, $data) {
         if(is_array($data) && !empty($data)) {
             foreach ($data as $field_name => $field) {
-                if(!isset($this->_ms['columns'][$field_name]))
+                if(!isset($this->_ms['columns'][$field_name]) || $field_name == 'updated_at' || $field_name == 'created_at')
                     continue;
+                if(isset($this->_ms['columns'][$field_name]['type']) && in_array($this->_ms['columns'][$field_name]['type'], array('datetime', 'date'))) {
+                    if(strtotime($field) && isset($this->_ms['columns'][$field_name]['type']) && ($this->_ms['columns'][$field_name]['type'] == 'datetime' || $this->_ms['columns'][$field_name]['type'] == 'timestamp')) {
+                        $field = date('Y-m-d H:i:s', strtotime($field));
+                    } elseif(strtotime($field) && isset($this->_ms['columns'][$field_name]['type']) && $this->_ms['columns'][$field_name]['type']=='date') {
+                        $field = date('Y-m-d', strtotime($field));
+                    }
+                }
                 $object->{$field_name} = $field;
             }
         }

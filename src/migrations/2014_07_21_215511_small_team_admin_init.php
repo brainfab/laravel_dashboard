@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Init extends Migration {
+class SmallTeamAdminInit extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,28 +12,24 @@ class Init extends Migration {
 	 */
 	public function up()
 	{
-        // Creates the st_admins table
+        // Creates st_admins table
         Schema::create('st_admins', function($table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('login');
-            $table->string('password');
+            $table->string('login')->nullable();
+            $table->string('password')->nullable();
             $table->timestamps();
         });
 
         //default admin
         DB::table('st_admins')->insert(array('login' => 'admin', 'password' => '21232f297a57a5a743894a0e4a801fc3'));
 
-        // Creates the st_settings table
+        // Creates st_settings table
         Schema::create('st_settings', function($table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('email');
-            $table->string('fax');
-            $table->string('phone');
-            $table->text('robots');
             $table->timestamps();
         });
 	}
@@ -45,8 +41,8 @@ class Init extends Migration {
 	 */
 	public function down()
 	{
-        Schema::drop('st_admins');
-        Schema::drop('st_settings');
+        Schema::dropIfExists('st_admins');
+        Schema::dropIfExists('st_settings');
 	}
 
 }

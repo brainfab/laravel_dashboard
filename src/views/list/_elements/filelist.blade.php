@@ -1,4 +1,8 @@
 @if (isset($object['id']) && intval($object['id']))
+
+@include ('admin::files_upload_settings')
+
+
     <div class="editable_field_block @if (isset($field_error) && $field_error) has_errors @endif">
 
         @include("admin::files_upload_btn")

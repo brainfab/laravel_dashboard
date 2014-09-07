@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent,
     Illuminate\Support\Facades\Redirect,
     Illuminate\Support\Facades\Paginator,
     Illuminate\Support\Facades\Session,
+    SmallTeam\SmartModel\SmartModel as SmartModel,
     Illuminate\Support\Facades\File;
 
 /**
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent,
  * @copyright SmallTeam (c) 2014
  */
 
-class ListController extends BaseController {
+class ListController extends AdminBaseController {
 
     /**
      * @description List of items action
@@ -28,7 +29,7 @@ class ListController extends BaseController {
         }
         $query = $this->getFilterCriteria();
         if (!$query) {
-            /* @var Eloquent $obj */
+            /* @var SmartModel $obj */
             $obj = new $this->_module['model']();
             $table = $obj->getTable();
             $query = DB::table($table);
@@ -53,10 +54,7 @@ class ListController extends BaseController {
                 $model = $this->_module['model'];
                 foreach ($table_data as &$item) {
                     $item = $model::find($item->{$this->_key});
-                    if(isset($item->files)) {
-                        FilesHelper::create($item)->loadFiles();
-                    }
-                    $item = is_object($item) ? $item->toArray() : array();
+                    $item = is_object($item) ? $item->loadFiles()->toArray() : array();
                 }
             }
             $this->view->link = 'admin/'.$this->_module_name.'/';
@@ -69,12 +67,9 @@ class ListController extends BaseController {
                 $data = array();
                 $model = $this->_module['model'];
                 foreach ($table_data as $k => $id) {
-                    /* @var Eloquent $object */
+                    /* @var SmartModel $object */
                     $object = $model::find($id);
-                    if(isset($object->files)) {
-                        FilesHelper::create($object)->loadFiles();
-                    }
-                    $data[$k] = $object->toArray();
+                    $data[$k] = $object->loadFiles()->toArray();
                 }
                 $table_data = $data;
             }
@@ -97,26 +92,27 @@ class ListController extends BaseController {
             $this->view->setTemplate('admin::list._info');
         }
         $model = $this->_module['model'];
-        /* @var Eloquent $object */
+        /* @var SmartModel $object */
         $object = $model::find($id);
         if (!$object) return Redirect::to('admin/' . $this->_module_name . '/');
 
         if ($data = Input::get('data')) {
             $this->beforeSaveProcessData($data);
             $this->mergeData($object, $data);
-            $object->save();
-
-            $this->view->setMessage(array('type'=>'success','text'=>'Изменения сохранены!'));
-
-            $this->afterSuccessfulSave($data, $object);
             $redirect_url = 'admin/' . $this->_module_name . (Input::get('back_to_list') ? ' ' : ('/edit/'.$object->{$this->_key}.'/'));
-            return Redirect::to($redirect_url);
-        }
-        if(isset($object->files)) {
-            FilesHelper::create($object)->loadFiles();
-        }
-        $this->view->object = $object->toArray();
 
+            if(!$object->updateUniques()) {
+                $this->view->_errors = $object->errors();
+                $this->view->setMessage(array('type'=>'error','text'=>'Во время сохранения произошли ошибки'));
+            } else {
+                $this->view->setMessage(array('type'=>'success','text'=>'Изменения сохранены!'));
+
+                $this->afterSuccessfulSave($data, $object);
+                return Redirect::to($redirect_url);
+            }
+        }
+
+        $this->view->object = $object->loadFiles()->toArray();
         return $this->view->make($this);
     }
 
@@ -129,14 +125,21 @@ class ListController extends BaseController {
         $model = $this->_module['model'];
         if ($data = Input::get('data')) {
             $this->beforeSaveProcessData($data);
-            /* @var Eloquent $object */
+            /* @var SmartModel $object */
             $object = new $model();
             $this->mergeData($object, $data);
-            $object->save();
-            $this->view->setMessage(array('type'=>'success','text'=>'Обьект успешно добавлен!'));
-            $this->afterSuccessfulSave($data, $object, true);
-            $redirect_url = 'admin/' . $this->_module_name . (Input::get('back_to_list') ? ' ' : ('/edit/'.$object->{$this->_key}.'/'));
-            return Redirect::to($redirect_url);
+
+            if(!$object->save()) {
+                $this->view->object = $object;
+                $this->view->_errors = $object->errors();
+                $this->view->setMessage(array('type'=>'error','text'=>'Во время сохранения произошли ошибки'));
+            } else {
+                $redirect_url = 'admin/' . $this->_module_name . (Input::get('back_to_list') ? ' ' : ('/edit/'.$object->{$this->_key}.'/'));
+                $this->view->setMessage(array('type'=>'success','text'=>'Обьект успешно добавлен!'));
+                $object->loadFiles();
+                $this->afterSuccessfulSave($data, $object);
+                return Redirect::to($redirect_url);
+            }
         }
         return $this->view->make($this);
     }
@@ -150,8 +153,8 @@ class ListController extends BaseController {
         if ($ids && ($objects = call_user_func(array($this->_module['model'], 'find'), array_keys($ids)))) {
             $deleted_count = 0;
             foreach ($objects as $object) {
-                File::deleteDirectory(FilesHelper::create($object)->getFilesFolder());
-                /* @var Eloquent $object */
+                /* @var SmartModel $object */
+                File::deleteDirectory($object->getFilesFolder());
                 if ($object->delete() !== false) {
                     $deleted_count++;
                 } else {
@@ -174,7 +177,7 @@ class ListController extends BaseController {
         $this->requireAction('delete');
         if ($id && ($object = call_user_func(array($this->_module['model'], 'find'), $id))) {
             $deleted_count = 0;
-            File::deleteDirectory(FilesHelper::create($object)->getFilesFolder());
+            File::deleteDirectory($object->getFilesFolder());
             if ($object->delete() !== false) {
                 $deleted_count++;
             } else {

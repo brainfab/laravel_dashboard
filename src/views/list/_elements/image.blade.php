@@ -1,4 +1,7 @@
 @if (isset($object) && $object[$key_field])
+
+@include ('admin::files_upload_settings')
+
     <div class="editable_field_block @if (isset($field_error) && $field_error) has_errors @endif">
 
         <div id="image-preview-{{$field_name}}-{{$object[$key_field]}}" class="col-sm-6 col-md-4" style="padding: 0;">
@@ -31,7 +34,7 @@
         <div class="errors_block">
             @if (isset($field_error) && $field_error)
                 @foreach ($field_error as $item_error)
-                    <div class="input_error">{{$item_error['message']}}</div>
+                    <div class="input_error">{{$item_error}}</div>
                 @endforeach
             @endif
         </div>

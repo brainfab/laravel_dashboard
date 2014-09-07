@@ -27,6 +27,6 @@ class PrintUploadFilesSettings {
         $res .= 'action: \''.$action.'\'';
         $res .= '}';
 
-        echo $res;
+        return $res;
     }
 }

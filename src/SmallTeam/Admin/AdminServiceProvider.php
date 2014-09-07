@@ -21,6 +21,7 @@ class AdminServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
+
         if(is_dir(app_path().'/../admin/modules')) {
             $directories = File::directories(app_path().'/../admin/modules');
 
@@ -41,7 +42,8 @@ class AdminServiceProvider extends ServiceProvider {
             }
         }
 
-		$this->package('vendor/admin');
+
+        $this->package('small-team/admin');
         include __DIR__.'/../../routes.php';
 	}
 

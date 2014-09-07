@@ -13,9 +13,10 @@ Route::group(array('prefix' => 'admin'), function () {
 
     Route::pattern('id', '[0-9]+');
     Route::pattern('page_number', '[0-9]+');
-    Route::any('/save_order_elements', 'SmallTeam\Admin\BaseController@anySaveOrderElements');
-    Route::any('/upload_file', 'SmallTeam\Admin\BaseController@anyUploadFile');
-    Route::any('/upload_files', 'SmallTeam\Admin\BaseController@anyUploadFiles');
+    Route::any('/save_order_elements', 'SmallTeam\Admin\AdminBaseController@anySaveOrderElements');
+    Route::any('/upload_file', 'SmallTeam\Admin\AdminBaseController@anyUploadFile');
+    Route::any('/upload_files', 'SmallTeam\Admin\AdminBaseController@anyUploadFiles');
+//    Route::any('/{module}/delete_file.json', 'AdminBaseController@anyDeleteFile');
 
     if(isset($_SERVER['REQUEST_URI'])) {
         $uri = str_replace(array('/admin', '?'.$_SERVER['QUERY_STRING']), '', $_SERVER['REQUEST_URI']);
@@ -37,18 +38,16 @@ Route::group(array('prefix' => 'admin'), function () {
         $controller = isset($result['controller']) && !empty($result['controller']) ? ucfirst(SmallTeam\Admin\StringTools::functionalize($result['controller'])) : false;
         $action = isset($result['action']) && !empty($result['action']) ? ucfirst(SmallTeam\Admin\StringTools::functionalize($result['action'])) : false;
         $current_page = isset($result['current_page']) && intval($result['current_page']) ? intval($result['current_page']) : false;
-
         if($controller && $action) {
             Route::any(strtolower($result['controller']).'/'.strtolower($result['action']), $controller.'Controller' . '@any' . $action);
             Route::any(strtolower($result['controller']).'/'.strtolower($result['action']).'/{id}', $controller.'Controller' . '@any' . $action);
         } elseif($controller && class_exists($controller.'Controller') && !$current_page) {
-            if(class_exists($controller.'Controller')) {
-                Route::controller(strtolower($result['controller']), $controller.'Controller');
-            }
+            Route::any(strtolower($result['controller']), $controller.'Controller@anyIndex');
+            Route::controller(strtolower($result['controller']), $controller.'Controller');
         } elseif($controller && class_exists($controller.'Controller') && $current_page) {
             Route::controller(strtolower($result['controller']).'/page/{page_number}', $controller.'Controller');
         }
     }
 
-    Route::controller('/', 'IndexController');
+    Route::controller('/', 'SmallTeam\Admin\AdminIndexController');
 });

@@ -4,7 +4,7 @@
     <div class="errors_block">
     @if ($field_error)
         @foreach ($field_error as $item_error)
-        <div class="input_error">{{$item_error['message']}}</div>
+        <div class="input_error">{{$item_error}}</div>
         @endforeach
     @endif
     </div>

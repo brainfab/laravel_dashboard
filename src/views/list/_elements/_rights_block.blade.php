@@ -156,7 +156,7 @@ window.addEvent('domready',function(){
     <div class="errors_block">
     {if $field_error}
         {foreach from=$field_error}
-        <div class="input_error">{$item.message}</div>
+        <div class="input_error">{$item}</div>
         {/foreach}
     {/if}
     </div>

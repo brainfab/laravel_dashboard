@@ -2,6 +2,7 @@
 namespace SmallTeam\Admin;
 
 use Illuminate\Support\Facades\Session,
+    Illuminate\Support\Facades\Response,
     Illuminate\Support\Facades\View;
 
 class ViewHelper {
@@ -55,13 +56,15 @@ class ViewHelper {
     }
 
     /**
-     * @param BaseController $controller
+     * @param \Illuminate\Routing\Controller $controller
      * @param string|null $template
      * @return \Illuminate\View\View
      * */
-    public function make($controller, $template = null) {
+    public function make($controller, $template = null, $status = 200) {
         $template = is_null($template) ? $this->getTemplate() : $template;
-        $controller->postAction();
+        if(method_exists($controller, 'postAction')) {
+            $controller->postAction();
+        }
 
         $tpl_vars = ViewHelper::getVars();
 
@@ -83,10 +86,12 @@ class ViewHelper {
 
         if($this->getRenderMode() == ViewHelper::RENDER_LAYOUTED) {
             $this->layout = empty($this->layout) ? 'admin:default' : $this->layout;
-            $controller->setupLayout();
+            if(method_exists($controller, 'setupLayout')) {
+                $controller->setupLayout();
+            }
         }
 
-        return View::make($template);
+        return Response::make(View::make($template), $status);
     }
 
     public function setLayoutTemplate($template) {
