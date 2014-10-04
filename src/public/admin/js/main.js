@@ -381,7 +381,7 @@ function openLightBox(_this) {
 function removeFile(uri, id, rel, name) {
     $.ajax({
         type: "POST",
-        url: '/'+uri,
+        url: '/'+uri+'/',
         data: {
             'name': name,
             'rel': rel

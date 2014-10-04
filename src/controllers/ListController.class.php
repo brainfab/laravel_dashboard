@@ -129,7 +129,7 @@ class ListController extends AdminBaseController {
             $object = new $model();
             $this->mergeData($object, $data);
 
-            if(!$object->save()) {
+            if(!$object->save() || !intval($object->{$this->_key})) {
                 $this->view->object = $object;
                 $this->view->_errors = $object->errors();
                 $this->view->setMessage(array('type'=>'error','text'=>'Во время сохранения произошли ошибки'));
@@ -181,7 +181,8 @@ class ListController extends AdminBaseController {
             if ($object->delete() !== false) {
                 $deleted_count++;
             } else {
-                $this->view->setMessage(array('type'=>'error','text'=>'Объект с ID '.$object->id.' не был удален.'.($object->getDeleteError() ? ' Ошибка: '.$object->getDeleteError() : '')));
+                $delete_error = method_exists($object, 'getDeleteError') ? $object->getDeleteError() : '';
+                $this->view->setMessage(array('type'=>'error','text'=>'Объект с ID '.$object->id.' не был удален.'.(!empty($delete_error) ? ' Ошибка: '.$delete_error : '')));
             }
             if ($deleted_count > 0) {
                 $this->view->setMessage(array('type'=>'success','text'=> $deleted_count.' объект'.StringTools::morph($deleted_count,'','а','ов').' успешно удален'.StringTools::morph($deleted_count,'','ы','ы')));

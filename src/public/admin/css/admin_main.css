@@ -377,3 +377,18 @@ a.cke_dialog_tab{
     margin-right: 0!important;
     padding: 4px 5px!important;
 }
+
+.disable_overlay{
+    background: none repeat scroll 0 0 #c2c2c2;
+    height: 100%;
+    left: 0;
+    opacity: 0.3;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 2;
+}
+
+.input_disable_container input[type="text"] {
+    float: none !important;
+}

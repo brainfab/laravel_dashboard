@@ -21,9 +21,11 @@ class AdminServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-
-        if(is_dir(app_path().'/../admin/modules')) {
-            $directories = File::directories(app_path().'/../admin/modules');
+        if(isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/admin')!==0) {
+            return;
+        }
+        if(is_dir(app_path().'/admin/modules')) {
+            $directories = File::directories(app_path().'/admin/modules');
 
             if(is_array($directories) && !empty($directories)) {
                 ClassLoader::addDirectories($directories);

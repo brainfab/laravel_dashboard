@@ -54,7 +54,7 @@ class __MODULE__Controller extends SmallTeam\Admin\__TYPE__Controller{
 }
 ';
 
-        $path = app_path() . '/../admin/modules/'.StringTools::directorize(StringTools::pluralize($model)).'/';
+        $path = app_path() . '/admin/modules/'.StringTools::directorize(StringTools::pluralize($model)).'/';
         if(!is_dir($path)) {
             File::makeDirectory($path, 755);
         }
@@ -129,8 +129,8 @@ class __MODULE__Controller extends SmallTeam\Admin\__TYPE__Controller{
             File::put($controllers_path, $sketelon);
         }
         $this->info('Controller for '.$model .' was successful added');
-        $this->info('Start dump-autoload...');
-        $this->call('dump-autoload');
+//        $this->info('Start dump-autoload...');
+//        $this->call('dump-autoload');
 	}
 
 	/**

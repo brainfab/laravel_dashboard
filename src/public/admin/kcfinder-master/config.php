@@ -22,8 +22,8 @@ $_CONFIG = array(
 // GENERAL SETTINGS
 
     'disabled' => false,
-    'uploadURL' => "/images/upload/",
-    'uploadDir' => $_SERVER['DOCUMENT_ROOT']."/images/upload/",
+    'uploadURL' => "/upload/_images/",
+    'uploadDir' => $_SERVER['DOCUMENT_ROOT']."/upload/_images/",
     'theme' => "default",
 
     'types' => array(

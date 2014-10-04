@@ -14,7 +14,7 @@
             </div>
 
             <div class="widget-body no-padding">
-                {{{SmallTeam\Admin\AdminMessagesHelper::process()}}}
+                {{ SmallTeam\Admin\AdminMessagesHelper::process() }}
                 <div class="widget-body-toolbar">
                     <div class="btn-group">
                         @if (isset($module['parent']) && $module['parent'] == 'Inline')

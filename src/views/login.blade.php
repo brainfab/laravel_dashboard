@@ -12,7 +12,7 @@
             <?php endif; ?>
             <div style="max-width: 400px;margin: 0 auto;">
                 <div class="well no-padding">
-                    <form class="smart-form client-form" action="/admin/login" id="login-form" method="post">
+                    <form class="smart-form client-form" action="/admin/login/" id="login-form" method="post">
                         <header>
                             Авторизация
                         </header>

@@ -3,7 +3,7 @@
 
 <div class="row mb10">
     <div class="col-sm-12">
-        {{{SmallTeam\Admin\AdminMessagesHelper::process()}}}
+        {{ SmallTeam\Admin\AdminMessagesHelper::process() }}
     </div>
 </div>
 <div class="jarviswidget jarviswidget-color-white" id="wid-id-0" data-widget-editbutton="false" data-widget-sortable="false"  data-widget-deletebutton="false">

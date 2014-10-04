@@ -39,6 +39,6 @@ class AdminMessagesHelper {
                 }
             }
         }
-        echo $html;
+        return $html;
     }
 }

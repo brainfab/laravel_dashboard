@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent,
  * Admin
  *
  */
-class Admin extends Eloquent {
+class Admin extends \SmallTeam\SmartModel\SmartModel {
 
 	/**
 	 * The database table used by the model.

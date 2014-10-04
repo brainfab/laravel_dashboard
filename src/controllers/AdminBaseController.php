@@ -97,7 +97,7 @@ class AdminBaseController extends Controller {
      * @description Pre action
      * */
     public function preAction() {
-        $structure_path = app_path().'/../admin/modules/'.$this->_module_name.'/' . $this->_module_name . '.yml';
+        $structure_path = app_path().'/admin/modules/'.$this->_module_name.'/' . $this->_module_name . '.yml';
         $this->_module          = is_file($structure_path) ? sfYaml::load($structure_path) : array();
         $this->view->app_name = 'admin';
         $this->view->module_name = $this->_module;
