@@ -8,6 +8,8 @@ class AppServiceProvider extends ServiceProvider {
 	{
 		$path_to_views = __DIR__.'/../../resources/views';
 		$path_to_translations = __DIR__.'/../../resources/lang';
+		$langs = ['ru', 'en'];
+
 
 		include __DIR__.'/../Http/routes.php';
 		$this->loadViewsFrom($path_to_views, 'dashboard');
@@ -18,16 +20,14 @@ class AppServiceProvider extends ServiceProvider {
 
 		$this->loadTranslationsFrom($path_to_translations, 'dashboard');
 
-		$this->publishes([
-			$path_to_translations => base_path('resources/lang'),
-		]);
+		foreach ($langs as $lang) {
+			$this->publishes([
+				$path_to_translations.'/'.$lang => base_path('resources/lang/packages/'.$lang.'/laravel-dashboard'),
+			]);
+		}
 
 		$this->publishes([
 			__DIR__.'/../../config/dashboard.php' => config_path('dashboard.php'),
-		]);
-
-		$this->publishes([
-			__DIR__.'/../../public' => base_path('public/dashboard'),
 		]);
 	}
 
