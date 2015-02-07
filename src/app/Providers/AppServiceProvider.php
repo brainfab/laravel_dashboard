@@ -24,6 +24,10 @@ class AppServiceProvider extends ServiceProvider {
 		$this->loadTranslationsFrom($path_to_translations, 'dashboard');
 
 		$this->publishes([
+			$path_to_translations => base_path('resources/lang'),
+		]);
+
+		$this->publishes([
 			__DIR__.'/../../config/dashboard.php' => config_path('dashboard.php'),
 		]);
 	}
