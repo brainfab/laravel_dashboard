@@ -1,1 +1,0 @@
-<span class="readonly_text_field {$field_info.class}" style="{{{ isset($field_info['style']) ? $field_info['style'] : '' }}}">{{{ isset($field_info['text']) ? $field_info['text'] : '' }}}</span>

@@ -1,1 +1,0 @@
-<span title="Удалить файл:::admin/{{$module['name']}}/delete_file/{{$object['id']}}::file-preview-{{$field_name}}-{{$object['id']}}::{{$field_name}}::{{$field_value['full_name']}}:::" class="c_r delete_file_handler btn btn-xs btn-danger">удалить</span>

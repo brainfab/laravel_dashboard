@@ -1,6 +1,7 @@
 {
-    "name": "small-team/laravel-admin",
-    "description": "",
+    "name": "small-team/laravel-dashboard",
+    "description": "Admin/manager dashboard for Laravel framework",
+    "keywords": ["framework", "laravel", "dashboard", "admin"],
     "authors": [
         {
             "name": "Max Kovpak",
@@ -9,21 +10,14 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "small-team/smart-model": "dev-master",
-        "illuminate/support": "4.2.*"
+        "laravel/framework": "5.0.*"
     },
     "autoload": {
         "classmap": [
-            "src/migrations",
-            "src/helpers",
-            "src/controllers",
-            "src/commands",
-            "src/models",
-            "src/libs/tools",
-            "src/libs/tools/yaml"
+            "database"
         ],
-        "psr-0": {
-            "SmallTeam\\Admin\\": "src/"
+        "psr-4": {
+            "SmallTeam\\Dashboard\\App\\": "src/app/"
         }
     },
     "minimum-stability": "stable"

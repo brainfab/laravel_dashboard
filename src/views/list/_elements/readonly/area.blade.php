@@ -1,1 +1,0 @@
-{{{ isset($field_value) ? $field_value : '' }}}

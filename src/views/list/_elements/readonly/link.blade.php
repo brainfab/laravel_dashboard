@@ -1,1 +1,0 @@
-<a class="readonly_link" target="_blank" href="{$field_value}">{$field_value}</a>
