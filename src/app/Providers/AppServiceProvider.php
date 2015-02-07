@@ -4,11 +4,6 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider {
 
-	/**
-	 * Bootstrap any application services.
-	 *
-	 * @return void
-	 */
 	public function boot()
 	{
 		$path_to_views = __DIR__.'/../../resources/views';
@@ -30,17 +25,12 @@ class AppServiceProvider extends ServiceProvider {
 		$this->publishes([
 			__DIR__.'/../../config/dashboard.php' => config_path('dashboard.php'),
 		]);
+
+		$this->publishes([
+			__DIR__.'/../../public' => base_path('public/dashboard'),
+		]);
 	}
 
-	/**
-	 * Register any application services.
-	 *
-	 * This service provider is a great spot to register your various container
-	 * bindings with the application. As you can see, we are registering our
-	 * "Registrar" implementation here. You can add your own bindings too!
-	 *
-	 * @return void
-	 */
 	public function register()
 	{
 		$this->mergeConfigFrom(
