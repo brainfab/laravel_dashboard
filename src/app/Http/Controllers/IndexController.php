@@ -1,6 +1,6 @@
 <?php namespace SmallTeam\Dashboard\App\Http\Controllers;
 
-class HomeController extends Controller {
+class IndexController extends Controller {
 
 	public function index()
 	{
