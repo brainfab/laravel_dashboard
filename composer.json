@@ -14,7 +14,7 @@
     },
     "autoload": {
         "classmap": [
-            "database"
+
         ],
         "psr-4": {
             "SmallTeam\\Dashboard\\App\\": "src/app/"
