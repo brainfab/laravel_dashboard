@@ -1,4 +1,4 @@
-<?php namespace App\Providers;
+<?php namespace SmallTeam\Dashboard\App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

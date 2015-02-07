@@ -1,4 +1,4 @@
-<?php namespace App\Events;
+<?php namespace SmallTeam\Dashboard\App\Events;
 
 abstract class Event {
 
