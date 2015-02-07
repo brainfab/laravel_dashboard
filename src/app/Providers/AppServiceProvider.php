@@ -11,7 +11,18 @@ class AppServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
+		$path_to_views = __DIR__.'/../../resources/views';
+		$path_to_translations = __DIR__.'/../../resources/lang';
+
 		include __DIR__.'/../Http/routes.php';
+		$this->loadViewsFrom($path_to_views, 'dashboard');
+
+		$this->publishes([
+			$path_to_views => base_path('resources/views/vendor/dashboard'),
+		]);
+
+		$this->loadTranslationsFrom($path_to_translations, 'dashboard');
+
 	}
 
 	/**
