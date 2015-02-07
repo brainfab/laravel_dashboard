@@ -23,6 +23,9 @@ class AppServiceProvider extends ServiceProvider {
 
 		$this->loadTranslationsFrom($path_to_translations, 'dashboard');
 
+		$this->publishes([
+			__DIR__.'/../../config/dashboard.php' => config_path('dashboard.php'),
+		]);
 	}
 
 	/**
@@ -36,7 +39,9 @@ class AppServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-
+		$this->mergeConfigFrom(
+			__DIR__.'/../../config/dashboard.php', 'dashboard'
+		);
 	}
 
 }
