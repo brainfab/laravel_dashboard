@@ -4,7 +4,7 @@ class IndexController extends Controller {
 
 	public function index()
 	{
-		return 'Hello!';
+		return view('dashboard::welcome');
 	}
 
 }
