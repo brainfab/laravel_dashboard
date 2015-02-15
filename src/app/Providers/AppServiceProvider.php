@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider {
 
 		$this->publishes([
 			__DIR__.'/../../config/dashboard.php' => config_path('dashboard.php'),
-			__DIR__.'/../../config/modules.php' => config_path('modules.php'),
+			__DIR__.'/../../config/dashboard_modules.php' => config_path('dashboard_modules.php'),
 		]);
 	}
 
@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider {
 		);
 
 		$this->mergeConfigFrom(
-			__DIR__.'/../../config/modules.php', 'modules'
+			__DIR__.'/../../config/dashboard_modules.php', 'dashboard_modules'
 		);
 	}
 
