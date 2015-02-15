@@ -4,4 +4,3 @@ Route::group(['namespace' => config('dashboard.controllers_namespace'), 'prefix'
 {
     Route::get('/', 'IndexController@index');
 });
-
