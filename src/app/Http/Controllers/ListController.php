@@ -1,6 +1,8 @@
 <?php
 namespace SmallTeam\Dashboard\App\Http\Controllers;
 
+use \Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 class ListController extends Controller {
 
     public function anyIndex() {
@@ -12,6 +14,11 @@ class ListController extends Controller {
     }
 
     public function anyEdit($id = null) {
+        $id = intval($id);
+        if($id <= 0) {
+            abort(404);
+        }
+
         return get_class($this).'::anyEdit';
     }
 

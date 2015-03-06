@@ -8,4 +8,8 @@ abstract class Controller extends BaseController {
 
 	use DispatchesCommands, ValidatesRequests;
 
+	public function missingMethod($arr = []) {
+		return view('dashboard::errors.404');
+	}
+
 }

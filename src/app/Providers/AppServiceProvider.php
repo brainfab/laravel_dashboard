@@ -34,6 +34,15 @@ class AppServiceProvider extends ServiceProvider {
 
 	public function register()
 	{
+		$prefix = config('dashboard.prefix');
+		$uri = $_SERVER['REQUEST_URI'];
+		if((isset($uri) && strpos($uri, '/'.$prefix) === 0) || empty($prefix) || $prefix === '/') {
+			app()->singleton(
+				'Illuminate\Contracts\Debug\ExceptionHandler',
+				'SmallTeam\Dashboard\App\Exceptions\Handler'
+			);
+		}
+
 		$this->mergeConfigFrom(
 			__DIR__.'/../../config/dashboard.php', 'dashboard'
 		);
