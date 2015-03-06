@@ -11,7 +11,7 @@ class AppServiceProvider extends ServiceProvider {
 		$langs = ['ru', 'en'];
 
 
-		include __DIR__.'/../Http/routes.php';
+		include __DIR__ . '/../Http/routes.php';
 		$this->loadViewsFrom($path_to_views, 'dashboard');
 
 		$this->publishes([
@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider {
 
 		$this->publishes([
 			__DIR__.'/../../config/dashboard.php' => config_path('dashboard.php'),
-			__DIR__.'/../../config/dashboard_modules.php' => config_path('dashboard_modules.php'),
+			__DIR__.'/../../config/modules.php' => config_path('modules.php'),
 		]);
 	}
 
@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider {
 		);
 
 		$this->mergeConfigFrom(
-			__DIR__.'/../../config/dashboard_modules.php', 'dashboard_modules'
+			__DIR__.'/../../config/modules.php', 'modules'
 		);
 	}
 

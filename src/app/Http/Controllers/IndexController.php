@@ -1,10 +1,11 @@
-<?php namespace SmallTeam\Dashboard\App\Http\Controllers;
+<?php
+namespace SmallTeam\Dashboard\App\Http\Controllers;
 
 class IndexController extends Controller {
 
-	public function index()
+	public function anyIndex()
 	{
-		return view('dashboard::welcome');
+		return get_class($this).'::index';
 	}
 
 }
