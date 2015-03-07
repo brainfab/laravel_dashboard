@@ -34,13 +34,16 @@ class AppServiceProvider extends ServiceProvider {
 
 	public function register()
 	{
-		$prefix = config('dashboard.prefix');
-		$uri = $_SERVER['REQUEST_URI'];
-		if((isset($uri) && strpos($uri, '/'.$prefix) === 0) || empty($prefix) || $prefix === '/') {
-			app()->singleton(
-				'Illuminate\Contracts\Debug\ExceptionHandler',
-				'SmallTeam\Dashboard\App\Exceptions\Handler'
-			);
+		if(isset($_SERVER['REQUEST_URI'])) {
+			$prefix = config('dashboard.prefix');
+			$uri = $_SERVER['REQUEST_URI'];
+			$uri = substr($uri, strlen($uri)-1) == '/' ? $uri : $uri.'/';
+			if( strpos($uri, '/'.$prefix.'/') === 0 || empty($prefix) || $prefix === '/') {
+				app()->singleton(
+					'Illuminate\Contracts\Debug\ExceptionHandler',
+					'SmallTeam\Dashboard\App\Exceptions\Handler'
+				);
+			}
 		}
 
 		$this->mergeConfigFrom(
