@@ -12,13 +12,5 @@
         "php": ">=5.4.0",
         "laravel/framework": "5.0.*"
     },
-    "autoload": {
-        "classmap": [
-
-        ],
-        "psr-4": {
-            "SmallTeam\\Dashboard\\App\\": "src/app/"
-        }
-    },
     "minimum-stability": "stable"
 }
