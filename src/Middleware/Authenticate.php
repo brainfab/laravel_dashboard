@@ -1,27 +1,11 @@
-<?php namespace SmallTeam\Dashboard\App\Http\Middleware;
+<?php namespace SmallTeam\Dashboard\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
+use \SmallTeam\Dashboard\Auth;
 
-class Authenticate {
-
-	/**
-	 * The Guard implementation.
-	 *
-	 * @var Guard
-	 */
-	protected $auth;
-
-	/**
-	 * Create a new filter instance.
-	 *
-	 * @param  Guard  $auth
-	 * @return void
-	 */
-	public function __construct(Guard $auth)
-	{
-		$this->auth = $auth;
-	}
+class Authenticate
+{
 
 	/**
 	 * Handle an incoming request.
@@ -32,7 +16,7 @@ class Authenticate {
 	 */
 	public function handle($request, Closure $next)
 	{
-		if ($this->auth->guest())
+		if (Auth::getInstance()->guest())
 		{
 			if ($request->ajax())
 			{
