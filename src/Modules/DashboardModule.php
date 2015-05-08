@@ -1,34 +1,95 @@
 <?php namespace SmallTeam\Dashboard\Modules;
 
+use Illuminate\Routing\Router;
 use Illuminate\Routing\Controller as BaseController;
-use \SmallTeam\Dashboard\DashboardModuleInterface;
+use SmallTeam\Dashboard\DashboardModuleInterface;
+use SmallTeam\Dashboard\DashboardApp;
 
-abstract class DashboardModule extends BaseController implements DashboardModuleInterface
+/**
+ * DashboardModule - base module superclass
+ *
+ * @author Max Kovpak <max_kovpak@hotmail.com>
+ * @url www.max-kovpak.com
+ * @date 09.05.2015
+ * */
+class DashboardModule extends BaseController implements DashboardModuleInterface
 {
-    /** @property string $module_name */
-    protected $module_name = null;
+
+    /** @var DashboardApp */
+    private $dashboard;
+
+    /** @var bool */
+    protected $guarded_module = true;
+
+    /** @var null */
+    private $menu_factory = null;
+
+    /** @var null */
+    private $menu = null;
+
+    public function __construct(DashboardApp $app)
+    {
+        $this->dashboard = $app;
+
+        if($this->guarded_module) {
+            $this->middleware($this->getAuthMiddleware());
+        }
+    }
 
     /**
-     * Init module routes
-     *
-     * @param \Illuminate\Routing\Router $router
-     * @param string $module_name
-     * @param string $module Module class name with namespace
-     * @return void
+     * @inheritdoc
      * */
-    public static function routesMap(\Illuminate\Routing\Router $router, $module_name, $module)
+    public function getAuthMiddleware()
+    {
+        return 'dashboard.auth';
+    }
+
+    /**
+     * @inheritdoc
+     * */
+    public static function routesMap(Router $router, $module_name, $module)
     {
         //define routes
     }
 
-	public function missingMethod($arr = [])
+    /**
+     * @inheritdoc
+     * */
+    public function getDashboardName()
     {
-		return view('dashboard::errors.404');
-	}
+        return $this->dashboard->getName();
+    }
 
-    public function getModuleName()
+    /**
+     * @inheritdoc
+     * */
+    public function getDashboard()
     {
-        return $this->module_name;
+        return $this->dashboard;
+    }
+
+    /**
+     * @inheritdoc
+     * */
+    public function getDashboardConfig($key = null, $default = null)
+    {
+        return $this->dashboard->getConfig($key, $default);
+    }
+
+    /**
+     * @inheritdoc
+     * */
+    public function getMenuFactory()
+    {
+        return $this->menu_factory;
+    }
+
+    /**
+     * @inheritdoc
+     * */
+    public function getMenu()
+    {
+        return $this->menu;
     }
 
 }

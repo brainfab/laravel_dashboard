@@ -5,9 +5,11 @@
     "authors": [
         {
             "name": "Max Kovpak",
-            "email": "max_kovpak@hotmail.com"
+            "email": "max_kovpak@hotmail.com",
+            "homepage": "http://www.max-kovpak.com"
         }
     ],
+    "version": "1.0.0-dev",
     "require": {
         "php": ">=5.4.0",
         "laravel/framework": "5.0.*"

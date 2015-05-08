@@ -2,18 +2,20 @@
 
 use Illuminate\Routing\Router;
 
-class AuthModule extends DashboardModule
+/**
+ * AuthBaseModule
+ *
+ * @author Max Kovpak <max_kovpak@hotmail.com>
+ * @url www.max-kovpak.com
+ * @date 09.05.2015
+ * */
+class AuthBaseModule extends DashboardModule
 {
 
     /**
-     * Init module routes
-     *
-     * @param \Illuminate\Routing\Router $router
-     * @param string $module_name
-     * @param string $module Module class name with namespace
-     * @return void
+     * @inheritdoc
      * */
-    public static function routesMap(\Illuminate\Routing\Router $router, $module_name, $module)
+    public static function routesMap(Router $router, $module_name, $module)
     {
         $router->get('/login', $module.'@getLogin');
         $router->post('/login', $module.'@postLogin');

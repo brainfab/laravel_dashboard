@@ -21,11 +21,10 @@ return [
                     'email' => 'email',
                 ]
             ],
-            'index_module' => 'SmallTeam\Dashboard\Modules\IndexModule',
-            'auth_module' => 'SmallTeam\Dashboard\Modules\AuthModule',
+            'index_module' => 'SmallTeam\Dashboard\Modules\IndexBaseModule',
+            'auth_module' => 'SmallTeam\Dashboard\Modules\AuthBaseModule',
             'modules' => [
 //                'posts' => 'App\Dashboard\Modules\PostsModule',
-//                'App\Dashboard\Modules\UsersModule',
             ]
         ],
     ],

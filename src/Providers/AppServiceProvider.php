@@ -2,6 +2,7 @@
 
 use Illuminate\Support\ServiceProvider;
 use \SmallTeam\Dashboard\RoutesMap;
+use \SmallTeam\Dashboard\DashboardApp;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -66,6 +67,10 @@ class AppServiceProvider extends ServiceProvider
 
 	public function register()
 	{
+        $this->app->singleton('SmallTeam\Dashboard\DashboardApp', function() {
+            return new DashboardApp();
+        });
+
 		$this->mergeConfigFrom(
 			__DIR__.'/../config/dashboard.php', 'dashboard'
 		);
