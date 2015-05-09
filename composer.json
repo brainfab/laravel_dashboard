@@ -10,6 +10,7 @@
         }
     ],
     "version": "1.0.0-dev",
+    "license": "MIT",
     "require": {
         "php": ">=5.4.0",
         "laravel/framework": "5.0.*"
