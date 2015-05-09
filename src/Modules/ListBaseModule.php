@@ -15,7 +15,7 @@ class ListBaseModule extends DashboardModule
     /**
      * @inheritdoc
      * */
-    public static function routesMap(Router $router, $module_name, $module)
+    public static function routesMap(Router $router, $module_name, $module, $prefix)
     {
         $router->get('/'.$module_name, $module.'@index');
         $router->get('/'.$module_name.'/page/{page_number}', $module.'@index')->where('page_number', '[0-9]+');

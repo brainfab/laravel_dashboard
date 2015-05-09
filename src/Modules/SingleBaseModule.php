@@ -15,7 +15,7 @@ class SingleBaseModule extends DashboardModule
     /**
      * @inheritdoc
      * */
-    public static function routesMap(Router $router, $module_name, $module)
+    public static function routesMap(Router $router, $module_name, $module, $prefix)
     {
         $router->get('/'.$module_name, $module.'@getIndex');
         $router->post('/'.$module_name, $module.'@save');

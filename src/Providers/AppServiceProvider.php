@@ -43,19 +43,13 @@ class AppServiceProvider extends ServiceProvider
                     ? $dashboard['modules']
                     : [];
 
+                if(isset($dashboard['auth']['module'])) {
+                    $modules['__auth'] = $dashboard['auth']['module'];
+                }
+
                 $namespace = isset($dashboard['namespace']) && !empty($dashboard['namespace']) ? $dashboard['namespace'] : null;
                 $prefix = isset($dashboard['prefix']) && !empty($dashboard['prefix']) ? $dashboard['prefix'] : null;
                 $domain = isset($dashboard['domain']) && !empty($dashboard['domain']) ? $dashboard['domain'] : null;
-                $index_module = isset($dashboard['index_module']) && !empty($dashboard['index_module']) ? $dashboard['index_module'] : null;
-                $auth_module = isset($dashboard['auth_module']) && !empty($dashboard['auth_module']) ? $dashboard['auth_module'] : null;
-
-                if($index_module) {
-                    $modules['__index_module'] = $index_module;
-                }
-
-                if($auth_module) {
-                    $modules['__auth_module'] = $auth_module;
-                }
 
                 if(is_array($modules) && count($modules) > 0) {
                     $builder = new RoutesMap( $modules, $prefix, $namespace, $domain );

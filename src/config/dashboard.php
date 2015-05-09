@@ -8,22 +8,23 @@ return [
 
     'dashboards' => [
         'admin' => [
+            'name' => 'My Admin Dashboard',
+            'logo' => 'dashboard/logo.png',
             'prefix' => 'admin', //routes prefix, not required
             'domain' => null, //routes domain, not required
             'namespace' => null, //routes namespace, not required
             'default_lang' => 'en',
             'auth' => [
                 'model' => 'App\User',
-                'table' => 'users',
+                'module' => 'SmallTeam\Dashboard\Modules\AuthBaseModule',
                 'fields' => [
                     'password' => 'password',
                     'login' => null,
                     'email' => 'email',
-                ]
+                ],
             ],
-            'index_module' => 'SmallTeam\Dashboard\Modules\IndexBaseModule',
-            'auth_module' => 'SmallTeam\Dashboard\Modules\AuthBaseModule',
             'modules' => [
+                '/' => 'SmallTeam\Dashboard\Modules\IndexBaseModule',
 //                'posts' => 'App\Dashboard\Modules\PostsModule',
             ]
         ],

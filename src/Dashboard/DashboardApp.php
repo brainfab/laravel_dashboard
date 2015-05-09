@@ -15,7 +15,7 @@ class DashboardApp implements DashboardAppInterface
     private $booted = false;
 
     /** @var string */
-    private $dashboard_name = null;
+    private $dashboard_alias = null;
 
     final public function __construct()
     {
@@ -34,17 +34,17 @@ class DashboardApp implements DashboardAppInterface
         /** @var Router $router */
         $router = app()->router;
         $current = $router->current();
-        $action = $current->getAction();
+        $action = $current ? $current->getAction() : null;
 
         $dashboards = config('dashboard.dashboards');
         foreach ($dashboards as $name => $dashboard) {
             if($dashboard['prefix'] == $action['prefix'] && $dashboard['namespace'] == $action['namespace'] && $dashboard['domain'] == $action['domain']) {
-                $this->dashboard_name = $name;
+                $this->dashboard_alias = $name;
                 break;
             }
         }
 
-        if($this->dashboard_name === null) {
+        if(!\App::runningInConsole() && $this->dashboard_alias === null) {
             throw new \RuntimeException('Dashboard not found for current route');
         }
 
@@ -56,7 +56,7 @@ class DashboardApp implements DashboardAppInterface
      * */
     public function getConfig($key = null, $default = null)
     {
-        return config( 'dashboard.dashboards.'.$this->getName().$key, $default);
+        return config( 'dashboard.dashboards.'.$this->getAlias().($key !== null ? '.'.$key : ''), $default);
     }
 
     /**
@@ -64,7 +64,15 @@ class DashboardApp implements DashboardAppInterface
      * */
     public function getName()
     {
-        return $this->dashboard_name;
+        return $this->getConfig('name');
+    }
+
+    /**
+     * @inheritdoc
+     * */
+    public function getAlias()
+    {
+        return $this->dashboard_alias;
     }
 
 }

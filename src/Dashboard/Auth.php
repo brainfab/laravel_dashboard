@@ -1,38 +1,48 @@
 <?php namespace SmallTeam\Dashboard;
 
-class Auth
+/**
+ * Auth
+ *
+ * @author Max Kovpak <max_kovpak@hotmail.com>
+ * @url www.max-kovpak.com
+ * @date 10.05.2015
+ * */
+class Auth implements AuthInterface
 {
 
-    private static $_instance = null;
+    /** @var array */
+    private static $_instances = null;
 
-    private function __construct() {}
+    /** @var string */
+    private $dashboard_alias = null;
 
-    /**
-     * @return \SmallTeam\Dashboard\Auth;
-     * */
-    public static function getInstance()
+    private function __construct($dashboard_alias)
     {
-        if(self::$_instance === null) {
-            self::$_instance = new Auth();
-        }
-
-        return self::$_instance;
+        $this->dashboard_alias = $dashboard_alias;
     }
 
     /**
-     * Determine if the current user is guest.
-     *
-     * @return bool
+     * @inheritdoc
+     * */
+    public static function create($dashboard_alias)
+    {
+        if(!isset(self::$_instances[$dashboard_alias]) || !is_object(self::$_instances[$dashboard_alias])) {
+            self::$_instances[$dashboard_alias] = new Auth($dashboard_alias);
+        }
+
+        return self::$_instances[$dashboard_alias];
+    }
+
+    /**
+     * @inheritdoc
      */
     public function guest()
     {
-        return false;
+        return true;
     }
 
     /**
-     * Determine if the current user is authenticated.
-     *
-     * @return bool
+     * @inheritdoc
      */
     public function check()
     {
@@ -40,12 +50,7 @@ class Auth
     }
 
     /**
-     * Log a user into the application.
-     *
-     * @param string $login
-     * @param string $password
-     * @param bool $remember
-     * @return bool
+     * @inheritdoc
      */
     public function login($login, $password, $remember = false)
     {
@@ -53,9 +58,7 @@ class Auth
     }
 
     /**
-     * Log the user out of the application.
-     *
-     * @return void
+     * @inheritdoc
      */
     public function logout()
     {

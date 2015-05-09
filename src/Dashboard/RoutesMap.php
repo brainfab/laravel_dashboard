@@ -124,7 +124,7 @@ class RoutesMap  {
         $cl = function(Router $router) {
             foreach ($this->modules as $module_name => $module)
             {
-                call_user_func([$module, 'routesMap'], $router, Str::lower($module_name), $module);
+                call_user_func([$module, 'routesMap'], $router, Str::lower($module_name), $module, $this->getPrefix());
             }
         };
 

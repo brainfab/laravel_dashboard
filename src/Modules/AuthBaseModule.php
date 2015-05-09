@@ -12,14 +12,17 @@ use Illuminate\Routing\Router;
 class AuthBaseModule extends DashboardModule
 {
 
+    /** @var bool */
+    protected $guarded_module = false;
+
     /**
      * @inheritdoc
      * */
-    public static function routesMap(Router $router, $module_name, $module)
+    public static function routesMap(Router $router, $module_name, $module, $prefix)
     {
-        $router->get('/login', $module.'@getLogin');
-        $router->post('/login', $module.'@postLogin');
-        $router->get('/logout', $module.'@getLogout');
+        $router->get('/login', ['as' => 'Dashboard.'.$prefix.'.getLogin', 'uses' => $module.'@getLogin']);
+        $router->post('/login', ['as' => 'Dashboard.'.$prefix.'.postLogin', 'uses' => $module.'@postLogin']);
+        $router->get('/logout', ['as' => 'Dashboard.'.$prefix.'.getLogout', 'uses' => $module.'@getLogout']);
     }
 
 	public function getLogin()

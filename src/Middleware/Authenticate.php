@@ -16,7 +16,11 @@ class Authenticate
 	 */
 	public function handle($request, Closure $next)
 	{
-		if (Auth::getInstance()->guest())
+        /** @var \SmallTeam\Dashboard\DashboardApp $dashboard */
+        $dashboard = app()->make('SmallTeam\Dashboard\DashboardApp');
+        $guard = Auth::create($dashboard->getAlias());
+
+		if ($guard->guest())
 		{
 			if ($request->ajax())
 			{
@@ -24,7 +28,7 @@ class Authenticate
 			}
 			else
 			{
-				return redirect()->guest('auth/login');
+				return redirect()->guest(route('Dashboard.'.$dashboard->getAlias().'.getLogin'));
 			}
 		}
 

@@ -21,6 +21,12 @@ class DashboardModule extends BaseController implements DashboardModuleInterface
     /** @var bool */
     protected $guarded_module = true;
 
+    /** @var array|null */
+    protected $guarded_only = null;
+
+    /** @var array|null */
+    protected $guarded_except = null;
+
     /** @var null */
     private $menu_factory = null;
 
@@ -32,7 +38,16 @@ class DashboardModule extends BaseController implements DashboardModuleInterface
         $this->dashboard = $app;
 
         if($this->guarded_module) {
-            $this->middleware($this->getAuthMiddleware());
+            $options = [];
+            if(is_array($this->guarded_only) && count($this->guarded_only) > 0) {
+                $options['only'] = $this->guarded_only;
+            }
+
+            if(is_array($this->guarded_except) && count($this->guarded_except) > 0) {
+                $options['except'] = $this->guarded_except;
+            }
+
+            $this->middleware($this->getAuthMiddleware(), $options);
         }
     }
 
@@ -47,7 +62,7 @@ class DashboardModule extends BaseController implements DashboardModuleInterface
     /**
      * @inheritdoc
      * */
-    public static function routesMap(Router $router, $module_name, $module)
+    public static function routesMap(Router $router, $module_name, $module, $prefix)
     {
         //define routes
     }

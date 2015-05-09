@@ -15,7 +15,7 @@ class IndexBaseModule extends DashboardModule
     /**
      * @inheritdoc
      * */
-    public static function routesMap(Router $router, $module_name, $module)
+    public static function routesMap(Router $router, $module_name, $module, $prefix)
     {
         $router->get('/', $module.'@index');
     }
