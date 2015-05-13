@@ -17,6 +17,9 @@ class DashboardApp implements DashboardAppInterface
     /** @var string */
     private $dashboard_alias = null;
 
+    /** @var string */
+    private $dashboard_prefix = null;
+
     final public function __construct()
     {
         $this->boot();
@@ -48,6 +51,10 @@ class DashboardApp implements DashboardAppInterface
             throw new \RuntimeException('Dashboard not found for current route');
         }
 
+        $prefix = $this->getConfig('prefix', '/');
+        $this->dashboard_prefix = substr($prefix, (strlen($prefix)-1), strlen($prefix)) != '/' ? $prefix.'/' : $prefix;
+        \View::share('app', $this);
+
         $this->booted = true;
     }
 
@@ -73,6 +80,14 @@ class DashboardApp implements DashboardAppInterface
     public function getAlias()
     {
         return $this->dashboard_alias;
+    }
+
+    /**
+     * @inheritdoc
+     * */
+    public function getPrefix()
+    {
+        return $this->dashboard_prefix;
     }
 
 }

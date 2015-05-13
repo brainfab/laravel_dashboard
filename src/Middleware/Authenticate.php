@@ -2,37 +2,34 @@
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
-use \SmallTeam\Dashboard\Auth;
+use \Illuminate\Http\Request;
 
 class Authenticate
 {
 
-	/**
-	 * Handle an incoming request.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  \Closure  $next
-	 * @return mixed
-	 */
-	public function handle($request, Closure $next)
-	{
-        /** @var \SmallTeam\Dashboard\DashboardApp $dashboard */
-        $dashboard = app()->make('SmallTeam\Dashboard\DashboardApp');
-        $guard = Auth::create($dashboard->getAlias());
+    protected $auth;
 
-		if ($guard->guest())
-		{
-			if ($request->ajax())
-			{
-				return response('Unauthorized.', 401);
-			}
-			else
-			{
-				return redirect()->guest(route('Dashboard.'.$dashboard->getAlias().'.getLogin'));
-			}
-		}
+    public function __construct(Guard $auth)
+    {
+        $this->auth = $auth;
+    }
 
-		return $next($request);
-	}
+    public function handle($request, Closure $next)
+    {
+        if ($this->auth->guest())
+        {
+            if ($request->ajax())
+            {
+                return response('Unauthorized.', 401);
+            }
+            else
+            {
+                /** @var \SmallTeam\Dashboard\DashboardApp $dashboard */
+                $dashboard = app()->make('SmallTeam\Dashboard\DashboardApp');
+                return redirect()->guest(url($dashboard->getPrefix().'auth/login'));
+            }
+        }
 
+        return $next($request);
+    }
 }

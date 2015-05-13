@@ -7,7 +7,8 @@
  * @url www.max-kovpak.com
  * @date 09.05.2015
  * */
-interface DashboardModuleInterface {
+interface DashboardModuleInterface
+{
 
     public function __construct(DashboardApp $app);
 
@@ -51,6 +52,13 @@ interface DashboardModuleInterface {
      * @return string
      * */
     public function getAuthMiddleware();
+
+    /**
+     * Get guest middleware name
+     *
+     * @return string
+     * */
+    public function getGuestMiddleware();
 
     /**
      * Get menu factory

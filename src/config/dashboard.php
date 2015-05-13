@@ -1,5 +1,7 @@
 <?php
 return [
+    'locales' => ['ru', 'en'],
+
     'files' => [
         'image_engine' => 'imagick', //imagick or gd
         'imagick_path' => '', //path to imagick
@@ -13,16 +15,7 @@ return [
             'prefix' => 'admin', //routes prefix, not required
             'domain' => null, //routes domain, not required
             'namespace' => null, //routes namespace, not required
-            'default_lang' => 'en',
-            'auth' => [
-                'model' => 'App\User',
-                'module' => 'SmallTeam\Dashboard\Modules\AuthBaseModule',
-                'fields' => [
-                    'password' => 'password',
-                    'login' => null,
-                    'email' => 'email',
-                ],
-            ],
+            'default_locale' => 'en',
             'modules' => [
                 '/' => 'SmallTeam\Dashboard\Modules\IndexBaseModule',
 //                'posts' => 'App\Dashboard\Modules\PostsModule',

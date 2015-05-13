@@ -19,7 +19,7 @@ class DashboardModule extends BaseController implements DashboardModuleInterface
     private $dashboard;
 
     /** @var bool */
-    protected $guarded_module = true;
+    protected $guarded_module = false;
 
     /** @var array|null */
     protected $guarded_only = null;
@@ -57,6 +57,14 @@ class DashboardModule extends BaseController implements DashboardModuleInterface
     public function getAuthMiddleware()
     {
         return 'dashboard.auth';
+    }
+
+    /**
+     * @inheritdoc
+     * */
+    public function getGuestMiddleware()
+    {
+        return 'dashboard.guest';
     }
 
     /**

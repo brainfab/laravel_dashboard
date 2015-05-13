@@ -41,4 +41,11 @@ interface DashboardAppInterface
      * */
     public function getAlias();
 
+    /**
+     * Get dashboard prefix
+     *
+     * @return string
+     * */
+    public function getPrefix();
+
 }

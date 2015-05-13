@@ -9,9 +9,11 @@ class AppServiceProvider extends ServiceProvider
 
 	public function boot()
 	{
+		$path_to_assets = __DIR__.'/../resources/views';
 		$path_to_views = __DIR__.'/../resources/views';
 		$path_to_translations = __DIR__.'/../resources/lang';
-		$langs = ['ru', 'en'];
+
+		$locales = config('dashboard.locales');
 
 		$this->loadViewsFrom($path_to_views, 'dashboard');
 
@@ -21,19 +23,27 @@ class AppServiceProvider extends ServiceProvider
 
 		$this->loadTranslationsFrom($path_to_translations, 'dashboard');
 
-		foreach ($langs as $lang) {
-			$this->publishes([
-				$path_to_translations.'/'.$lang => base_path('resources/lang/packages/'.$lang.'/laravel-dashboard'),
-			]);
-		}
+        if(is_array($locales) && count($locales) > 0)
+        {
+            foreach ($locales as $locale) {
+                $this->publishes([
+                    $path_to_translations.'/'.$locale => base_path('resources/lang/packages/'.$locale.'/laravel-dashboard'),
+                ]);
+            }
+        }
 
 		$this->publishes([
 			__DIR__.'/../../config/dashboard.php' => config_path('dashboard.php'),
 		]);
 
+        $this->publishes([
+            $path_to_assets => public_path('vendor/dashboard'),
+        ], 'public');
+
         /** Register dashboard middlewares */
         $router = $this->app['router'];
         $router->middleware('dashboard.auth', 'SmallTeam\Dashboard\Middleware\Authenticate');
+        $router->middleware('dashboard.guest', 'SmallTeam\Dashboard\Middleware\Guest');
 
         /** Register dashboard routes */
         $dashboards = config('dashboard.dashboards');
@@ -43,9 +53,8 @@ class AppServiceProvider extends ServiceProvider
                     ? $dashboard['modules']
                     : [];
 
-                if(isset($dashboard['auth']['module'])) {
-                    $modules['__auth'] = $dashboard['auth']['module'];
-                }
+                $modules['__auth'] = 'SmallTeam\Dashboard\Modules\Auth\AuthBaseModule';
+                $modules['__password'] = 'SmallTeam\Dashboard\Modules\Auth\PasswordBaseModule';
 
                 $namespace = isset($dashboard['namespace']) && !empty($dashboard['namespace']) ? $dashboard['namespace'] : null;
                 $prefix = isset($dashboard['prefix']) && !empty($dashboard['prefix']) ? $dashboard['prefix'] : null;

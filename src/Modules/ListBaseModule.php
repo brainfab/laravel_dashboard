@@ -12,6 +12,9 @@ use \Illuminate\Routing\Router;
 class ListBaseModule extends DashboardModule
 {
 
+    /** @var string */
+    protected $model;
+
     /**
      * @inheritdoc
      * */
