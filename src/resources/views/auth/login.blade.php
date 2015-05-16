@@ -18,7 +18,7 @@
 						</div>
 					@endif
 
-					<form class="form-horizontal" role="form" method="POST" action="{{ url($app->getPrefix().'auth/login') }}">
+					<form class="form-horizontal" role="form" method="POST" action="{{ url($dashboard->getPrefix().'auth/login') }}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
@@ -49,7 +49,7 @@
 							<div class="col-md-6 col-md-offset-4">
 								<button type="submit" class="btn btn-primary">Login</button>
 
-								<a class="btn btn-link" href="{{ url($app->getPrefix().'password/email') }}">Forgot Your Password?</a>
+								<a class="btn btn-link" href="{{ url($dashboard->getPrefix().'password/email') }}">Forgot Your Password?</a>
 							</div>
 						</div>
 					</form>

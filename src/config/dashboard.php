@@ -11,11 +11,18 @@ return [
     'dashboards' => [
         'admin' => [
             'name' => 'My Admin Dashboard',
-            'logo' => 'dashboard/logo.png',
             'prefix' => 'admin', //routes prefix, not required
             'domain' => null, //routes domain, not required
             'namespace' => null, //routes namespace, not required
             'default_locale' => 'en',
+            'security' => [
+                'auth' => [
+                    'handler' => 'SmallTeam\Dashboard\Security\LaravelAuthHandler',
+                ],
+                'acl' => [
+                    'handler' => 'SmallTeam\Dashboard\Security\NativeAclHandler'
+                ]
+            ],
             'modules' => [
                 '/' => 'SmallTeam\Dashboard\Modules\IndexBaseModule',
 //                'posts' => 'App\Dashboard\Modules\PostsModule',

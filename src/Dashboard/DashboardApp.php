@@ -53,7 +53,7 @@ class DashboardApp implements DashboardAppInterface
 
         $prefix = $this->getConfig('prefix', '/');
         $this->dashboard_prefix = substr($prefix, (strlen($prefix)-1), strlen($prefix)) != '/' ? $prefix.'/' : $prefix;
-        \View::share('app', $this);
+        \View::share('dashboard', $this);
 
         $this->booted = true;
     }

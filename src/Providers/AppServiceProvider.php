@@ -9,7 +9,7 @@ class AppServiceProvider extends ServiceProvider
 
 	public function boot()
 	{
-		$path_to_assets = __DIR__.'/../resources/views';
+		$path_to_assets = __DIR__.'/../public';
 		$path_to_views = __DIR__.'/../resources/views';
 		$path_to_translations = __DIR__.'/../resources/lang';
 
@@ -25,15 +25,20 @@ class AppServiceProvider extends ServiceProvider
 
         if(is_array($locales) && count($locales) > 0)
         {
-            foreach ($locales as $locale) {
+            foreach ($locales as $locale)
+            {
+                if(!is_file($path_to_translations.'/'.$locale)) {
+                    continue;
+                }
+
                 $this->publishes([
-                    $path_to_translations.'/'.$locale => base_path('resources/lang/packages/'.$locale.'/laravel-dashboard'),
+                    $path_to_translations.'/'.$locale => base_path('resources/lang/packages/'.$locale.'/dashboard'),
                 ]);
             }
         }
 
 		$this->publishes([
-			__DIR__.'/../../config/dashboard.php' => config_path('dashboard.php'),
+			__DIR__.'/../config/dashboard.php' => config_path('dashboard.php'),
 		]);
 
         $this->publishes([

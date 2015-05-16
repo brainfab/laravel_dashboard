@@ -22,8 +22,7 @@ class IndexBaseModule extends DashboardModule
 
 	public function index()
 	{
-        dd($this->getDashboardConfig());
-		return $this->getDashboardName();
+		return view('dashboard::index');
 	}
 
 }
