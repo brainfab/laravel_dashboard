@@ -1,25 +1,24 @@
-<?php namespace SmallTeam\Dashboard\Modules;
+<?php namespace SmallTeam\Dashboard\Controller;
 
 use Illuminate\Routing\Router;
 use Illuminate\Routing\Controller as BaseController;
-use SmallTeam\Dashboard\DashboardModuleInterface;
-use SmallTeam\Dashboard\DashboardApp;
+use SmallTeam\Dashboard\Dashboard;
 
 /**
- * DashboardModule - base module superclass
+ * DashboardController - base controller superclass
  *
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @url www.max-kovpak.com
  * @date 09.05.2015
  * */
-class DashboardModule extends BaseController implements DashboardModuleInterface
+class DashboardController extends BaseController implements DashboardControllerInterface
 {
 
-    /** @var DashboardApp */
+    /** @var Dashboard */
     private $dashboard;
 
     /** @var bool */
-    protected $guarded_module = false;
+    protected $guarded = false;
 
     /** @var array|null */
     protected $guarded_only = null;
@@ -33,11 +32,11 @@ class DashboardModule extends BaseController implements DashboardModuleInterface
     /** @var null */
     private $menu = null;
 
-    public function __construct(DashboardApp $app)
+    public function __construct(Dashboard $app)
     {
         $this->dashboard = $app;
 
-        if($this->guarded_module) {
+        if($this->guarded) {
             $options = [];
             if(is_array($this->guarded_only) && count($this->guarded_only) > 0) {
                 $options['only'] = $this->guarded_only;
@@ -70,7 +69,7 @@ class DashboardModule extends BaseController implements DashboardModuleInterface
     /**
      * @inheritdoc
      * */
-    public static function routesMap(Router $router, $module_name, $module, $prefix)
+    public static function routesMap(Router $router, $name, $controller, $parameters)
     {
         //define routes
     }

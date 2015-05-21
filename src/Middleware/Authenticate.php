@@ -24,8 +24,8 @@ class Authenticate
             }
             else
             {
-                /** @var \SmallTeam\Dashboard\DashboardApp $dashboard */
-                $dashboard = app()->make('SmallTeam\Dashboard\DashboardApp');
+                /** @var \SmallTeam\Dashboard\Dashboard $dashboard */
+                $dashboard = app()->make('SmallTeam\Dashboard\Dashboard');
                 return redirect()->guest(url($dashboard->getPrefix().'auth/login'));
             }
         }

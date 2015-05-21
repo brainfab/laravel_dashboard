@@ -18,8 +18,8 @@ class Guest
     {
         if ($this->auth->check())
         {
-            /** @var \SmallTeam\Dashboard\DashboardApp $dashboard */
-            $dashboard = app()->make('SmallTeam\Dashboard\DashboardApp');
+            /** @var \SmallTeam\Dashboard\Dashboard $dashboard */
+            $dashboard = app()->make('SmallTeam\Dashboard\Dashboard');
             return new RedirectResponse(url($dashboard->getPrefix()));
         }
 

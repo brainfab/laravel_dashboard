@@ -1,27 +1,27 @@
-<?php namespace SmallTeam\Dashboard\Modules\Auth;
+<?php namespace SmallTeam\Dashboard\Controller\Auth;
 
 use Illuminate\Routing\Router;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use SmallTeam\Dashboard\DashboardApp;
-use SmallTeam\Dashboard\Modules\DashboardModule;
+use SmallTeam\Dashboard\Controller\DashboardController;
+use SmallTeam\Dashboard\Dashboard;
 
 /**
- * AuthBaseModule
+ * AuthBaseController
  *
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @url www.max-kovpak.com
  * @date 09.05.2015
  * */
-class AuthBaseModule extends DashboardModule
+class AuthBaseController extends DashboardController
 {
     use AuthenticatesAndRegistersUsers;
 
     /** @var bool */
-    protected $guarded_module = false;
+    protected $guarded = false;
 
-    public function __construct(DashboardApp $app, Guard $auth = null, Registrar $registrar = null)
+    public function __construct(Dashboard $app, Guard $auth = null, Registrar $registrar = null)
     {
         parent::__construct($app);
 
@@ -61,15 +61,15 @@ class AuthBaseModule extends DashboardModule
     /**
      * @inheritdoc
      * */
-    public static function routesMap(Router $router, $module_name, $module, $prefix)
+    public static function routesMap(Router $router, $name, $controller, $parameters)
     {
-        $router->get('/auth/register', $module.'@getRegister');
-        $router->post('/auth/register', $module.'@postRegister');
+        $router->get('/auth/register', $controller.'@getRegister');
+        $router->post('/auth/register', $controller.'@postRegister');
 
-        $router->get('/auth/login', $module.'@getLogin');
-        $router->post('/auth/login', $module.'@postLogin');
+        $router->get('/auth/login', $controller.'@getLogin');
+        $router->post('/auth/login', $controller.'@postLogin');
 
-        $router->get('/auth/logout', $module.'@getLogout');
+        $router->get('/auth/logout', $controller.'@getLogout');
     }
 
 }

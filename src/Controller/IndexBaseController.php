@@ -1,23 +1,23 @@
-<?php namespace SmallTeam\Dashboard\Modules;
+<?php namespace SmallTeam\Dashboard\Controller;
 
 use Illuminate\Routing\Router;
 
 /**
- * IndexBaseModule
+ * IndexBaseController
  *
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @url www.max-kovpak.com
  * @date 09.05.2015
  * */
-class IndexBaseModule extends DashboardModule
+class IndexBaseController extends DashboardController
 {
 
     /**
      * @inheritdoc
      * */
-    public static function routesMap(Router $router, $module_name, $module, $prefix)
+    public static function routesMap(Router $router, $name, $controller, $parameters)
     {
-        $router->get('/', $module.'@index');
+        $router->get('/', $controller.'@index');
     }
 
 	public function index()

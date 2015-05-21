@@ -1,28 +1,28 @@
-<?php namespace SmallTeam\Dashboard\Modules\Auth;
+<?php namespace SmallTeam\Dashboard\Controller\Auth;
 
 use Illuminate\Routing\Router;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use SmallTeam\Dashboard\Controller\DashboardController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use SmallTeam\Dashboard\DashboardApp;
-use SmallTeam\Dashboard\Modules\DashboardModule;
+use SmallTeam\Dashboard\Dashboard;
 
 /**
- * PasswordBaseModule
+ * PasswordBaseController
  *
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @url www.max-kovpak.com
  * @date 09.05.2015
  * */
-class PasswordBaseModule extends DashboardModule
+class PasswordBaseController extends DashboardController
 {
     use ResetsPasswords;
 
     /** @var bool */
-    protected $guarded_module = false;
+    protected $guarded = false;
 
-    public function __construct(DashboardApp $app, Guard $auth = null, PasswordBroker $passwords = null)
+    public function __construct(Dashboard $app, Guard $auth = null, PasswordBroker $passwords = null)
     {
         parent::__construct($app);
 
@@ -58,13 +58,13 @@ class PasswordBaseModule extends DashboardModule
     /**
      * @inheritdoc
      * */
-    public static function routesMap(Router $router, $module_name, $module, $prefix)
+    public static function routesMap(Router $router, $name, $controller, $parameters)
     {
-        $router->get('/password/email', $module.'@getEmail');
-        $router->post('/password/email', $module.'@postEmail');
+        $router->get('/password/email', $controller.'@getEmail');
+        $router->post('/password/email', $controller.'@postEmail');
 
-        $router->get('/password/reset', $module.'@getReset');
-        $router->post('/password/reset', $module.'@postReset');
+        $router->get('/password/reset', $controller.'@getReset');
+        $router->post('/password/reset', $controller.'@postReset');
     }
 
 }

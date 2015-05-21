@@ -1,27 +1,30 @@
-<?php namespace SmallTeam\Dashboard;
+<?php namespace SmallTeam\Dashboard\Controller;
+
+use SmallTeam\Dashboard\Dashboard;
+use Illuminate\Routing\Router;
 
 /**
- * DashboardModuleInterface
+ * DashboardControllerInterface
  *
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @url www.max-kovpak.com
  * @date 09.05.2015
  * */
-interface DashboardModuleInterface
+interface DashboardControllerInterface
 {
 
-    public function __construct(DashboardApp $app);
+    public function __construct(Dashboard $app);
 
     /**
-     * Init module routes
+     * Init controller routes
      *
-     * @param \Illuminate\Routing\Router $router
-     * @param string $module_name
-     * @param string $module Module class name with namespace
-     * @param string $prefix Dashboard prefix
+     * @param Router $router
+     * @param string $name
+     * @param string $controller Controller class name with namespace
+     * @param string $parameters
      * @return void
      * */
-    public static function routesMap(\Illuminate\Routing\Router $router, $module_name, $module, $prefix);
+    public static function routesMap(Router $router, $name, $controller, $parameters);
 
     /**
      * Get dashboard name
@@ -33,7 +36,7 @@ interface DashboardModuleInterface
     /**
      * Get dashboard application
      *
-     * @return \SmallTeam\Dashboard\DashboardApp
+     * @return \SmallTeam\Dashboard\Dashboard
      * */
     public function getDashboard();
 

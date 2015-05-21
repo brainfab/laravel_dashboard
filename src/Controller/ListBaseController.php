@@ -1,15 +1,15 @@
-<?php namespace SmallTeam\Dashboard\Modules;
+<?php namespace SmallTeam\Dashboard\Controller;
 
-use \Illuminate\Routing\Router;
+use Illuminate\Routing\Router;
 
 /**
- * ListBaseModule
+ * ListBaseController
  *
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @url www.max-kovpak.com
  * @date 09.05.2015
  * */
-class ListBaseModule extends DashboardModule
+class ListBaseController extends DashboardController
 {
 
     /** @var string */
@@ -18,18 +18,18 @@ class ListBaseModule extends DashboardModule
     /**
      * @inheritdoc
      * */
-    public static function routesMap(Router $router, $module_name, $module, $prefix)
+    public static function routesMap(Router $router, $name, $controller, $parameters)
     {
-        $router->get('/'.$module_name, $module.'@index');
-        $router->get('/'.$module_name.'/page/{page_number}', $module.'@index')->where('page_number', '[0-9]+');
+        $router->get('/'.$name, $controller.'@index');
+        $router->get('/'.$name.'/page/{page_number}', $controller.'@index')->where('page_number', '[0-9]+');
 
-        $router->get('/'.$module_name.'/add', $module.'@getAdd');
-        $router->post('/'.$module_name.'/add', $module.'@postAdd');
+        $router->get('/'.$name.'/add', $controller.'@getAdd');
+        $router->post('/'.$name.'/add', $controller.'@postAdd');
 
-        $router->get('/'.$module_name.'/edit/{id}', $module.'@getEdit')->where('page_number', '[0-9]+');
-        $router->post('/'.$module_name.'/edit/{id}', $module.'@postEdit')->where('page_number', '[0-9]+');
+        $router->get('/'.$name.'/edit/{id}', $controller.'@getEdit')->where('page_number', '[0-9]+');
+        $router->post('/'.$name.'/edit/{id}', $controller.'@postEdit')->where('page_number', '[0-9]+');
 
-        $router->get('/'.$module_name.'/delete/{id}', $module.'@index')->where('page_number', '[0-9]+');
+        $router->get('/'.$name.'/delete/{id}', $controller.'@index')->where('page_number', '[0-9]+');
     }
 
     public function index()

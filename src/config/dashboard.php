@@ -23,9 +23,9 @@ return [
                     'handler' => 'SmallTeam\Dashboard\Security\NativeAclHandler'
                 ]
             ],
-            'modules' => [
-                '/' => 'SmallTeam\Dashboard\Modules\IndexBaseModule',
-//                'posts' => 'App\Dashboard\Modules\PostsModule',
+            'controllers' => [
+                '/' => 'SmallTeam\Dashboard\Controller\IndexBaseController',
+//                'posts' => 'App\Http\Controllers\Dashboard\PostsController',
             ]
         ],
     ],

@@ -3,13 +3,13 @@
 use \Illuminate\Routing\Router;
 
 /**
- * DashboardApp
+ * Dashboard
  *
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @url www.max-kovpak.com
  * @date 09.05.2015
  * */
-class DashboardApp implements DashboardAppInterface
+class Dashboard implements DashboardInterface
 {
     /** @var bool */
     private $booted = false;
