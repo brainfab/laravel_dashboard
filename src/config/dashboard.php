@@ -15,6 +15,7 @@ return [
             'domain' => null, //routes domain, not required
             'namespace' => null, //routes namespace, not required
             'default_locale' => 'en',
+
             'security' => [
                 'auth' => [
                     'handler' => 'SmallTeam\Dashboard\Security\LaravelAuthHandler',
@@ -23,9 +24,9 @@ return [
                     'handler' => 'SmallTeam\Dashboard\Security\NativeAclHandler'
                 ]
             ],
-            'controllers' => [
-                '/' => 'SmallTeam\Dashboard\Controller\IndexBaseController',
-//                'posts' => 'App\Http\Controllers\Dashboard\PostsController',
+
+            'entities' => [
+//                'posts' => 'App\Admin\Entity\Post',
             ]
         ],
     ],
