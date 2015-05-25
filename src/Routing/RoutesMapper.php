@@ -14,6 +14,21 @@ class RoutesMapper
     /** @var array|null */
     private $dashboards;
 
+    /** @var array */
+    private static $registered = [];
+
+    /**
+     * Check controller registered for dashboard
+     *
+     * @param string $dashboard_alias
+     * @param string $controller_prefix
+     * @return bool
+     * */
+    public static function isRegistered($dashboard_alias, $controller_prefix)
+    {
+        return isset(self::$registered[$dashboard_alias][$controller_prefix]);
+    }
+
     /**
      * RoutesMapper constructor
      *
@@ -35,8 +50,11 @@ class RoutesMapper
             return;
         }
 
-        foreach ($this->dashboards as $dashboard) {
+        foreach ($this->dashboards as $dashboard_alias => $dashboard) {
             $group = new \stdClass();
+
+            $group->dashboard_alias = $dashboard_alias;
+
             $group->entities = isset($dashboard['entities']) && is_array($dashboard['entities']) && count($dashboard['entities']) > 0
                 ? $dashboard['entities']
                 : [];
@@ -51,6 +69,17 @@ class RoutesMapper
                 $group->entities['__password'] = $dashboard['security']['auth']['password_entity'];
             }
 
+            if(isset($dashboard['default_entity']) && !empty($dashboard['default_entity'])) {
+                $has_in_list = array_search($dashboard['default_entity'], $group->entities);
+                if($has_in_list !== false) {
+                    unset($this->entities[$has_in_list]);
+                }
+
+                $group->entities['/'] = $dashboard['default_entity'];
+            } else {
+                $group->entities['/'] = self::BASE_INDEX_CONTROLLER;
+            }
+
             $group->namespace = isset($dashboard['namespace']) && !empty($dashboard['namespace']) ? $dashboard['namespace'] : null;
             $group->prefix = isset($dashboard['prefix']) && !empty($dashboard['prefix']) ? $dashboard['prefix'] : null;
             $group->domain = isset($dashboard['domain']) && !empty($dashboard['domain']) ? $dashboard['domain'] : null;
@@ -62,6 +91,11 @@ class RoutesMapper
                     $entity_ob = new $entity();
                     $controller = $entity_ob->getController();
                     $controller = $controller === null ? self::BASE_LIST_CONTROLLER : $controller;
+
+                    if(RoutesMapper::isRegistered($this->dashboard_alias, $name)) {
+                        continue;
+                    }
+
                     call_user_func([$controller, 'routesMap'], $router, $name, $controller, [
                         'namespace' => $this->namespace,
                         'prefix' => $this->prefix,

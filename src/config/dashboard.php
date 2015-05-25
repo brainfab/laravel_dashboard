@@ -27,6 +27,7 @@ return [
                 ]
             ],
 
+            'default_entity' => 'SmallTeam\Dashboard\Entity\IndexBaseEntity',
             'entities' => [
 //                'posts' => 'App\Admin\Entity\Post',
             ]
