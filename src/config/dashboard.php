@@ -19,6 +19,8 @@ return [
             'security' => [
                 'auth' => [
                     'handler' => 'SmallTeam\Dashboard\Security\LaravelAuthHandler',
+                    'auth_entity' => 'SmallTeam\Dashboard\Entity\AuthBaseEntity',
+                    'password_entity' => 'SmallTeam\Dashboard\Entity\PasswordBaseEntity',
                 ],
                 'acl' => [
                     'handler' => 'SmallTeam\Dashboard\Security\NativeAclHandler'

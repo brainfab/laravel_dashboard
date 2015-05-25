@@ -2,9 +2,14 @@
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\Str;
+use SmallTeam\Dashboard\Entity;
 
 class RoutesMapper
 {
+
+    const BASE_LIST_CONTROLLER = 'SmallTeam\Dashboard\Controller\ListBaseController';
+    const BASE_SINGLE_CONTROLLER = 'SmallTeam\Dashboard\Controller\SingleBaseController';
+    const BASE_INDEX_CONTROLLER = 'SmallTeam\Dashboard\Controller\IndexBaseController';
 
     /** @var array|null */
     private $dashboards;
@@ -32,20 +37,31 @@ class RoutesMapper
 
         foreach ($this->dashboards as $dashboard) {
             $group = new \stdClass();
-            $group->controllers = isset($dashboard['controllers']) && is_array($dashboard['controllers']) && count($dashboard['controllers']) > 0
-                ? $dashboard['controllers']
+            $group->entities = isset($dashboard['entities']) && is_array($dashboard['entities']) && count($dashboard['entities']) > 0
+                ? $dashboard['entities']
                 : [];
 
-            $group->controllers['__auth'] = 'SmallTeam\Dashboard\Controller\Auth\AuthBaseController';
-            $group->controllers['__password'] = 'SmallTeam\Dashboard\Controller\Auth\PasswordBaseController';
+            if(isset($dashboard['security']['auth']['auth_entity']) && !empty($dashboard['security']['auth']['auth_entity']))
+            {
+                $group->entities['__auth'] = $dashboard['security']['auth']['auth_entity'];
+            }
+
+            if(isset($dashboard['security']['auth']['password_entity']) && !empty($dashboard['security']['auth']['password_entity']))
+            {
+                $group->entities['__password'] = $dashboard['security']['auth']['password_entity'];
+            }
 
             $group->namespace = isset($dashboard['namespace']) && !empty($dashboard['namespace']) ? $dashboard['namespace'] : null;
             $group->prefix = isset($dashboard['prefix']) && !empty($dashboard['prefix']) ? $dashboard['prefix'] : null;
             $group->domain = isset($dashboard['domain']) && !empty($dashboard['domain']) ? $dashboard['domain'] : null;
 
             $cl = function(Router $router) {
-                foreach ($this->controllers as $name => $controller)
+                foreach ($this->entities as $name => $entity)
                 {
+                    /** @var Entity $entity_ob */
+                    $entity_ob = new $entity();
+                    $controller = $entity_ob->getController();
+                    $controller = $controller === null ? self::BASE_LIST_CONTROLLER : $controller;
                     call_user_func([$controller, 'routesMap'], $router, $name, $controller, [
                         'namespace' => $this->namespace,
                         'prefix' => $this->prefix,
