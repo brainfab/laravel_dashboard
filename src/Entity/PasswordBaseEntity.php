@@ -10,7 +10,8 @@
 class PasswordBaseEntity extends BaseEntity
 {
 
-    /** @var string */
+    protected $name = 'Password';
+
     protected $controller = 'SmallTeam\Dashboard\Controller\Auth\PasswordBaseController';
 
 }

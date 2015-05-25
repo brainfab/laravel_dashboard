@@ -3,6 +3,7 @@
 use Illuminate\Routing\Router;
 use Illuminate\Routing\Controller as BaseController;
 use SmallTeam\Dashboard\Dashboard;
+use SmallTeam\Dashboard\Entity\BaseEntity;
 
 /**
  * DashboardController - base controller superclass

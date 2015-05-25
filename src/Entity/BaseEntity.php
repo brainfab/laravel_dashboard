@@ -11,6 +11,9 @@ abstract class BaseEntity
 {
 
     /** @var string */
+    protected $name;
+
+    /** @var string */
     protected $model;
 
     /** @var string */
@@ -18,6 +21,16 @@ abstract class BaseEntity
 
     /** @var array */
     protected $fields;
+
+    /**
+     * Get entity name
+     *
+     * @return string|null
+     * */
+    public function getName()
+    {
+        return trans('dashboard::phrases.'.$this->name);
+    }
 
     /**
      * Get model name

@@ -1,5 +1,7 @@
 <?php
 return [
-    'home_page' => 'Home',
+    'Home' => 'Home',
+    'Auth' => 'Auth',
+    'Password' => 'Password',
     'Search' => 'Search',
 ];

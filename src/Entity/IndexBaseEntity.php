@@ -10,7 +10,8 @@
 class IndexBaseEntity extends BaseEntity
 {
 
-    /** @var string */
+    protected $name = 'Home';
+
     protected $controller = 'SmallTeam\Dashboard\Controller\IndexBaseController';
 
 }

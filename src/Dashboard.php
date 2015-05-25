@@ -15,10 +15,13 @@ class Dashboard implements DashboardInterface
     private $booted = false;
 
     /** @var string */
-    private $dashboard_alias = null;
+    private $entity;
 
     /** @var string */
-    private $dashboard_prefix = null;
+    private $dashboard_alias;
+
+    /** @var string */
+    private $dashboard_prefix;
 
     final public function __construct()
     {
@@ -51,6 +54,10 @@ class Dashboard implements DashboardInterface
             throw new \RuntimeException('Dashboard not found for current route');
         }
 
+        dd($action);die();
+        $entity_name = substr($action['uses'], 0, strpos($action['uses'], '@'));
+        $this->entity = new $entity_name();
+        dd($this->entity);die();
         $prefix = $this->getConfig('prefix', '/');
         $this->dashboard_prefix = substr($prefix, (strlen($prefix)-1), strlen($prefix)) != '/' ? $prefix.'/' : $prefix;
         \View::share('dashboard', $this);

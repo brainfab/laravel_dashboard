@@ -30,6 +30,32 @@ class RoutesMapper
     }
 
     /**
+     * Register entity for dashboard
+     *
+     * @param string $dashboard_alias
+     * @param string $controller_prefix
+     * @param string $entity
+     * @return void
+     * */
+    public static function register($dashboard_alias, $controller_prefix, $entity)
+    {
+        self::$registered[$dashboard_alias][$controller_prefix] = $entity;
+    }
+
+    /**
+     * Check controller registered for dashboard
+     *
+     * @param string $dashboard_alias
+     * @param string $controller_prefix
+     * @param string $entity
+     * @return bool
+     * */
+    public static function register($dashboard_alias, $controller_prefix, $entity)
+    {
+        self::$registered[$dashboard_alias][$controller_prefix] = $entity;
+    }
+
+    /**
      * RoutesMapper constructor
      *
      * @param array|null $dashboards
@@ -87,7 +113,7 @@ class RoutesMapper
             $cl = function(Router $router) {
                 foreach ($this->entities as $name => $entity)
                 {
-                    /** @var Entity $entity_ob */
+                    /** @var Entity\BaseEntity $entity_ob */
                     $entity_ob = new $entity();
                     $controller = $entity_ob->getController();
                     $controller = $controller === null ? self::BASE_LIST_CONTROLLER : $controller;
@@ -101,6 +127,8 @@ class RoutesMapper
                         'prefix' => $this->prefix,
                         'domain' => $this->domain,
                     ]);
+
+                    RoutesMapper::register($this->dashboard_alias, $name, $entity);
                 }
             };
 
