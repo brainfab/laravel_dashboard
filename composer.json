@@ -15,5 +15,8 @@
         "php": ">=5.4.0",
         "laravel/framework": "5.0.*"
     },
+    "autoload": {
+      "psr-4": {"SmallTeam\\Dashboard\\": "src"}
+    },
     "minimum-stability": "stable"
 }
