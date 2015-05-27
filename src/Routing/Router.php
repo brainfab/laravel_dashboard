@@ -13,7 +13,7 @@ use SmallTeam\Dashboard\Entity\EntityInterface;
  * */
 class Router
 {
-    /** @var Router */
+    /** @var BaseRouter */
     protected $router;
 
     /** @var EntityInterface */
