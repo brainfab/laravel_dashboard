@@ -1,9 +1,16 @@
 <?php namespace SmallTeam\Dashboard\Routing;
 
-use Illuminate\Routing\Router;
+use SmallTeam\Dashboard\Routing\Router;
 use Illuminate\Support\Str;
 use SmallTeam\Dashboard\Entity;
 
+/**
+ * RoutesMapper
+ *
+ * @author Max Kovpak <max_kovpak@hotmail.com>
+ * @url www.max-kovpak.com
+ * @date 09.05.2015
+ * */
 class RoutesMapper
 {
 
@@ -36,19 +43,6 @@ class RoutesMapper
      * @param string $controller_prefix
      * @param string $entity
      * @return void
-     * */
-    public static function register($dashboard_alias, $controller_prefix, $entity)
-    {
-        self::$registered[$dashboard_alias][$controller_prefix] = $entity;
-    }
-
-    /**
-     * Check controller registered for dashboard
-     *
-     * @param string $dashboard_alias
-     * @param string $controller_prefix
-     * @param string $entity
-     * @return bool
      * */
     public static function register($dashboard_alias, $controller_prefix, $entity)
     {
@@ -110,7 +104,7 @@ class RoutesMapper
             $group->prefix = isset($dashboard['prefix']) && !empty($dashboard['prefix']) ? $dashboard['prefix'] : null;
             $group->domain = isset($dashboard['domain']) && !empty($dashboard['domain']) ? $dashboard['domain'] : null;
 
-            $cl = function(Router $router) {
+            $cl = function() {
                 foreach ($this->entities as $name => $entity)
                 {
                     /** @var Entity\BaseEntity $entity_ob */
@@ -122,10 +116,12 @@ class RoutesMapper
                         continue;
                     }
 
+                    $router = new Router($entity_ob);
                     call_user_func([$controller, 'routesMap'], $router, $name, $controller, [
                         'namespace' => $this->namespace,
                         'prefix' => $this->prefix,
                         'domain' => $this->domain,
+                        'entity' => $entity_ob,
                     ]);
 
                     RoutesMapper::register($this->dashboard_alias, $name, $entity);

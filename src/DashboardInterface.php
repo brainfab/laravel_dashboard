@@ -1,5 +1,7 @@
 <?php namespace SmallTeam\Dashboard;
 
+use SmallTeam\Dashboard\Entity\EntityInterface;
+
 /**
  * DashboardInterface
  *
@@ -47,5 +49,12 @@ interface DashboardInterface
      * @return string
      * */
     public function getPrefix();
+
+    /**
+     * Get dashboard entity
+     *
+     * @return EntityInterface
+     * */
+    public function getEntity();
 
 }

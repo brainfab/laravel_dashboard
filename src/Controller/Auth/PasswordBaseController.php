@@ -1,6 +1,6 @@
 <?php namespace SmallTeam\Dashboard\Controller\Auth;
 
-use Illuminate\Routing\Router;
+use SmallTeam\Dashboard\Routing\Router;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Foundation\Auth\ResetsPasswords;

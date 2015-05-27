@@ -1,6 +1,6 @@
 <?php namespace SmallTeam\Dashboard\Controller\Auth;
 
-use Illuminate\Routing\Router;
+use SmallTeam\Dashboard\Routing\Router;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -63,9 +63,7 @@ class AuthBaseController extends DashboardController
      * */
     public static function routesMap(Router $router, $name, $controller, $parameters)
     {
-        $router->get('/auth/register', $controller.'@getRegister');
         $router->post('/auth/register', $controller.'@postRegister');
-
         $router->get('/auth/login', $controller.'@getLogin');
         $router->post('/auth/login', $controller.'@postLogin');
 

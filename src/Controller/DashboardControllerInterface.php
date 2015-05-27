@@ -1,7 +1,7 @@
 <?php namespace SmallTeam\Dashboard\Controller;
 
 use SmallTeam\Dashboard\Dashboard;
-use Illuminate\Routing\Router;
+use SmallTeam\Dashboard\Routing\Router;
 
 /**
  * DashboardControllerInterface

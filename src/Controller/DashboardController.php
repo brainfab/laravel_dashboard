@@ -1,6 +1,6 @@
 <?php namespace SmallTeam\Dashboard\Controller;
 
-use Illuminate\Routing\Router;
+use SmallTeam\Dashboard\Routing\Router;
 use Illuminate\Routing\Controller as BaseController;
 use SmallTeam\Dashboard\Dashboard;
 use SmallTeam\Dashboard\Entity\BaseEntity;

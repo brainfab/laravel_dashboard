@@ -7,7 +7,7 @@
  * @url www.max-kovpak.com
  * @date 24.05.2015
  * */
-abstract class BaseEntity
+abstract class BaseEntity implements EntityInterface
 {
 
     /** @var string */

@@ -1,6 +1,7 @@
 <?php namespace SmallTeam\Dashboard;
 
-use \Illuminate\Routing\Router;
+use Illuminate\Routing\Router;
+use SmallTeam\Dashboard\Entity\EntityInterface;
 
 /**
  * Dashboard
@@ -14,7 +15,7 @@ class Dashboard implements DashboardInterface
     /** @var bool */
     private $booted = false;
 
-    /** @var string */
+    /** @var EntityInterface */
     private $entity;
 
     /** @var string */
@@ -41,7 +42,6 @@ class Dashboard implements DashboardInterface
         $router = app()->router;
         $current = $router->current();
         $action = $current ? $current->getAction() : null;
-
         $dashboards = config('dashboard.dashboards');
         foreach ($dashboards as $name => $dashboard) {
             if($dashboard['prefix'] == $action['prefix'] && $dashboard['namespace'] == $action['namespace'] && $dashboard['domain'] == $action['domain']) {
@@ -54,10 +54,7 @@ class Dashboard implements DashboardInterface
             throw new \RuntimeException('Dashboard not found for current route');
         }
 
-        dd($action);die();
-        $entity_name = substr($action['uses'], 0, strpos($action['uses'], '@'));
-        $this->entity = new $entity_name();
-        dd($this->entity);die();
+        $this->entity = $current->entity;
         $prefix = $this->getConfig('prefix', '/');
         $this->dashboard_prefix = substr($prefix, (strlen($prefix)-1), strlen($prefix)) != '/' ? $prefix.'/' : $prefix;
         \View::share('dashboard', $this);
