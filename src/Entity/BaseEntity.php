@@ -29,7 +29,7 @@ abstract class BaseEntity implements EntityInterface
      * */
     public function getName()
     {
-        return trans('dashboard::phrases.'.$this->name);
+        return $this->name;
     }
 
     /**
