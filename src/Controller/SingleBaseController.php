@@ -17,8 +17,8 @@ class SingleBaseController extends DashboardController
      * */
     public static function routesMap(Router $router, $name, $controller, $parameters)
     {
-        $router->get('/'.$name, $controller.'@getIndex');
-        $router->post('/'.$name, $controller.'@save');
+        $router->get('/'.$name, 'getIndex');
+        $router->post('/'.$name, 'save');
     }
 
     function getIndex()

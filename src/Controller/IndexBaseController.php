@@ -17,12 +17,12 @@ class IndexBaseController extends DashboardController
      * */
     public static function routesMap(Router $router, $name, $controller, $parameters)
     {
-        $router->get('/', $controller.'@index');
+        $router->get('/', 'index');
     }
 
 	public function index()
 	{
-		return view('dashboard::index');
+        return view('dashboard::index');
 	}
 
 }

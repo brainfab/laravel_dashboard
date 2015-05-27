@@ -60,11 +60,10 @@ class PasswordBaseController extends DashboardController
      * */
     public static function routesMap(Router $router, $name, $controller, $parameters)
     {
-        $router->get('/password/email', $controller.'@getEmail');
-        $router->post('/password/email', $controller.'@postEmail');
-
-        $router->get('/password/reset', $controller.'@getReset');
-        $router->post('/password/reset', $controller.'@postReset');
+        $router->get('/password/email', 'getEmail');
+        $router->post('/password/email', 'postEmail');
+        $router->get('/password/reset', 'getReset');
+        $router->post('/password/reset', 'postReset');
     }
 
 }

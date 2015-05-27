@@ -63,11 +63,10 @@ class AuthBaseController extends DashboardController
      * */
     public static function routesMap(Router $router, $name, $controller, $parameters)
     {
-        $router->post('/auth/register', $controller.'@postRegister');
-        $router->get('/auth/login', $controller.'@getLogin');
-        $router->post('/auth/login', $controller.'@postLogin');
-
-        $router->get('/auth/logout', $controller.'@getLogout');
+        $router->post('/auth/register', 'postRegister');
+        $router->get('/auth/login', 'getLogin');
+        $router->post('/auth/login', 'postLogin');
+        $router->get('/auth/logout', 'getLogout');
     }
 
 }

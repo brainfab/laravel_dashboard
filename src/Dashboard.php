@@ -24,6 +24,9 @@ class Dashboard implements DashboardInterface
     /** @var string */
     private $dashboard_prefix;
 
+    /**
+     * Dashboard constructor
+     * */
     final public function __construct()
     {
         $this->boot();
@@ -92,6 +95,14 @@ class Dashboard implements DashboardInterface
     public function getPrefix()
     {
         return $this->dashboard_prefix;
+    }
+
+    /**
+     * @inheritdoc
+     * */
+    public function getEntity()
+    {
+        return $this->entity;
     }
 
 }

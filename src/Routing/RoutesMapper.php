@@ -116,7 +116,7 @@ class RoutesMapper
                         continue;
                     }
 
-                    $router = new Router($entity_ob);
+                    $router = new Router($entity_ob, $controller);
                     call_user_func([$controller, 'routesMap'], $router, $name, $controller, [
                         'namespace' => $this->namespace,
                         'prefix' => $this->prefix,

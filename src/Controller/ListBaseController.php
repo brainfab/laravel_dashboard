@@ -20,16 +20,16 @@ class ListBaseController extends DashboardController
      * */
     public static function routesMap(Router $router, $name, $controller, $parameters)
     {
-        $router->get('/'.$name, $controller.'@index');
-        $router->get('/'.$name.'/page/{page_number}', $controller.'@index')->where('page_number', '[0-9]+');
+        $router->get('/'.$name, 'index');
+        $router->get('/'.$name.'/page/{page_number}', 'index')->where('page_number', '[0-9]+');
 
-        $router->get('/'.$name.'/add', $controller.'@getAdd');
-        $router->post('/'.$name.'/add', $controller.'@postAdd');
+        $router->get('/'.$name.'/add', 'getAdd');
+        $router->post('/'.$name.'/add', 'postAdd');
 
-        $router->get('/'.$name.'/edit/{id}', $controller.'@getEdit')->where('page_number', '[0-9]+');
-        $router->post('/'.$name.'/edit/{id}', $controller.'@postEdit')->where('page_number', '[0-9]+');
+        $router->get('/'.$name.'/edit/{id}', 'getEdit')->where('page_number', '[0-9]+');
+        $router->post('/'.$name.'/edit/{id}', 'postEdit')->where('page_number', '[0-9]+');
 
-        $router->get('/'.$name.'/delete/{id}', $controller.'@index')->where('page_number', '[0-9]+');
+        $router->get('/'.$name.'/delete/{id}', 'index')->where('page_number', '[0-9]+');
     }
 
     public function index()
