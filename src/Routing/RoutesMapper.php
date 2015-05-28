@@ -1,8 +1,7 @@
 <?php namespace SmallTeam\Dashboard\Routing;
 
-use SmallTeam\Dashboard\Routing\Router;
-use Illuminate\Support\Str;
 use SmallTeam\Dashboard\Entity;
+use Closure;
 
 /**
  * RoutesMapper
@@ -41,12 +40,11 @@ class RoutesMapper
      *
      * @param string $dashboard_alias
      * @param string $controller_prefix
-     * @param string $entity
      * @return void
      * */
-    public static function register($dashboard_alias, $controller_prefix, $entity)
+    public static function noteAsRegistered($dashboard_alias, $controller_prefix)
     {
-        self::$registered[$dashboard_alias][$controller_prefix] = $entity;
+        self::$registered[$dashboard_alias][$controller_prefix] = true;
     }
 
     /**
@@ -71,38 +69,29 @@ class RoutesMapper
         }
 
         foreach ($this->dashboards as $dashboard_alias => $dashboard) {
-            $group = new \stdClass();
+            $group['dashboard_alias'] = $dashboard_alias;
 
-            $group->dashboard_alias = $dashboard_alias;
-
-            $group->entities = isset($dashboard['entities']) && is_array($dashboard['entities']) && count($dashboard['entities']) > 0
+            $group['entities'] = isset($dashboard['entities']) && is_array($dashboard['entities']) && count($dashboard['entities']) > 0
                 ? $dashboard['entities']
                 : [];
 
             if(isset($dashboard['security']['auth']['auth_entity']) && !empty($dashboard['security']['auth']['auth_entity']))
             {
-                $group->entities['__auth'] = $dashboard['security']['auth']['auth_entity'];
+                $group['entities']['__auth'] = $dashboard['security']['auth']['auth_entity'];
             }
 
             if(isset($dashboard['security']['auth']['password_entity']) && !empty($dashboard['security']['auth']['password_entity']))
             {
-                $group->entities['__password'] = $dashboard['security']['auth']['password_entity'];
+                $group['entities']['__password'] = $dashboard['security']['auth']['password_entity'];
             }
 
-            if(isset($dashboard['default_entity']) && !empty($dashboard['default_entity'])) {
-                $has_in_list = array_search($dashboard['default_entity'], $group->entities);
-                if($has_in_list !== false) {
-                    unset($this->entities[$has_in_list]);
-                }
-
-                $group->entities['/'] = $dashboard['default_entity'];
-            } else {
-                $group->entities['/'] = self::BASE_INDEX_CONTROLLER;
+            if(!isset($group['entities']['/'])) {
+                $group['entities']['/'] = 'SmallTeam\Dashboard\Entity\IndexBaseEntity';
             }
 
-            $group->namespace = isset($dashboard['namespace']) && !empty($dashboard['namespace']) ? $dashboard['namespace'] : null;
-            $group->prefix = isset($dashboard['prefix']) && !empty($dashboard['prefix']) ? $dashboard['prefix'] : null;
-            $group->domain = isset($dashboard['domain']) && !empty($dashboard['domain']) ? $dashboard['domain'] : null;
+            $group['namespace'] = isset($dashboard['namespace']) && !empty($dashboard['namespace']) ? $dashboard['namespace'] : null;
+            $group['prefix'] = isset($dashboard['prefix']) && !empty($dashboard['prefix']) ? $dashboard['prefix'] : null;
+            $group['domain'] = isset($dashboard['domain']) && !empty($dashboard['domain']) ? $dashboard['domain'] : null;
 
             $cl = function() {
                 foreach ($this->entities as $name => $entity)
@@ -124,16 +113,16 @@ class RoutesMapper
                         'entity' => $entity_ob,
                     ]);
 
-                    RoutesMapper::register($this->dashboard_alias, $name, $entity);
+                    RoutesMapper::noteAsRegistered($this->dashboard_alias, $name);
                 }
             };
 
-            $cl = \Closure::bind($cl, $group);
+            $cl = Closure::bind($cl, (object)$group);
 
             \Route::group([
-                'namespace' => $group->namespace,
-                'prefix' => $group->prefix,
-                'domain' => $group->domain
+                'namespace' => $group['namespace'],
+                'prefix' => $group['prefix'],
+                'domain' => $group['domain']
             ], $cl);
 
             unset($cl, $group);

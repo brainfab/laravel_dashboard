@@ -37,6 +37,13 @@ interface DashboardInterface
     public function getName();
 
     /**
+     * Get dashboard short name
+     *
+     * @return string
+     * */
+    public function getShortName();
+
+    /**
      * Get dashboard alias
      *
      * @return string

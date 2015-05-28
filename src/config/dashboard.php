@@ -11,6 +11,7 @@ return [
     'dashboards' => [
         'admin' => [
             'name' => 'My Admin Dashboard',
+            'short_name' => 'AD',
             'prefix' => 'admin', //routes prefix, not required
             'domain' => null, //routes domain, not required
             'namespace' => null, //routes namespace, not required
@@ -26,8 +27,6 @@ return [
                     'handler' => 'SmallTeam\Dashboard\Security\NativeAclHandler'
                 ]
             ],
-
-            'default_entity' => 'SmallTeam\Dashboard\Entity\IndexBaseEntity',
             'entities' => [
 //                'posts' => 'App\Admin\Entity\Post',
             ]

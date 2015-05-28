@@ -84,6 +84,14 @@ class Dashboard implements DashboardInterface
     /**
      * @inheritdoc
      * */
+    public function getShortName()
+    {
+        return $this->getConfig('short_name');
+    }
+
+    /**
+     * @inheritdoc
+     * */
     public function getAlias()
     {
         return $this->dashboard_alias;
