@@ -11,25 +11,25 @@ abstract class BaseEntity implements EntityInterface
 {
 
     /** @var string */
-    protected $name;
+    protected static $name;
 
     /** @var string */
-    protected $model;
+    protected static $model;
 
     /** @var string */
-    protected $controller;
+    protected static $controller;
 
     /** @var array */
-    protected $fields;
+    protected static $fields;
 
     /**
      * Get entity name
      *
      * @return string|null
      * */
-    public function getName()
+    public static function getName()
     {
-        return $this->name;
+        return static::$name;
     }
 
     /**
@@ -37,9 +37,9 @@ abstract class BaseEntity implements EntityInterface
      *
      * @return string|null
      * */
-    public function getModel()
+    public static function getModel()
     {
-        return $this->model;
+        return static::$model;
     }
 
     /**
@@ -47,9 +47,9 @@ abstract class BaseEntity implements EntityInterface
      *
      * @return string|null
      * */
-    public function getController()
+    public static function getController()
     {
-        return $this->controller;
+        return static::$controller;
     }
 
     /**
@@ -57,9 +57,9 @@ abstract class BaseEntity implements EntityInterface
      *
      * @return array|null
      * */
-    public function getFields()
+    public static function getFields()
     {
-        return $this->fields;
+        return static::$fields;
     }
 
 }

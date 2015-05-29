@@ -10,8 +10,8 @@
 class IndexBaseEntity extends BaseEntity
 {
 
-    protected $name = 'Home';
+    protected static $name = 'Home';
 
-    protected $controller = 'SmallTeam\Dashboard\Controller\IndexBaseController';
+    protected static $controller = 'SmallTeam\Dashboard\Controller\IndexBaseController';
 
 }

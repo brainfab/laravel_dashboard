@@ -14,27 +14,27 @@ interface EntityInterface
      *
      * @return string|null
      * */
-    public function getName();
+    public static function getName();
 
     /**
      * Get model name
      *
      * @return string|null
      * */
-    public function getModel();
+    public static function getModel();
 
     /**
      * Get controller name
      *
      * @return string|null
      * */
-    public function getController();
+    public static function getController();
 
     /**
      * Get fields list
      *
      * @return array|null
      * */
-    public function getFields();
+    public static function getFields();
 
 }

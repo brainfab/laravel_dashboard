@@ -93,24 +93,24 @@ class RoutesMapper
             $group['prefix'] = isset($dashboard['prefix']) && !empty($dashboard['prefix']) ? $dashboard['prefix'] : null;
             $group['domain'] = isset($dashboard['domain']) && !empty($dashboard['domain']) ? $dashboard['domain'] : null;
 
-            $cl = function() {
+            $cl = function()
+            {
                 foreach ($this->entities as $name => $entity)
                 {
-                    /** @var Entity\BaseEntity $entity_ob */
-                    $entity_ob = new $entity();
-                    $controller = $entity_ob->getController();
+                    /** @var Entity\BaseEntity $entity */
+                    $controller = $entity::getController();
                     $controller = $controller === null ? self::BASE_LIST_CONTROLLER : $controller;
 
                     if(RoutesMapper::isRegistered($this->dashboard_alias, $name)) {
                         continue;
                     }
 
-                    $router = new Router($entity_ob, $controller);
+                    $router = new Router($entity, $controller);
                     call_user_func([$controller, 'routesMap'], $router, $name, $controller, [
                         'namespace' => $this->namespace,
                         'prefix' => $this->prefix,
                         'domain' => $this->domain,
-                        'entity' => $entity_ob,
+                        'entity' => $entity,
                     ]);
 
                     RoutesMapper::noteAsRegistered($this->dashboard_alias, $name);

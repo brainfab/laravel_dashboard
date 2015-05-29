@@ -24,7 +24,7 @@ class Router
     /** @var BaseRouter */
     protected $router;
 
-    /** @var EntityInterface */
+    /** @var string */
     protected $entity;
 
     /** @var string */
@@ -36,7 +36,7 @@ class Router
     /**
      * Router constructor
      *
-     * @param EntityInterface $entity
+     * @param string $entity
      * @param string $controller_name
      * */
     public function __construct($entity, $controller_name)

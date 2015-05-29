@@ -10,8 +10,8 @@
 class PasswordBaseEntity extends BaseEntity
 {
 
-    protected $name = 'Password';
+    protected static $name = 'Password';
 
-    protected $controller = 'SmallTeam\Dashboard\Controller\Auth\PasswordBaseController';
+    protected static $controller = 'SmallTeam\Dashboard\Controller\Auth\PasswordBaseController';
 
 }
