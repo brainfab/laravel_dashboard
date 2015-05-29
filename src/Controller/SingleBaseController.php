@@ -23,12 +23,12 @@ class SingleBaseController extends DashboardController
 
     function getIndex()
     {
-        return get_class($this).'::index';
+        return __METHOD__;
     }
 
     function save()
     {
-        return get_class($this).'::index';
+        return __METHOD__;
     }
 
 }

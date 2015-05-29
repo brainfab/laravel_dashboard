@@ -26,25 +26,27 @@ class ListBaseController extends DashboardController
         $router->get('/'.$name.'/add', 'getAdd');
         $router->post('/'.$name.'/add', 'postAdd');
 
-        $router->get('/'.$name.'/edit/{id}', 'getEdit')->where('page_number', '[0-9]+');
-        $router->post('/'.$name.'/edit/{id}', 'postEdit')->where('page_number', '[0-9]+');
+        $router->get('/'.$name.'/{id}/edit', 'getEdit')->where('id', '[0-9]+');
+        $router->post('/'.$name.'/{id}/edit', 'postEdit')->where('id', '[0-9]+');
 
-        $router->get('/'.$name.'/delete/{id}', 'index')->where('page_number', '[0-9]+');
+        $router->get('/'.$name.'/{id}/show', 'getShow')->where('id', '[0-9]+');
+
+        $router->get('/'.$name.'/{id}/delete', 'index')->where('id', '[0-9]+');
     }
 
     public function index()
     {
-        return get_class($this).'::anyIndex';
+        return __METHOD__;
     }
 
     public function getAdd()
     {
-        return get_class($this).'::anyAdd';
+        return __METHOD__;
     }
 
     public function postAdd()
     {
-        return get_class($this).'::anyAdd';
+        return __METHOD__;
     }
 
     public function getEdit($id = null)
@@ -54,7 +56,17 @@ class ListBaseController extends DashboardController
             abort(404);
         }
 
-        return get_class($this).'::anyEdit';
+        return __METHOD__;
+    }
+
+    public function getShow($id = null)
+    {
+        $id = intval($id);
+        if($id <= 0) {
+            abort(404);
+        }
+
+        return __METHOD__;
     }
 
     public function postEdit($id = null)
@@ -64,12 +76,12 @@ class ListBaseController extends DashboardController
             abort(404);
         }
 
-        return get_class($this).'::anyEdit';
+        return __METHOD__;
     }
 
     public function delete($id = null)
     {
-        return get_class($this).'::anyDelete';
+        return __METHOD__;
     }
 
 }
