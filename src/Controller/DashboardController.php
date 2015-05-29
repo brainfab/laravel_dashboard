@@ -18,8 +18,8 @@ class DashboardController extends BaseController implements DashboardControllerI
     /** @var Dashboard */
     private $dashboard;
 
-    /** @var bool */
-    protected $guarded = false;
+    /** @var bool|null */
+    protected $guarded = null;
 
     /** @var array|null */
     protected $guarded_only = null;
@@ -33,9 +33,11 @@ class DashboardController extends BaseController implements DashboardControllerI
     /** @var null */
     private $menu = null;
 
-    public function __construct(Dashboard $app)
+    public function __construct(Dashboard $dashboard)
     {
-        $this->dashboard = $app;
+        $this->dashboard = $dashboard;
+
+        $this->guarded = $this->guarded === null ? $dashboard->getConfig('security.auth.enabled', false) : $this->guarded;
 
         if($this->guarded) {
             $options = [];

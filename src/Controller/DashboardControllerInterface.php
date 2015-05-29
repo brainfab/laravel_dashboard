@@ -13,7 +13,7 @@ use SmallTeam\Dashboard\Routing\Router;
 interface DashboardControllerInterface
 {
 
-    public function __construct(Dashboard $app);
+    public function __construct(Dashboard $dashboard);
 
     /**
      * Init controller routes

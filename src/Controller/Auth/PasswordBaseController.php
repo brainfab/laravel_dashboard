@@ -22,13 +22,13 @@ class PasswordBaseController extends DashboardController
     /** @var bool */
     protected $guarded = false;
 
-    public function __construct(Dashboard $app, Guard $auth = null, PasswordBroker $passwords = null)
+    public function __construct(Dashboard $dashboard, Guard $auth = null, PasswordBroker $passwords = null)
     {
-        parent::__construct($app);
+        parent::__construct($dashboard);
 
         $this->auth = $auth;
         $this->passwords = $passwords;
-        $this->redirectPath = url($app->getPrefix());
+        $this->redirectPath = url($dashboard->getPrefix());
         $this->subject = 'Your Password Reset Link';
 
         $this->middleware($this->getGuestMiddleware());

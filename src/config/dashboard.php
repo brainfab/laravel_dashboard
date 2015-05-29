@@ -10,7 +10,7 @@ return [
 
     'dashboards' => [
         'admin' => [
-            'name' => 'My Admin Dashboard',
+            'name' => 'Admin Dashboard',
             'short_name' => 'AD',
             'prefix' => 'admin', //routes prefix, not required
             'domain' => null, //routes domain, not required
@@ -19,11 +19,13 @@ return [
 
             'security' => [
                 'auth' => [
+                    'enabled' => false,
                     'handler' => 'SmallTeam\Dashboard\Security\LaravelAuthHandler',
                     'auth_entity' => 'SmallTeam\Dashboard\Entity\AuthBaseEntity',
                     'password_entity' => 'SmallTeam\Dashboard\Entity\PasswordBaseEntity',
                 ],
                 'acl' => [
+                    'enabled' => false,
                     'handler' => 'SmallTeam\Dashboard\Security\NativeAclHandler'
                 ]
             ],
