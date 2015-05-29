@@ -64,4 +64,26 @@ interface DashboardInterface
      * */
     public function getEntity();
 
+    /**
+     * Set current locale
+     *
+     * @param string $locale
+     * @return void
+     * */
+    public function setCurrentLocale($locale);
+
+    /**
+     * Get active locale
+     *
+     * @return EntityInterface
+     * */
+    public function getCurrentLocale();
+
+    /**
+     * Get all locales
+     *
+     * @return EntityInterface
+     * */
+    public function getLocales();
+
 }

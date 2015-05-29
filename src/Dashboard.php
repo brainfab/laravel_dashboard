@@ -24,6 +24,9 @@ class Dashboard implements DashboardInterface
     /** @var string */
     private $dashboard_prefix;
 
+    /** @var string */
+    private $locale;
+
     /**
      * Dashboard constructor
      * */
@@ -61,6 +64,18 @@ class Dashboard implements DashboardInterface
         $prefix = $this->getConfig('prefix', '/');
         $this->dashboard_prefix = substr($prefix, (strlen($prefix)-1), strlen($prefix)) != '/' ? $prefix.'/' : $prefix;
         \View::share('dashboard', $this);
+
+        $locales = config('dashboard.locales', []);
+        if(\Input::has('_locale') && in_array(\Input::get('_locale'), $locales)) {
+            \Session::put('dashboards/'.$this->dashboard_alias.'/locale', \Input::get('_locale'));
+        }
+
+        $locale = \Session::get('dashboards/'.$this->dashboard_alias.'/locale', $this->getConfig('default_locale'));
+        $locale = in_array($locale, $locales) ? $locale : $this->getConfig('default_locale');
+        \Session::put('dashboards/'.$this->dashboard_alias.'/locale', $locale);
+
+        $this->setCurrentLocale($locale);
+        \App::setLocale($locale);
 
         $this->booted = true;
     }
@@ -111,6 +126,30 @@ class Dashboard implements DashboardInterface
     public function getEntity()
     {
         return $this->entity;
+    }
+
+    /**
+     * @inheritdoc
+     * */
+    public function getCurrentLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * @inheritdoc
+     * */
+    public function setCurrentLocale($locale)
+    {
+        $this->locale = $locale;
+    }
+
+    /**
+     * @inheritdoc
+     * */
+    public function getLocales()
+    {
+        return $this->getConfig('locales');
     }
 
 }
