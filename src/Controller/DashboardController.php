@@ -27,12 +27,6 @@ class DashboardController extends BaseController implements DashboardControllerI
     /** @var array|null */
     protected $guarded_except = null;
 
-    /** @var null */
-    private $menu_factory = null;
-
-    /** @var null */
-    private $menu = null;
-
     public function __construct(Dashboard $dashboard)
     {
         $this->dashboard = $dashboard;
@@ -49,24 +43,8 @@ class DashboardController extends BaseController implements DashboardControllerI
                 $options['except'] = $this->guarded_except;
             }
 
-            $this->middleware($this->getAuthMiddleware(), $options);
+            $this->middleware('dashboard.auth', $options);
         }
-    }
-
-    /**
-     * @inheritdoc
-     * */
-    public function getAuthMiddleware()
-    {
-        return 'dashboard.auth';
-    }
-
-    /**
-     * @inheritdoc
-     * */
-    public function getGuestMiddleware()
-    {
-        return 'dashboard.guest';
     }
 
     /**
@@ -91,30 +69,6 @@ class DashboardController extends BaseController implements DashboardControllerI
     public function getDashboard()
     {
         return $this->dashboard;
-    }
-
-    /**
-     * @inheritdoc
-     * */
-    public function getDashboardConfig($key = null, $default = null)
-    {
-        return $this->dashboard->getConfig($key, $default);
-    }
-
-    /**
-     * @inheritdoc
-     * */
-    public function getMenuFactory()
-    {
-        return $this->menu_factory;
-    }
-
-    /**
-     * @inheritdoc
-     * */
-    public function getMenu()
-    {
-        return $this->menu;
     }
 
 }

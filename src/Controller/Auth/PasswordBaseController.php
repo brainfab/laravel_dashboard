@@ -31,7 +31,7 @@ class PasswordBaseController extends DashboardController
         $this->redirectPath = url($dashboard->getPrefix());
         $this->subject = 'Your Password Reset Link';
 
-        $this->middleware($this->getGuestMiddleware());
+        $this->middleware('dashboard.guest');
     }
 
     /**

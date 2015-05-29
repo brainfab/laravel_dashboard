@@ -40,41 +40,4 @@ interface DashboardControllerInterface
      * */
     public function getDashboard();
 
-    /**
-     * Get dashboard config
-     *
-     * @param string $key
-     * @param mixed $default
-     * @return mixed
-     * */
-    public function getDashboardConfig($key = null, $default = null);
-
-    /**
-     * Get auth middleware name
-     *
-     * @return string
-     * */
-    public function getAuthMiddleware();
-
-    /**
-     * Get guest middleware name
-     *
-     * @return string
-     * */
-    public function getGuestMiddleware();
-
-    /**
-     * Get menu factory
-     *
-     * @return null
-     * */
-    public function getMenuFactory();
-
-    /**
-     * Get menu
-     *
-     * @return null
-     * */
-    public function getMenu();
-
 }

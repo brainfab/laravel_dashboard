@@ -31,7 +31,7 @@ class AuthBaseController extends DashboardController
         $this->redirectPath = url($dashboard->getPrefix());
         $this->loginPath = url($dashboard->getPrefix().'auth/login');
 
-        $this->middleware($this->getGuestMiddleware(), ['except' => 'getLogout']);
+        $this->middleware('dashboard.guest', ['except' => 'getLogout']);
     }
 
     /**
