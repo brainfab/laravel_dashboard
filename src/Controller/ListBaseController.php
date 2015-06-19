@@ -31,7 +31,7 @@ class ListBaseController extends DashboardController
 
         $router->get('/'.$name.'/{id}/show', 'getShow')->where('id', '[0-9]+');
 
-        $router->get('/'.$name.'/{id}/delete', 'index')->where('id', '[0-9]+');
+        $router->get('/'.$name.'/{id}/delete', 'delete')->where('id', '[0-9]+');
     }
 
     public function index()

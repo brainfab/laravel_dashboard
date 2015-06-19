@@ -86,7 +86,7 @@ class RoutesMapper
             }
 
             if(!isset($group['entities']['/'])) {
-                $group['entities']['/'] = 'SmallTeam\Dashboard\Entity\IndexBaseEntity';
+                $group['entities']['/'] = 'SmallTeam\Dashboard\Entity\IndexEntity';
             }
 
             $group['namespace'] = isset($dashboard['namespace']) && !empty($dashboard['namespace']) ? $dashboard['namespace'] : null;

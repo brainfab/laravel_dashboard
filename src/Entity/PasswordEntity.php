@@ -7,7 +7,7 @@
  * @url www.max-kovpak.com
  * @date 25.05.2015
  * */
-class PasswordBaseEntity extends BaseEntity
+class PasswordEntity extends BaseEntity
 {
 
     protected static $name = 'Password';

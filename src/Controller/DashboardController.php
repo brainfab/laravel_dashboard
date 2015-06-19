@@ -3,7 +3,6 @@
 use SmallTeam\Dashboard\Routing\Router;
 use Illuminate\Routing\Controller as BaseController;
 use SmallTeam\Dashboard\Dashboard;
-use SmallTeam\Dashboard\Entity\BaseEntity;
 
 /**
  * DashboardController - base controller superclass
@@ -12,7 +11,7 @@ use SmallTeam\Dashboard\Entity\BaseEntity;
  * @url www.max-kovpak.com
  * @date 09.05.2015
  * */
-class DashboardController extends BaseController implements DashboardControllerInterface
+abstract class DashboardController extends BaseController implements DashboardControllerInterface
 {
 
     /** @var Dashboard */
