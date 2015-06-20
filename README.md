@@ -13,7 +13,7 @@ Require this package with composer:
 
 After updating composer, add the ServiceProvider to the providers array in config/app.php
 
-`` 'SmallTeam\Dashboard\ServiceProvider', ``
+`` SmallTeam\Dashboard\ServiceProvider::class, ``
 
 Copy the package config to your local config with the publish command:
 
