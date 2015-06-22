@@ -3,13 +3,13 @@
 use SmallTeam\Dashboard\Routing\Router;
 
 /**
- * IndexBaseController
+ * SingleController
  *
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @url www.max-kovpak.com
  * @date 09.05.2015
  * */
-class IndexBaseController extends DashboardController
+class SingleController extends DashboardController
 {
 
     /**
@@ -17,12 +17,18 @@ class IndexBaseController extends DashboardController
      * */
     public static function routesMap(Router $router, $name, $controller, $parameters)
     {
-        $router->get('/', 'index');
+        $router->get('/'.$name, 'getIndex');
+        $router->post('/'.$name, 'save');
     }
 
-	public function index()
-	{
-        return view('dashboard::index');
-	}
+    function getIndex()
+    {
+        return __METHOD__;
+    }
+
+    function save()
+    {
+        return __METHOD__;
+    }
 
 }

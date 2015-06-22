@@ -1,7 +1,7 @@
 <?php namespace SmallTeam\Dashboard\Entity;
 
 /**
- * AuthBaseEntity
+ * AuthEntity
  *
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @url www.max-kovpak.com
@@ -11,6 +11,6 @@ class AuthEntity extends BaseEntity
 {
     protected static $name = 'Auth';
 
-    protected static $controller = 'SmallTeam\Dashboard\Controller\Auth\AuthBaseController';
+    protected static $controller = 'SmallTeam\Dashboard\Controller\Auth\AuthController';
 
 }

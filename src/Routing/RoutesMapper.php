@@ -13,39 +13,12 @@ use Closure;
 class RoutesMapper
 {
 
-    const BASE_LIST_CONTROLLER = 'SmallTeam\Dashboard\Controller\ListBaseController';
-    const BASE_SINGLE_CONTROLLER = 'SmallTeam\Dashboard\Controller\SingleBaseController';
-    const BASE_INDEX_CONTROLLER = 'SmallTeam\Dashboard\Controller\IndexBaseController';
+    const BASE_LIST_CONTROLLER = 'SmallTeam\Dashboard\Controller\ListController';
+    const BASE_SINGLE_CONTROLLER = 'SmallTeam\Dashboard\Controller\SingleController';
+    const BASE_INDEX_CONTROLLER = 'SmallTeam\Dashboard\Controller\IndexController';
 
     /** @var array|null */
     private $dashboards;
-
-    /** @var array */
-    private static $registered = [];
-
-    /**
-     * Check controller registered for dashboard
-     *
-     * @param string $dashboard_alias
-     * @param string $controller_prefix
-     * @return bool
-     * */
-    public static function isRegistered($dashboard_alias, $controller_prefix)
-    {
-        return isset(self::$registered[$dashboard_alias][$controller_prefix]);
-    }
-
-    /**
-     * Register entity for dashboard
-     *
-     * @param string $dashboard_alias
-     * @param string $controller_prefix
-     * @return void
-     * */
-    public static function noteAsRegistered($dashboard_alias, $controller_prefix)
-    {
-        self::$registered[$dashboard_alias][$controller_prefix] = true;
-    }
 
     /**
      * RoutesMapper constructor
@@ -101,10 +74,6 @@ class RoutesMapper
                     $controller = $entity::getController();
                     $controller = $controller === null ? self::BASE_LIST_CONTROLLER : $controller;
 
-                    if(RoutesMapper::isRegistered($this->dashboard_alias, $name)) {
-                        continue;
-                    }
-
                     $router = new Router($entity, $controller);
                     call_user_func([$controller, 'routesMap'], $router, $name, $controller, [
                         'namespace' => $this->namespace,
@@ -112,8 +81,6 @@ class RoutesMapper
                         'domain' => $this->domain,
                         'entity' => $entity,
                     ]);
-
-                    RoutesMapper::noteAsRegistered($this->dashboard_alias, $name);
                 }
             };
 

@@ -1,7 +1,7 @@
 <?php namespace SmallTeam\Dashboard\Entity;
 
 /**
- * PasswordBaseEntity
+ * PasswordEntity
  *
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @url www.max-kovpak.com
@@ -12,6 +12,6 @@ class PasswordEntity extends BaseEntity
 
     protected static $name = 'Password';
 
-    protected static $controller = 'SmallTeam\Dashboard\Controller\Auth\PasswordBaseController';
+    protected static $controller = 'SmallTeam\Dashboard\Controller\Auth\PasswordController';
 
 }

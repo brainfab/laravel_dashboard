@@ -1,7 +1,7 @@
 <?php namespace SmallTeam\Dashboard\Entity;
 
 /**
- * Entity
+ * BaseEntity
  *
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @url www.max-kovpak.com
@@ -12,6 +12,9 @@ abstract class BaseEntity implements EntityInterface
 
     /** @var string */
     protected static $name;
+
+    /** @var string */
+    protected static $group;
 
     /** @var string */
     protected static $model;

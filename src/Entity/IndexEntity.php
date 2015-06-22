@@ -1,7 +1,7 @@
 <?php namespace SmallTeam\Dashboard\Entity;
 
 /**
- * IndexBaseEntity
+ * IndexEntity
  *
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @url www.max-kovpak.com
@@ -12,6 +12,6 @@ class IndexEntity extends BaseEntity
 
     protected static $name = 'Home';
 
-    protected static $controller = 'SmallTeam\Dashboard\Controller\IndexBaseController';
+    protected static $controller = 'SmallTeam\Dashboard\Controller\IndexController';
 
 }

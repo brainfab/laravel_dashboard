@@ -8,13 +8,13 @@ use SmallTeam\Dashboard\Controller\DashboardController;
 use SmallTeam\Dashboard\Dashboard;
 
 /**
- * AuthBaseController
+ * AuthController
  *
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @url www.max-kovpak.com
  * @date 09.05.2015
  * */
-class AuthBaseController extends DashboardController
+class AuthController extends DashboardController
 {
     use AuthenticatesAndRegistersUsers;
 

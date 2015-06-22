@@ -3,13 +3,13 @@
 use SmallTeam\Dashboard\Routing\Router;
 
 /**
- * ListBaseController
+ * ListController
  *
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @url www.max-kovpak.com
  * @date 09.05.2015
  * */
-class ListBaseController extends DashboardController
+class ListController extends DashboardController
 {
 
     /** @var string */

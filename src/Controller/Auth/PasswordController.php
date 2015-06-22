@@ -9,13 +9,13 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use SmallTeam\Dashboard\Dashboard;
 
 /**
- * PasswordBaseController
+ * PasswordController
  *
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @url www.max-kovpak.com
  * @date 09.05.2015
  * */
-class PasswordBaseController extends DashboardController
+class PasswordController extends DashboardController
 {
     use ResetsPasswords;
 
