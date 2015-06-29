@@ -30,7 +30,20 @@ return [
                 ]
             ],
             'entities' => [
-//                'posts' => 'App\Admin\Entity\Post',
+//                'users' => [
+//                    'group' => 'Users',
+//                    'entities' => [
+//                        'App\Admin\Entity\UserEntity',
+//                        'App\Admin\Entity\SubscriberEntity',
+//                    ]
+//                ],
+//                'blog' => [
+//                    'group' => 'Blog',
+//                    'entities' => [
+//                        'App\Admin\Entity\PostEntity',
+//                        'App\Admin\Entity\CommentEntity',
+//                    ]
+//                ]
             ]
         ],
     ],

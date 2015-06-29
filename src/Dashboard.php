@@ -60,7 +60,7 @@ class Dashboard implements DashboardInterface
             throw new \RuntimeException('Dashboard not found for current route');
         }
 
-        $this->entity = new $current->entity();
+        $this->entity = $current->entity;
         $prefix = $this->getConfig('prefix', '/');
         $this->dashboard_prefix = substr($prefix, (strlen($prefix)-1), strlen($prefix)) != '/' ? $prefix.'/' : $prefix;
         \View::share('dashboard', $this);

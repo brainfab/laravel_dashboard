@@ -11,58 +11,116 @@ abstract class BaseEntity implements EntityInterface
 {
 
     /** @var string */
-    protected static $name;
+    protected $name;
 
     /** @var string */
-    protected static $group;
+    protected $model;
 
     /** @var string */
-    protected static $model;
-
-    /** @var string */
-    protected static $controller;
+    protected $controller;
 
     /** @var array */
-    protected static $fields;
+    protected $order_by;
 
     /**
      * Get entity name
      *
      * @return string|null
      * */
-    public static function getName()
+    public function getName()
     {
-        return static::$name;
+        return $this->name;
     }
 
     /**
-     * Get model name
-     *
-     * @return string|null
+     * @inheritdoc
      * */
-    public static function getModel()
+    public function setName($name)
     {
-        return static::$model;
+        $this->name = $name;
+        return $this;
     }
 
     /**
-     * Get controller name
-     *
-     * @return string|null
+     * @inheritdoc
      * */
-    public static function getController()
+    public function getModel()
     {
-        return static::$controller;
+        return $this->model;
     }
 
     /**
-     * Get fields list
-     *
-     * @return array|null
+     * @inheritdoc
      * */
-    public static function getFields()
+    public function setModel($model)
     {
-        return static::$fields;
+        $this->model = $model;
+        return $this;
+    }
+
+    /**
+     * @inheritdoc
+     * */
+    public function getController()
+    {
+        return $this->controller;
+    }
+
+    /**
+     * @inheritdoc
+     * */
+    public function setController($controller)
+    {
+        $this->controller = $controller;
+        return $this;
+    }
+
+    /**
+     * @inheritdoc
+     * */
+    public function getOrderBy()
+    {
+        //return ['id' => 'asc'];
+    }
+
+    /**
+     * @inheritdoc
+     * */
+    public function setOrderBy($order_by)
+    {
+        $this->order_by = $order_by;
+    }
+
+    /**
+     * @inheritdoc
+     * */
+    public function configureFormFields()
+    {
+        //form fields definition
+    }
+
+    /**
+     * @inheritdoc
+     * */
+    public function configureShowFields()
+    {
+        //show fields definition
+    }
+
+    /**
+     * @inheritdoc
+     * */
+    public function configureListFields()
+    {
+        //list fields definition
+    }
+
+    /**
+     * @inheritdoc
+     * */
+    public function configureFilterFields()
+    {
+        //filter fields definition
     }
 
 }

@@ -14,27 +14,87 @@ interface EntityInterface
      *
      * @return string|null
      * */
-    public static function getName();
+    public function getName();
+
+    /**
+     * Set entity name
+     *
+     * @param string $name
+     * @return EntityInterface
+     * */
+    public function setName($name);
 
     /**
      * Get model name
      *
      * @return string|null
      * */
-    public static function getModel();
+    public function getModel();
+
+    /**
+     * Set model name
+     *
+     * @param string $model
+     * @return EntityInterface
+     * */
+    public function setModel($model);
 
     /**
      * Get controller name
      *
      * @return string|null
      * */
-    public static function getController();
+    public function getController();
 
     /**
-     * Get fields list
+     * Set controller name
+     *
+     * @param string $controller
+     * @return EntityInterface
+     * */
+    public function setController($controller);
+
+    /**
+     * Get sort by: 'id' => 'asc'
      *
      * @return array|null
      * */
-    public static function getFields();
+    public function getOrderBy();
+
+    /**
+     * Set sort by
+     *
+     * @param array $order_by
+     * @return EntityInterface
+     * */
+    public function setOrderBy($order_by);
+
+    /**
+     * Configure form fields
+     *
+     * @return array|null
+     * */
+    public function configureFormFields();
+
+    /**
+     * Configure show fields
+     *
+     * @return array|null
+     * */
+    public function configureShowFields();
+
+    /**
+     * Configure list fields
+     *
+     * @return array|null
+     * */
+    public function configureListFields();
+
+    /**
+     * Configure filter fields
+     *
+     * @return array|null
+     * */
+    public function configureFilterFields();
 
 }

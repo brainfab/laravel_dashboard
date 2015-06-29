@@ -10,8 +10,8 @@
 class DashboardEntity extends BaseEntity
 {
 
-    protected static $name = 'Home';
+    protected $name = 'Home';
 
-    protected static $controller = 'SmallTeam\Dashboard\Controller\DashboardController';
+    protected $controller = 'SmallTeam\Dashboard\Controller\DashboardController';
 
 }

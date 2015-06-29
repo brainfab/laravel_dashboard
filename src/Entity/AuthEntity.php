@@ -9,8 +9,8 @@
  * */
 class AuthEntity extends BaseEntity
 {
-    protected static $name = 'Auth';
+    protected $name = 'Auth';
 
-    protected static $controller = 'SmallTeam\Dashboard\Controller\Auth\AuthController';
+    protected $controller = 'SmallTeam\Dashboard\Controller\Auth\AuthController';
 
 }

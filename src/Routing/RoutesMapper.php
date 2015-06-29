@@ -71,7 +71,8 @@ class RoutesMapper
                 foreach ($this->entities as $name => $entity)
                 {
                     /** @var Entity\BaseEntity $entity */
-                    $controller = $entity::getController();
+                    $entity = new $entity();
+                    $controller = $entity->getController();
                     $controller = $controller === null ? self::BASE_LIST_CONTROLLER : $controller;
 
                     $router = new Router($entity, $controller);
