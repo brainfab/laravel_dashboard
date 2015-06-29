@@ -15,7 +15,7 @@ class RoutesMapper
 
     const BASE_LIST_CONTROLLER = 'SmallTeam\Dashboard\Controller\ListController';
     const BASE_SINGLE_CONTROLLER = 'SmallTeam\Dashboard\Controller\SingleController';
-    const BASE_INDEX_CONTROLLER = 'SmallTeam\Dashboard\Controller\IndexController';
+    const BASE_DASHBOARD_CONTROLLER = 'SmallTeam\Dashboard\Controller\DashboardController';
 
     /** @var array|null */
     private $dashboards;
@@ -59,7 +59,7 @@ class RoutesMapper
             }
 
             if(!isset($group['entities']['/'])) {
-                $group['entities']['/'] = 'SmallTeam\Dashboard\Entity\IndexEntity';
+                $group['entities']['/'] = 'SmallTeam\Dashboard\Entity\DashboardEntity';
             }
 
             $group['namespace'] = isset($dashboard['namespace']) && !empty($dashboard['namespace']) ? $dashboard['namespace'] : null;

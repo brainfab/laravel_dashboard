@@ -9,7 +9,7 @@ use SmallTeam\Dashboard\Routing\Router;
  * @url www.max-kovpak.com
  * @date 09.05.2015
  * */
-class SingleController extends DashboardController
+class SingleController extends Controller
 {
 
     /**

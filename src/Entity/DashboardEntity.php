@@ -7,11 +7,11 @@
  * @url www.max-kovpak.com
  * @date 25.05.2015
  * */
-class IndexEntity extends BaseEntity
+class DashboardEntity extends BaseEntity
 {
 
     protected static $name = 'Home';
 
-    protected static $controller = 'SmallTeam\Dashboard\Controller\IndexController';
+    protected static $controller = 'SmallTeam\Dashboard\Controller\DashboardController';
 
 }

@@ -4,13 +4,13 @@ use SmallTeam\Dashboard\Dashboard;
 use SmallTeam\Dashboard\Routing\Router;
 
 /**
- * DashboardControllerInterface
+ * ControllerInterface
  *
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @url www.max-kovpak.com
  * @date 09.05.2015
  * */
-interface DashboardControllerInterface
+interface ControllerInterface
 {
 
     public function __construct(Dashboard $dashboard);

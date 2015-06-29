@@ -1,0 +1,1 @@
+@include('dashboard::form.list.'.$form['type'], $form)

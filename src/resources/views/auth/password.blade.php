@@ -1,4 +1,4 @@
-@extends('dashboard::layouts.default')
+@extends('dashboard::layouts.auth')
 
 @section('content')
 <div class="container-fluid">

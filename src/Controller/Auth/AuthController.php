@@ -4,7 +4,7 @@ use SmallTeam\Dashboard\Routing\Router;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use SmallTeam\Dashboard\Controller\DashboardController;
+use SmallTeam\Dashboard\Controller\Controller;
 use SmallTeam\Dashboard\Dashboard;
 
 /**
@@ -14,7 +14,7 @@ use SmallTeam\Dashboard\Dashboard;
  * @url www.max-kovpak.com
  * @date 09.05.2015
  * */
-class AuthController extends DashboardController
+class AuthController extends Controller
 {
     use AuthenticatesAndRegistersUsers;
 

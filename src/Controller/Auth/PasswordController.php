@@ -4,7 +4,7 @@ use SmallTeam\Dashboard\Routing\Router;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Foundation\Auth\ResetsPasswords;
-use SmallTeam\Dashboard\Controller\DashboardController;
+use SmallTeam\Dashboard\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use SmallTeam\Dashboard\Dashboard;
 
@@ -15,7 +15,7 @@ use SmallTeam\Dashboard\Dashboard;
  * @url www.max-kovpak.com
  * @date 09.05.2015
  * */
-class PasswordController extends DashboardController
+class PasswordController extends Controller
 {
     use ResetsPasswords;
 

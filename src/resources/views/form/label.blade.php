@@ -1,0 +1,1 @@
+<label for="{{ $label['options']['for'] }}" >{{ $label['value'] }}</label>
