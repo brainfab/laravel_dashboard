@@ -30,7 +30,7 @@ abstract class Controller extends BaseController implements ControllerInterface
     {
         $this->dashboard = $dashboard;
 
-        $this->guarded = $this->guarded === null ? $dashboard->getConfig('security.auth.enabled', false) : $this->guarded;
+        $this->guarded = $this->guarded === null ? $dashboard->get('security.auth.enabled', false) : $this->guarded;
 
         if($this->guarded) {
             $options = [];

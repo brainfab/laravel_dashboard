@@ -1,4 +1,5 @@
 <?php namespace SmallTeam\Menu;
+use SmallTeam\Dashboard\DashboardInterface;
 
 /**
  * MenuBuilder
@@ -9,5 +10,27 @@
  * */
 class MenuBuilder
 {
+
+    /** @var DashboardInterface */
+    protected $dashboard;
+
+    public function __construct(DashboardInterface $dashboard)
+    {
+        $this->dashboard = $dashboard;
+    }
+
+    public function build()
+    {
+        $entities = $this->dashboard->get('entities');
+
+        if(!count($entities)) {
+            return null;
+        }
+
+        foreach ($entities as $name => $entity) {
+
+        }
+
+    }
 
 }

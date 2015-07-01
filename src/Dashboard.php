@@ -1,7 +1,6 @@
 <?php namespace SmallTeam\Dashboard;
 
 use Illuminate\Routing\Router;
-use SmallTeam\Dashboard\Entity\EntityInterface;
 
 /**
  * Dashboard
@@ -12,20 +11,9 @@ use SmallTeam\Dashboard\Entity\EntityInterface;
  * */
 class Dashboard implements DashboardInterface
 {
+
     /** @var bool */
     private $booted = false;
-
-    /** @var EntityInterface */
-    private $entity;
-
-    /** @var string */
-    private $dashboard_alias;
-
-    /** @var string */
-    private $dashboard_prefix;
-
-    /** @var string */
-    private $locale;
 
     /**
      * Dashboard constructor
@@ -49,33 +37,39 @@ class Dashboard implements DashboardInterface
         $current = $router->current();
         $action = $current ? $current->getAction() : null;
         $dashboards = config('dashboard.dashboards');
+        $dashboard_alias = null;
         foreach ($dashboards as $name => $dashboard) {
             if($dashboard['prefix'] == $action['prefix'] && $dashboard['namespace'] == $action['namespace'] && $dashboard['domain'] == $action['domain']) {
-                $this->dashboard_alias = $name;
+                $dashboard_alias = $name;
                 break;
             }
         }
 
-        if(!\App::runningInConsole() && $this->dashboard_alias === null) {
+        if(!\App::runningInConsole() && $dashboard_alias === null) {
             throw new \RuntimeException('Dashboard not found for current route');
         }
 
-        $this->entity = $current->entity;
-        $prefix = $this->getConfig('prefix', '/');
-        $this->dashboard_prefix = substr($prefix, (strlen($prefix)-1), strlen($prefix)) != '/' ? $prefix.'/' : $prefix;
-        \View::share('dashboard', $this);
+        $this->set('entity', $current->entity);
+        $prefix = $this->get('prefix', '/');
+
+        $dashboard_prefix = substr($prefix, (strlen($prefix)-1), strlen($prefix)) != '/' ? $prefix.'/' : $prefix;
+        $this->set('dashboard_prefix', $dashboard_prefix);
 
         $locales = config('dashboard.locales', []);
+        $this->set('locales', $locales);
+
         if(\Input::has('_locale') && in_array(\Input::get('_locale'), $locales)) {
-            \Session::put('dashboards/'.$this->dashboard_alias.'/locale', \Input::get('_locale'));
+            \Session::put('dashboards/'.$dashboard_alias.'/locale', \Input::get('_locale'));
         }
 
-        $locale = \Session::get('dashboards/'.$this->dashboard_alias.'/locale', $this->getConfig('default_locale'));
-        $locale = in_array($locale, $locales) ? $locale : $this->getConfig('default_locale');
-        \Session::put('dashboards/'.$this->dashboard_alias.'/locale', $locale);
+        $locale = \Session::get('dashboards/'.$dashboard_alias.'/locale', $this->get('default_locale'));
+        $locale = in_array($locale, $locales) ? $locale : $this->get('default_locale');
+        \Session::put('dashboards/'.$dashboard_alias.'/locale', $locale);
 
         $this->setCurrentLocale($locale);
         \App::setLocale($locale);
+
+        \View::share('dashboard', $this);
 
         $this->booted = true;
     }
@@ -83,7 +77,7 @@ class Dashboard implements DashboardInterface
     /**
      * @inheritdoc
      * */
-    public function getConfig($key = null, $default = null)
+    public function get($key = null, $default = null)
     {
         return config( 'dashboard.dashboards.'.$this->getAlias().($key !== null ? '.'.$key : ''), $default);
     }
@@ -91,9 +85,24 @@ class Dashboard implements DashboardInterface
     /**
      * @inheritdoc
      * */
+    public function set($key, $value)
+    {
+        if(empty($key)) {
+            throw new \InvalidArgumentException();
+        }
+
+        $key = 'dashboard.dashboards.'.$this->getAlias().'.'.$key;
+        config([$key => $value]);
+
+        return $this;
+    }
+
+    /**
+     * @inheritdoc
+     * */
     public function getName()
     {
-        return $this->getConfig('name');
+        return $this->get('name');
     }
 
     /**
@@ -101,7 +110,7 @@ class Dashboard implements DashboardInterface
      * */
     public function getShortName()
     {
-        return $this->getConfig('short_name');
+        return $this->get('short_name');
     }
 
     /**
@@ -109,7 +118,7 @@ class Dashboard implements DashboardInterface
      * */
     public function getAlias()
     {
-        return $this->dashboard_alias;
+        return $this->get('dashboard_alias');
     }
 
     /**
@@ -117,7 +126,7 @@ class Dashboard implements DashboardInterface
      * */
     public function getPrefix()
     {
-        return $this->dashboard_prefix;
+        return $this->get('dashboard_prefix');
     }
 
     /**
@@ -125,7 +134,7 @@ class Dashboard implements DashboardInterface
      * */
     public function getEntity()
     {
-        return $this->entity;
+        return $this->get('entity');
     }
 
     /**
@@ -133,7 +142,7 @@ class Dashboard implements DashboardInterface
      * */
     public function getCurrentLocale()
     {
-        return $this->locale;
+        return $this->get('locale');
     }
 
     /**
@@ -141,7 +150,7 @@ class Dashboard implements DashboardInterface
      * */
     public function setCurrentLocale($locale)
     {
-        $this->locale = $locale;
+        $this->set('locale', $locale);
     }
 
     /**
@@ -149,7 +158,7 @@ class Dashboard implements DashboardInterface
      * */
     public function getLocales()
     {
-        return $this->getConfig('locales');
+        return $this->get('locales');
     }
 
 }

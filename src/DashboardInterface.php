@@ -27,7 +27,16 @@ interface DashboardInterface
      * @param mixed $default
      * @return mixed
      * */
-    public function getConfig($key = null, $default = null);
+    public function get($key = null, $default = null);
+
+    /**
+     * Set dashboard config
+     *
+     * @param string $key
+     * @param mixed $value
+     * @return DashboardInterface
+     * */
+    public function set($key, $value);
 
     /**
      * Get dashboard name
