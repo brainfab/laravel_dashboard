@@ -72,6 +72,7 @@ class RoutesMapper
                 {
                     /** @var Entity\BaseEntity $entity */
                     $entity = new $entity();
+
                     $controller = $entity->getController();
                     $controller = $controller === null ? self::BASE_LIST_CONTROLLER : $controller;
 
@@ -88,6 +89,7 @@ class RoutesMapper
             $cl = Closure::bind($cl, (object)$group);
 
             \Route::group([
+                'middleware' => 'web',
                 'namespace' => $group['namespace'],
                 'prefix' => $group['prefix'],
                 'domain' => $group['domain']

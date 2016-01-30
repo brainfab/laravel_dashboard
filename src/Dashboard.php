@@ -15,6 +15,9 @@ class Dashboard implements DashboardInterface
     /** @var bool */
     private $booted = false;
 
+    /** @var string */
+    protected $dashboard_alias;
+
     /**
      * Dashboard constructor
      * */
@@ -45,31 +48,33 @@ class Dashboard implements DashboardInterface
             }
         }
 
-        if(!\App::runningInConsole() && $dashboard_alias === null) {
+        if(!app()->runningInConsole() && $dashboard_alias === null) {
             throw new \RuntimeException('Dashboard not found for current route');
         }
 
+        $this->dashboard_alias = $dashboard_alias;
+
         $this->set('entity', $current->entity);
+
         $prefix = $this->get('prefix', '/');
 
         $dashboard_prefix = substr($prefix, (strlen($prefix)-1), strlen($prefix)) != '/' ? $prefix.'/' : $prefix;
         $this->set('dashboard_prefix', $dashboard_prefix);
-
         $locales = config('dashboard.locales', []);
         $this->set('locales', $locales);
 
-        if(\Input::has('_locale') && in_array(\Input::get('_locale'), $locales)) {
-            \Session::put('dashboards/'.$dashboard_alias.'/locale', \Input::get('_locale'));
+        if(request()->has('_locale') && in_array(request('_locale'), $locales)) {
+            session()->put('dashboards/'.$dashboard_alias.'/locale', request('_locale'));
         }
 
-        $locale = \Session::get('dashboards/'.$dashboard_alias.'/locale', $this->get('default_locale'));
+        $locale = session('dashboards/'.$dashboard_alias.'/locale', $this->get('default_locale'));
         $locale = in_array($locale, $locales) ? $locale : $this->get('default_locale');
-        \Session::put('dashboards/'.$dashboard_alias.'/locale', $locale);
+        session()->put('dashboards/'.$dashboard_alias.'/locale', $locale);
 
         $this->setCurrentLocale($locale);
-        \App::setLocale($locale);
+        app()->setLocale($locale);
 
-        \View::share('dashboard', $this);
+        view()->share('dashboard', $this);
 
         $this->booted = true;
     }
@@ -118,7 +123,7 @@ class Dashboard implements DashboardInterface
      * */
     public function getAlias()
     {
-        return $this->get('dashboard_alias');
+        return $this->dashboard_alias;
     }
 
     /**

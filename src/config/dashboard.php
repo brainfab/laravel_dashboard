@@ -21,8 +21,6 @@ return [
                 'auth' => [
                     'enabled' => false,
                     'handler' => 'SmallTeam\Dashboard\Security\LaravelAuthHandler',
-                    'auth_entity' => 'SmallTeam\Dashboard\Entity\AuthEntity',
-                    'password_entity' => 'SmallTeam\Dashboard\Entity\PasswordEntity',
                 ],
                 'acl' => [
                     'enabled' => false,
