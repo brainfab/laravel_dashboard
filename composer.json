@@ -18,5 +18,5 @@
     "autoload": {
       "psr-4": {"SmallTeam\\Dashboard\\": "src"}
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }
