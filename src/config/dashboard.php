@@ -35,7 +35,7 @@ return [
             'base_dashboard_controller' => SmallTeam\Dashboard\Controller\DashboardController::class,
 
             'entities' => [
-//                'users' => App\Admin\Entity\UserEntity::class,
+//                'users' => App\Admin\Entities\User::class,
             ]
         ],
     ],
