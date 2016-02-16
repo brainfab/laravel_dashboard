@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use SmallTeam\Dashboard\Controller\Controller;
 use SmallTeam\Dashboard\Dashboard;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 
 /**
  * AuthController
@@ -16,7 +17,7 @@ use SmallTeam\Dashboard\Dashboard;
  * */
 class AuthController extends Controller
 {
-    use AuthenticatesAndRegistersUsers;
+    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
     /** @var bool */
     protected $guarded = false;
@@ -28,7 +29,7 @@ class AuthController extends Controller
         $this->auth = $auth;
         $this->registrar = $registrar;
 
-        $this->redirectPath = $dashboard->url();
+        $this->redirectTo = $dashboard->url();
         $this->loginPath = $dashboard->url('login');
 
         $this->middleware('dashboard.guest', ['except' => 'getLogout']);
@@ -37,16 +38,7 @@ class AuthController extends Controller
     /**
      * @inheritdoc
      * */
-    public function getRegister()
-    {
-        abort(404);
-        return view('dashboard::auth.register');
-    }
-
-    /**
-     * @inheritdoc
-     * */
-    public function getLogin()
+    public function showLoginForm()
     {
         return view('dashboard::auth.login');
     }

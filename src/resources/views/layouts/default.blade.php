@@ -21,9 +21,25 @@
 
 <body class="skin-blue sidebar-mini">
 
-@section('page')
-    @include('dashboard::page')
-@show
+<div class="wrapper">
+    @section('header')
+        @include('dashboard::header')
+    @show
+
+    @section('sidebar')
+        @include('dashboard::sidebar')
+    @show
+
+    <div class="content-wrapper">
+        @section('breadcrumbs')
+            @include('dashboard::breadcrumbs')
+        @show
+
+        <section class="content">
+            @yield('content')
+        </section>
+    </div>
+</div>
 
 <script src="{{ asset('vendor/dashboard/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
 <script src="{{ asset('vendor/dashboard/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>

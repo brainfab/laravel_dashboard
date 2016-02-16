@@ -4,6 +4,10 @@ use SmallTeam\Dashboard\Routing\Router;
 use Illuminate\Routing\Controller as BaseController;
 use SmallTeam\Dashboard\Dashboard;
 
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
 /**
  * Controller - base controller superclass
  *
@@ -13,6 +17,8 @@ use SmallTeam\Dashboard\Dashboard;
  * */
 abstract class Controller extends BaseController implements ControllerInterface
 {
+
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     /** @var Dashboard */
     private $dashboard;

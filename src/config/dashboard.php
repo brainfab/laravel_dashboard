@@ -19,7 +19,7 @@ return [
 
             'security' => [
                 'auth' => [
-                    'enabled' => true,
+                    'enabled' => false,
                     'handler' => SmallTeam\Dashboard\Security\LaravelAuthHandler::class,
                     'auth_controller' => SmallTeam\Dashboard\Controller\Auth\AuthController::class,
                     'password_controller' => SmallTeam\Dashboard\Controller\Auth\PasswordController::class,

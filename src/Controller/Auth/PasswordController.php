@@ -1,5 +1,6 @@
 <?php namespace SmallTeam\Dashboard\Controller\Auth;
 
+use Illuminate\Http\Request;
 use SmallTeam\Dashboard\Routing\Router;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\PasswordBroker;
@@ -45,10 +46,16 @@ class PasswordController extends Controller
     /**
      * @inheritdoc
      */
-    public function getReset($token = null)
+    public function showResetForm(Request $request, $token = null)
     {
         if (is_null($token)) {
-            abort(404);
+            return $this->getEmail();
+        }
+
+        $email = $request->input('email');
+
+        if (view()->exists('auth.passwords.reset')) {
+            return view('auth.passwords.reset')->with(compact('token', 'email'));
         }
 
         return view('dashboard::auth.reset')->with('token', $token);

@@ -71,14 +71,14 @@ class RoutesMapper
                     $auth_controller = data_get($this->security, 'auth.auth_controller');
                     $password_controller = data_get($this->security, 'auth.password_controller');
 
-                    Route::get('/login', $auth_controller . '@getLogin');
-                    Route::post('/login', $auth_controller . '@postLogin');
-                    Route::get('/logout', $auth_controller . '@getLogout');
+                    Route::get('/login', $auth_controller . '@showLoginForm');
+                    Route::post('/login', $auth_controller . '@login');
+                    Route::get('/logout', $auth_controller . '@logout');
 
-                    Route::get('/password/email', $password_controller . '@getEmail');
-                    Route::post('/password/email', $password_controller . '@postEmail');
-                    Route::get('/password/reset', $password_controller . '@getReset');
-                    Route::post('/password/reset', $password_controller . '@postReset');
+                    Route::get('password/reset/{token?}', $password_controller . '@showResetForm');
+                    Route::post('password/email', $password_controller . '@sendResetLinkEmail');
+                    Route::post('password/reset', $password_controller . '@reset');
+                    Route::get('password/reset', $password_controller . '@showResetForm');
                 }
             };
 
