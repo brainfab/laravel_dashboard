@@ -1,4 +1,4 @@
-<?php namespace SmallTeam\Security;
+<?php namespace SmallTeam\Dashboard\Security;
 
 /**
  * AclHandlerInterface

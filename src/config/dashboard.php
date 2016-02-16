@@ -19,29 +19,23 @@ return [
 
             'security' => [
                 'auth' => [
-                    'enabled' => false,
-                    'handler' => 'SmallTeam\Dashboard\Security\LaravelAuthHandler',
+                    'enabled' => true,
+                    'handler' => SmallTeam\Dashboard\Security\LaravelAuthHandler::class,
+                    'auth_controller' => SmallTeam\Dashboard\Controller\Auth\AuthController::class,
+                    'password_controller' => SmallTeam\Dashboard\Controller\Auth\PasswordController::class,
                 ],
                 'acl' => [
                     'enabled' => false,
-                    'handler' => 'SmallTeam\Dashboard\Security\NativeAclHandler'
+                    'handler' => SmallTeam\Dashboard\Security\NativeAclHandler::class
                 ]
             ],
+
+            'base_list_controller' => SmallTeam\Dashboard\Controller\ListController::class,
+            'base_single_controller' => SmallTeam\Dashboard\Controller\SingleController::class,
+            'base_dashboard_controller' => SmallTeam\Dashboard\Controller\DashboardController::class,
+
             'entities' => [
-//                'users' => [
-//                    'group' => 'Users',
-//                    'entities' => [
-//                        'App\Admin\Entity\UserEntity',
-//                        'App\Admin\Entity\SubscriberEntity',
-//                    ]
-//                ],
-//                'blog' => [
-//                    'group' => 'Blog',
-//                    'entities' => [
-//                        'App\Admin\Entity\PostEntity',
-//                        'App\Admin\Entity\CommentEntity',
-//                    ]
-//                ]
+//                'users' => App\Admin\Entity\UserEntity::class,
             ]
         ],
     ],

@@ -16,11 +16,8 @@ class Guest
 
     public function handle($request, Closure $next)
     {
-        if ($this->auth->check())
-        {
-            /** @var \SmallTeam\Dashboard\Dashboard $dashboard */
-            $dashboard = app()->make('SmallTeam\Dashboard\Dashboard');
-            return new RedirectResponse(url($dashboard->getPrefix()));
+        if ($this->auth->check()) {
+            return new RedirectResponse(app('dashboard')->url());
         }
 
         return $next($request);

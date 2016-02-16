@@ -1,5 +1,7 @@
 <?php namespace SmallTeam\Dashboard\Routing;
 
+use Illuminate\Support\Arr;
+use \Route;
 use SmallTeam\Dashboard\Entity;
 use Closure;
 
@@ -13,19 +15,15 @@ use Closure;
 class RoutesMapper
 {
 
-    const BASE_LIST_CONTROLLER = 'SmallTeam\Dashboard\Controller\ListController';
-    const BASE_SINGLE_CONTROLLER = 'SmallTeam\Dashboard\Controller\SingleController';
-    const BASE_DASHBOARD_CONTROLLER = 'SmallTeam\Dashboard\Controller\DashboardController';
-
     /** @var array|null */
     private $dashboards;
 
     /**
      * RoutesMapper constructor
      *
-     * @param array|null $dashboards
+     * @param array $dashboards
      * */
-    public function __construct($dashboards = null)
+    public function __construct($dashboards = [])
     {
         $this->dashboards = $dashboards;
     }
@@ -37,44 +35,28 @@ class RoutesMapper
      * */
     public function map()
     {
-        if(!is_array($this->dashboards) && count($this->dashboards) > 0) {
+        if (!is_array($this->dashboards) || !count($this->dashboards)) {
             return;
         }
 
         foreach ($this->dashboards as $dashboard_alias => $dashboard) {
+            $group = Arr::only($dashboard, [
+                'entities', 'security', 'namespace', 'prefix', 'domain', 'base_list_controller'
+            ]);
+
             $group['dashboard_alias'] = $dashboard_alias;
 
-            $group['entities'] = isset($dashboard['entities']) && is_array($dashboard['entities']) && count($dashboard['entities']) > 0
-                ? $dashboard['entities']
-                : [];
-
-            if(isset($dashboard['security']['auth']['auth_entity']) && !empty($dashboard['security']['auth']['auth_entity']))
-            {
-                $group['entities']['__auth'] = $dashboard['security']['auth']['auth_entity'];
+            if (!isset($group['entities']['index'])) {
+                $group['entities']['index'] = \SmallTeam\Dashboard\Entity\DashboardEntity::class;
             }
 
-            if(isset($dashboard['security']['auth']['password_entity']) && !empty($dashboard['security']['auth']['password_entity']))
-            {
-                $group['entities']['__password'] = $dashboard['security']['auth']['password_entity'];
-            }
-
-            if(!isset($group['entities']['/'])) {
-                $group['entities']['/'] = 'SmallTeam\Dashboard\Entity\DashboardEntity';
-            }
-
-            $group['namespace'] = isset($dashboard['namespace']) && !empty($dashboard['namespace']) ? $dashboard['namespace'] : null;
-            $group['prefix'] = isset($dashboard['prefix']) && !empty($dashboard['prefix']) ? $dashboard['prefix'] : null;
-            $group['domain'] = isset($dashboard['domain']) && !empty($dashboard['domain']) ? $dashboard['domain'] : null;
-
-            $cl = function()
-            {
-                foreach ($this->entities as $name => $entity)
-                {
+            $cl = function () {
+                foreach ($this->entities as $name => $entity_class_name) {
                     /** @var Entity\BaseEntity $entity */
-                    $entity = new $entity();
+                    $entity = app($entity_class_name);
 
                     $controller = $entity->getController();
-                    $controller = $controller === null ? self::BASE_LIST_CONTROLLER : $controller;
+                    $controller = $controller === null ? $this->base_list_controller : $controller;
 
                     $router = new Router($entity, $controller);
                     call_user_func([$controller, 'routesMap'], $router, $name, $controller, [
@@ -83,6 +65,20 @@ class RoutesMapper
                         'domain' => $this->domain,
                         'entity' => $entity,
                     ]);
+                }
+
+                if (data_get($this->security, 'auth.enabled')) {
+                    $auth_controller = data_get($this->security, 'auth.auth_controller');
+                    $password_controller = data_get($this->security, 'auth.password_controller');
+
+                    Route::get('/login', $auth_controller . '@getLogin');
+                    Route::post('/login', $auth_controller . '@postLogin');
+                    Route::get('/logout', $auth_controller . '@getLogout');
+
+                    Route::get('/password/email', $password_controller . '@getEmail');
+                    Route::post('/password/email', $password_controller . '@postEmail');
+                    Route::get('/password/reset', $password_controller . '@getReset');
+                    Route::post('/password/reset', $password_controller . '@postReset');
                 }
             };
 

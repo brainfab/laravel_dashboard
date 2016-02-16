@@ -16,17 +16,11 @@ class Authenticate
 
     public function handle($request, Closure $next)
     {
-        if ($this->auth->guest())
-        {
-            if ($request->ajax())
-            {
+        if ($this->auth->guest()) {
+            if ($request->ajax()) {
                 return response('Unauthorized.', 401);
-            }
-            else
-            {
-                /** @var \SmallTeam\Dashboard\Dashboard $dashboard */
-                $dashboard = app()->make('SmallTeam\Dashboard\Dashboard');
-                return redirect()->guest(url($dashboard->getPrefix().'auth/login'));
+            } else {
+                return redirect()->guest(app('dashboard')->url('login'));
             }
         }
 

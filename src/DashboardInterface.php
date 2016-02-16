@@ -67,6 +67,16 @@ interface DashboardInterface
     public function getPrefix();
 
     /**
+     * Generate a url for the dashboard.
+     *
+     * @param  string  $path
+     * @param  mixed   $parameters
+     * @param  bool    $secure
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
+    public function url($path = null, $parameters = [], $secure = null);
+
+    /**
      * Get dashboard entity
      *
      * @return EntityInterface

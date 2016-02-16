@@ -137,6 +137,14 @@ class Dashboard implements DashboardInterface
     /**
      * @inheritdoc
      * */
+    public function url($path = null, $parameters = [], $secure = null)
+    {
+        return url($this->get('dashboard_prefix') . $path, $parameters, $secure);
+    }
+
+    /**
+     * @inheritdoc
+     * */
     public function getEntity()
     {
         return $this->get('entity');

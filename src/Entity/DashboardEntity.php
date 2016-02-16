@@ -1,7 +1,9 @@
 <?php namespace SmallTeam\Dashboard\Entity;
 
+use SmallTeam\Dashboard\Controller\DashboardController;
+
 /**
- * IndexEntity
+ * DashboardEntity
  *
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @url www.max-kovpak.com
@@ -10,8 +12,8 @@
 class DashboardEntity extends BaseEntity
 {
 
-    protected $name = 'Home';
+    protected $name = 'Dashboard';
 
-    protected $controller = 'SmallTeam\Dashboard\Controller\DashboardController';
+    protected $controller = DashboardController::class;
 
 }

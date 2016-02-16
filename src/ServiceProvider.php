@@ -57,8 +57,8 @@ class ServiceProvider extends BaseServiceProvider
 
 	public function register()
 	{
-        $this->app->singleton('SmallTeam\Dashboard\Dashboard', function() {
-            return new Dashboard();
+        $this->app->singleton('dashboard', function() {
+            return app(Dashboard::class);
         });
 
 		$this->mergeConfigFrom(

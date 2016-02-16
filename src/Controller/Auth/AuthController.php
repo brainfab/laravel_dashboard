@@ -28,8 +28,8 @@ class AuthController extends Controller
         $this->auth = $auth;
         $this->registrar = $registrar;
 
-        $this->redirectPath = url($dashboard->getPrefix());
-        $this->loginPath = url($dashboard->getPrefix().'auth/login');
+        $this->redirectPath = $dashboard->url();
+        $this->loginPath = $dashboard->url('login');
 
         $this->middleware('dashboard.guest', ['except' => 'getLogout']);
     }
@@ -39,6 +39,7 @@ class AuthController extends Controller
      * */
     public function getRegister()
     {
+        abort(404);
         return view('dashboard::auth.register');
     }
 
@@ -56,17 +57,6 @@ class AuthController extends Controller
     protected function getFailedLoginMessage()
     {
         return 'These credentials do not match our records.';
-    }
-
-    /**
-     * @inheritdoc
-     * */
-    public static function routesMap(Router $router, $name, $controller, $parameters)
-    {
-        $router->post('/auth/register', 'postRegister');
-        $router->get('/auth/login', 'getLogin');
-        $router->post('/auth/login', 'postLogin');
-        $router->get('/auth/logout', 'getLogout');
     }
 
 }

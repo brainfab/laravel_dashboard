@@ -28,7 +28,7 @@ class PasswordController extends Controller
 
         $this->auth = $auth;
         $this->passwords = $passwords;
-        $this->redirectPath = url($dashboard->getPrefix());
+        $this->redirectPath = $dashboard->url();
         $this->subject = 'Your Password Reset Link';
 
         $this->middleware('dashboard.guest');
@@ -47,23 +47,11 @@ class PasswordController extends Controller
      */
     public function getReset($token = null)
     {
-        if (is_null($token))
-        {
-            throw new NotFoundHttpException;
+        if (is_null($token)) {
+            abort(404);
         }
 
         return view('dashboard::auth.reset')->with('token', $token);
-    }
-
-    /**
-     * @inheritdoc
-     * */
-    public static function routesMap(Router $router, $name, $controller, $parameters)
-    {
-        $router->get('/password/email', 'getEmail');
-        $router->post('/password/email', 'postEmail');
-        $router->get('/password/reset', 'getReset');
-        $router->post('/password/reset', 'postReset');
     }
 
 }
