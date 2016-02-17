@@ -1,8 +1,8 @@
 <header class="main-header">
     <!-- Logo -->
     <a href="{{ url('/') }}" class="logo">
-        <span class="logo-mini">{{ $dashboard->getShortName() }}</span>
-        <span class="logo-lg">{{ $dashboard->getName() }}</span>
+        <span class="logo-mini">{{ app('dashboard')->getShortName() }}</span>
+        <span class="logo-lg">{{ app('dashboard')->getName() }}</span>
     </a>
 
     <nav class="navbar navbar-static-top" role="navigation">
