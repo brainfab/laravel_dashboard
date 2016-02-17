@@ -63,13 +63,16 @@ class RoutesMapper
                 'domain' => $data['domain']
             ], function () use ($data, $self) {
                 foreach ($data['entities'] as $name => $entity_class_name) {
+
+                    $prefix = $name === 'index' ? '/' : $name;
+
                     /** @var Entity\EntityInterface $entity */
                     $entity = app($entity_class_name);
 
                     $controller = $entity->getController();
                     $controller = $controller === null ? $data['base_list_controller'] : $controller;
 
-                    $router = Router::create($entity, $controller);
+                    $router = Router::create($entity, $controller, $prefix);
                     $arguments = [
                         $router, $name, [
                             'namespace' => $data['namespace'],
@@ -80,7 +83,7 @@ class RoutesMapper
                         ]
                     ];
 
-                    app()->bind('dashboard.'.$data['dashboard_alias'].'.'.$name, function() use ($entity) {
+                    app()->bind('dashboard.' . $data['dashboard_alias'] . '.' . $name, function () use ($entity) {
                         return $entity;
                     });
 
@@ -136,17 +139,17 @@ class RoutesMapper
      * */
     protected function mapCRUDRoutes(Router $router, $name, array $parameters)
     {
-        $router->get($name, 'index');
+        $router->get('/', 'index');
 
-        $router->get($name . '/create', 'create');
-        $router->post($name, 'store');
+        $router->get('create', 'create');
+        $router->post('/', 'store');
 
-        $router->get($name . '/{id}/edit', 'edit')->where('id', '[0-9]+');
-        $router->put($name . '/{id}', 'update')->where('id', '[0-9]+');
+        $router->get('{id}/edit', 'edit')->where('id', '[0-9]+');
+        $router->put('{id}', 'update')->where('id', '[0-9]+');
 
-        $router->get($name . '/{id}/show', 'show')->where('id', '[0-9]+');
+        $router->get('{id}/show', 'show')->where('id', '[0-9]+');
 
-        $router->delete($name . '/{id}', 'destroy')->where('id', '[0-9]+');
+        $router->delete('{id}', 'destroy')->where('id', '[0-9]+');
     }
 
     /**

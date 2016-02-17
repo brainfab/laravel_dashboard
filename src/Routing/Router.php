@@ -28,6 +28,9 @@ class Router
     protected $entity;
 
     /** @var string */
+    protected $prefix;
+
+    /** @var string */
     protected $controller_name;
 
     /** @var array */
@@ -39,10 +42,11 @@ class Router
      * @param string $entity
      * @param string $controller_name
      * */
-    public function __construct($entity, $controller_name)
+    public function __construct($entity, $controller_name, $prefix)
     {
         $this->router = app()->router;
         $this->entity = $entity;
+        $this->prefix = $prefix;
         $this->controller_name = $controller_name;
     }
 
@@ -51,12 +55,13 @@ class Router
      *
      * @param string $entity
      * @param string $controller_name
+     * @param string $prefix
      *
      * @return self
      * */
-    public static function create($entity, $controller_name)
+    public static function create($entity, $controller_name, $prefix)
     {
-        return new self($entity, $controller_name);
+        return new self($entity, $controller_name, $prefix);
     }
 
     /**
@@ -153,8 +158,15 @@ class Router
             $action = array_pop($action_arr);
         }
 
-        $route = call_user_func([$this->router, strtolower($method)], $uri, $this->controller_name.'@'.$action);
-        $this->bindEntity($route);
+        $use = $this->controller_name.'@'.$action;
+
+        $self = $this;
+        $route = null;
+        $this->router->group(['prefix' => $this->prefix], function() use ($method, $uri, $use, $self, &$route) {
+            $route = call_user_func([$this->router, strtolower($method)], $uri, $use);
+
+            $self->bindEntity($route);
+        });
 
         return $route;
     }
