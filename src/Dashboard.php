@@ -78,8 +78,6 @@ class Dashboard implements DashboardInterface
         $this->setCurrentLocale($locale);
         app()->setLocale($locale);
 
-        view()->share('dashboard', $this);
-
         $this->booted = true;
     }
 
