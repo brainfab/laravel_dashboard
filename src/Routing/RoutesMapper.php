@@ -60,7 +60,8 @@ class RoutesMapper
                 'middleware' => 'web',
                 'namespace' => $data['namespace'],
                 'prefix' => $data['prefix'],
-                'domain' => $data['domain']
+                'domain' => $data['domain'],
+                'as' => 'dashboard.' . $dashboard_alias
             ], function () use ($data, $self) {
                 foreach ($data['entities'] as $name => $entity_class_name) {
 
@@ -72,7 +73,7 @@ class RoutesMapper
                     $controller = $entity->getController();
                     $controller = $controller === null ? $data['base_list_controller'] : $controller;
 
-                    $router = Router::create($entity, $controller, $prefix);
+                    $router = Router::create($entity, $controller, $prefix, $name);
                     $arguments = [
                         $router, $name, [
                             'namespace' => $data['namespace'],

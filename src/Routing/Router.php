@@ -31,6 +31,9 @@ class Router
     protected $prefix;
 
     /** @var string */
+    protected $entity_name;
+
+    /** @var string */
     protected $controller_name;
 
     /** @var array */
@@ -41,12 +44,15 @@ class Router
      *
      * @param string $entity
      * @param string $controller_name
+     * @param string $prefix
+     * @param string $entity_name
      * */
-    public function __construct($entity, $controller_name, $prefix)
+    public function __construct($entity, $controller_name, $prefix, $entity_name)
     {
         $this->router = app()->router;
         $this->entity = $entity;
         $this->prefix = $prefix;
+        $this->entity_name = $entity_name;
         $this->controller_name = $controller_name;
     }
 
@@ -56,12 +62,13 @@ class Router
      * @param string $entity
      * @param string $controller_name
      * @param string $prefix
+     * @param string $entity_name
      *
      * @return self
      * */
-    public static function create($entity, $controller_name, $prefix)
+    public static function create($entity, $controller_name, $prefix, $entity_name)
     {
-        return new self($entity, $controller_name, $prefix);
+        return new self($entity, $controller_name, $prefix, $entity_name);
     }
 
     /**
@@ -145,40 +152,28 @@ class Router
      * */
     protected function addRoute($method, $uri, $action)
     {
-        if(!is_string($action)) {
-            throw new \InvalidArgumentException('Action must be string "'.$action.'"');
+        if (!is_string($action)) {
+            throw new \InvalidArgumentException('Action must be string "' . $action . '"');
         }
 
-        if(!in_array($method, self::$methods)) {
-            throw new \InvalidArgumentException('Invalid method "'.$method.'"');
+        if (!in_array($method, self::$methods)) {
+            throw new \InvalidArgumentException('Invalid method "' . $method . '"');
         }
 
-        if(strpos($action, '@') !== false) {
+        if (strpos($action, '@') !== false) {
             $action_arr = explode('@', $action);
             $action = array_pop($action_arr);
         }
 
-        $use = $this->controller_name.'@'.$action;
+        $use = $this->controller_name . '@' . $action;
 
         $self = $this;
         $route = null;
-        $this->router->group(['prefix' => $this->prefix], function() use ($method, $uri, $use, $self, &$route) {
+        $this->router->group(['prefix' => $this->prefix, 'as' => '.' . $this->entity_name], function () use ($method, $uri, $use, $self, &$route) {
             $route = call_user_func([$this->router, strtolower($method)], $uri, $use);
-
-            $self->bindEntity($route);
         });
 
         return $route;
-    }
-
-    /**
-     * Bind entity to route
-     *
-     * @param Route $route
-     * */
-    protected function bindEntity(Route $route)
-    {
-        $route->entity = $this->entity;
     }
 
 }
