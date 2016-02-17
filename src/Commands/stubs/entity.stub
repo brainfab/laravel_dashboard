@@ -1,8 +1,8 @@
 <?php namespace DummyNamespace;
 
-use SmallTeam\Dashboard\Entity\BaseEntity;
+use SmallTeam\Dashboard\Entity\Entity;
 
-class DummyClass extends BaseEntity
+class DummyClass extends Entity
 {
     //
 }

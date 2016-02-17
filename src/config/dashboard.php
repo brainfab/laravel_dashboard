@@ -30,8 +30,8 @@ return [
                 ]
             ],
 
-            'base_list_controller' => SmallTeam\Dashboard\Controller\ListController::class,
-            'base_single_controller' => SmallTeam\Dashboard\Controller\SingleController::class,
+            'base_list_controller' => SmallTeam\Dashboard\Controller\CRUDController::class,
+            'base_single_controller' => SmallTeam\Dashboard\Controller\SingleFormController::class,
             'base_dashboard_controller' => SmallTeam\Dashboard\Controller\DashboardController::class,
 
             'entities' => [

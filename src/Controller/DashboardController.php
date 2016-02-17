@@ -9,16 +9,8 @@ use SmallTeam\Dashboard\Routing\Router;
  * @url www.max-kovpak.com
  * @date 09.05.2015
  * */
-class DashboardController extends Controller
+class DashboardController extends Controller implements DashboardControllerInterface
 {
-
-    /**
-     * @inheritdoc
-     * */
-    public static function routesMap(Router $router, $name, $controller, $parameters)
-    {
-        $router->get('/', 'index');
-    }
 
 	public function index()
 	{

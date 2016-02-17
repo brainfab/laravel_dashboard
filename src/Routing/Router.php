@@ -47,6 +47,19 @@ class Router
     }
 
     /**
+     * Create router instance.
+     *
+     * @param string $entity
+     * @param string $controller_name
+     *
+     * @return self
+     * */
+    public static function create($entity, $controller_name)
+    {
+        return new self($entity, $controller_name);
+    }
+
+    /**
      * @param string $uri
      * @param string $action Current controller action
      * @return Route

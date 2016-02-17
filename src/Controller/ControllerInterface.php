@@ -13,25 +13,7 @@ use SmallTeam\Dashboard\Routing\Router;
 interface ControllerInterface
 {
 
-    public function __construct(Dashboard $dashboard);
-
-    /**
-     * Init controller routes
-     *
-     * @param Router $router
-     * @param string $name
-     * @param string $controller Controller class name with namespace
-     * @param string $parameters
-     * @return void
-     * */
-    public static function routesMap(Router $router, $name, $controller, $parameters);
-
-    /**
-     * Get dashboard name
-     *
-     * @return string
-     * */
-    public function getDashboardName();
+    public function __construct();
 
     /**
      * Get dashboard application

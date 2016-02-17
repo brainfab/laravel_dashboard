@@ -20,9 +20,6 @@ abstract class Controller extends BaseController implements ControllerInterface
 
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    /** @var Dashboard */
-    private $dashboard;
-
     /** @var bool|null */
     protected $guarded = null;
 
@@ -32,11 +29,9 @@ abstract class Controller extends BaseController implements ControllerInterface
     /** @var array|null */
     protected $guarded_except = null;
 
-    public function __construct(Dashboard $dashboard)
+    public function __construct()
     {
-        $this->dashboard = $dashboard;
-
-        $this->guarded = $this->guarded === null ? $dashboard->get('security.auth.enabled', false) : $this->guarded;
+        $this->guarded = $this->guarded === null ? $this->getDashboard()->get('security.auth.enabled', false) : $this->guarded;
 
         if($this->guarded) {
             $options = [];
@@ -55,25 +50,9 @@ abstract class Controller extends BaseController implements ControllerInterface
     /**
      * @inheritdoc
      * */
-    public static function routesMap(Router $router, $name, $controller, $parameters)
-    {
-        //define routes
-    }
-
-    /**
-     * @inheritdoc
-     * */
-    public function getDashboardName()
-    {
-        return $this->dashboard->getName();
-    }
-
-    /**
-     * @inheritdoc
-     * */
     public function getDashboard()
     {
-        return $this->dashboard;
+        return app('dashboard');
     }
 
 }

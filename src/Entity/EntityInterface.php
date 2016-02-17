@@ -1,4 +1,5 @@
 <?php namespace SmallTeam\Dashboard\Entity;
+use SmallTeam\Dashboard\Routing\Router;
 
 /**
  * EntityInterface
@@ -20,6 +21,7 @@ interface EntityInterface
      * Set entity name
      *
      * @param string $name
+     *
      * @return EntityInterface
      * */
     public function setName($name);
@@ -35,6 +37,7 @@ interface EntityInterface
      * Set model name
      *
      * @param string $model
+     *
      * @return EntityInterface
      * */
     public function setModel($model);
@@ -50,6 +53,7 @@ interface EntityInterface
      * Set controller name
      *
      * @param string $controller
+     *
      * @return EntityInterface
      * */
     public function setController($controller);
@@ -65,6 +69,7 @@ interface EntityInterface
      * Set sort by
      *
      * @param array $order_by
+     *
      * @return EntityInterface
      * */
     public function setOrderBy($order_by);
@@ -96,5 +101,16 @@ interface EntityInterface
      * @return array|null
      * */
     public function configureFilterFields();
+
+    /**
+     * Init controller routes
+     *
+     * @param Router $router
+     * @param string $name Entity name.
+     * @param array $parameters
+     *
+     * @return void
+     * */
+    public static function routesMap(Router $router, $name, array $parameters);
 
 }

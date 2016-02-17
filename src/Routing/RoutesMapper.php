@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Arr;
 use \Route;
+use SmallTeam\Dashboard\Controller\CRUDControllerInterface;
+use SmallTeam\Dashboard\Controller\DashboardControllerInterface;
+use SmallTeam\Dashboard\Controller\SingleFormControllerInterface;
 use SmallTeam\Dashboard\Entity;
 use Closure;
 
@@ -39,59 +42,139 @@ class RoutesMapper
             return;
         }
 
+        $self = $this;
+
         foreach ($this->dashboards as $dashboard_alias => $dashboard) {
-            $group = Arr::only($dashboard, [
-                'entities', 'security', 'namespace', 'prefix', 'domain', 'base_list_controller'
+            $data = Arr::only($dashboard, [
+                'entities', 'security', 'namespace',
+                'prefix', 'domain', 'base_list_controller'
             ]);
 
-            $group['dashboard_alias'] = $dashboard_alias;
+            $data['dashboard_alias'] = $dashboard_alias;
 
-            if (!isset($group['entities']['index'])) {
-                $group['entities']['index'] = \SmallTeam\Dashboard\Entity\DashboardEntity::class;
+            if (!isset($data['entities']['index'])) {
+                $data['entities']['index'] = \SmallTeam\Dashboard\Entity\DashboardEntity::class;
             }
-
-            $cl = function () {
-                foreach ($this->entities as $name => $entity_class_name) {
-                    /** @var Entity\BaseEntity $entity */
-                    $entity = app($entity_class_name);
-
-                    $controller = $entity->getController();
-                    $controller = $controller === null ? $this->base_list_controller : $controller;
-
-                    $router = new Router($entity, $controller);
-                    call_user_func([$controller, 'routesMap'], $router, $name, $controller, [
-                        'namespace' => $this->namespace,
-                        'prefix' => $this->prefix,
-                        'domain' => $this->domain,
-                        'entity' => $entity,
-                    ]);
-                }
-
-                if (data_get($this->security, 'auth.enabled')) {
-                    $auth_controller = data_get($this->security, 'auth.auth_controller');
-                    $password_controller = data_get($this->security, 'auth.password_controller');
-
-                    Route::get('/login', $auth_controller . '@showLoginForm');
-                    Route::post('/login', $auth_controller . '@login');
-                    Route::get('/logout', $auth_controller . '@logout');
-
-                    Route::get('password/reset/{token?}', $password_controller . '@showResetForm');
-                    Route::post('password/email', $password_controller . '@sendResetLinkEmail');
-                    Route::post('password/reset', $password_controller . '@reset');
-                    Route::get('password/reset', $password_controller . '@showResetForm');
-                }
-            };
-
-            $cl = Closure::bind($cl, (object)$group);
 
             \Route::group([
                 'middleware' => 'web',
-                'namespace' => $group['namespace'],
-                'prefix' => $group['prefix'],
-                'domain' => $group['domain']
-            ], $cl);
+                'namespace' => $data['namespace'],
+                'prefix' => $data['prefix'],
+                'domain' => $data['domain']
+            ], function () use ($data, $self) {
+                foreach ($data['entities'] as $name => $entity_class_name) {
+                    /** @var Entity\EntityInterface $entity */
+                    $entity = app($entity_class_name);
 
-            unset($cl, $group);
+                    $controller = $entity->getController();
+                    $controller = $controller === null ? $data['base_list_controller'] : $controller;
+
+                    $router = Router::create($entity, $controller);
+                    $arguments = [
+                        $router, $name, [
+                            'namespace' => $data['namespace'],
+                            'prefix' => $data['prefix'],
+                            'domain' => $data['domain'],
+                            'entity' => $entity,
+                            'controller' => $controller
+                        ]
+                    ];
+
+                    app()->bind('dashboard.'.$data['dashboard_alias'].'.'.$name, function() use ($entity) {
+                        return $entity;
+                    });
+
+                    if (is_a($controller, CRUDControllerInterface::class, true)) {
+                        call_user_func_array([$self, 'mapCRUDRoutes'], $arguments);
+                    } elseif (is_a($controller, SingleFormControllerInterface::class, true)) {
+                        call_user_func_array([$self, 'mapSingleFormRoutes'], $arguments);
+                    } elseif (is_a($controller, DashboardControllerInterface::class, true)) {
+                        call_user_func_array([$self, 'mapDashboardRoutes'], $arguments);
+                    }
+
+                    call_user_func_array([$entity, 'routesMap'], $arguments);
+                }
+
+                if (data_get($data['security'], 'auth.enabled')) {
+                    $auth_controller = data_get($data['security'], 'auth.auth_controller');
+                    $password_controller = data_get($data['security'], 'auth.password_controller');
+
+                    $self->mapAuthAndPasswordRoutes($auth_controller, $password_controller);
+                }
+            });
         }
+    }
+
+    /**
+     * Map auth and password routes.
+     *
+     * @param string $auth_controller Auth Controller class name.
+     * @param string $password_controller Password Controller class name.
+     *
+     * @return void
+     * */
+    protected function mapAuthAndPasswordRoutes($auth_controller, $password_controller)
+    {
+        Route::get('/login', $auth_controller . '@showLoginForm');
+        Route::post('/login', $auth_controller . '@login');
+        Route::get('/logout', $auth_controller . '@logout');
+
+        Route::get('password/reset/{token?}', $password_controller . '@showResetForm');
+        Route::post('password/email', $password_controller . '@sendResetLinkEmail');
+        Route::post('password/reset', $password_controller . '@reset');
+        Route::get('password/reset', $password_controller . '@showResetForm');
+    }
+
+    /**
+     * Map CRUD routes.
+     *
+     * @param Router $router
+     * @param string $name Entity name.
+     * @param array $parameters
+     *
+     * @return void
+     * */
+    protected function mapCRUDRoutes(Router $router, $name, array $parameters)
+    {
+        $router->get($name, 'index');
+
+        $router->get($name . '/create', 'create');
+        $router->post($name, 'store');
+
+        $router->get($name . '/{id}/edit', 'edit')->where('id', '[0-9]+');
+        $router->put($name . '/{id}', 'update')->where('id', '[0-9]+');
+
+        $router->get($name . '/{id}/show', 'show')->where('id', '[0-9]+');
+
+        $router->delete($name . '/{id}', 'destroy')->where('id', '[0-9]+');
+    }
+
+    /**
+     * Map Single Form routes.
+     *
+     * @param Router $router
+     * @param string $name Entity name.
+     * @param array $parameters
+     *
+     * @return void
+     * */
+    protected function mapSingleFormRoutes(Router $router, $name, array $parameters)
+    {
+        $router->get($name, 'edit');
+        $router->put($name, 'update');
+    }
+
+    /**
+     * Map Dashboard routes.
+     *
+     * @param Router $router
+     * @param string $name Entity name.
+     * @param array $parameters
+     *
+     * @return void
+     * */
+    protected function mapDashboardRoutes(Router $router, $name, array $parameters)
+    {
+        $router->get('/', 'index');
     }
 }

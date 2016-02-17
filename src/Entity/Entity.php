@@ -1,13 +1,15 @@
 <?php namespace SmallTeam\Dashboard\Entity;
 
+use SmallTeam\Dashboard\Routing\Router;
+
 /**
- * BaseEntity
+ * Entity.
  *
  * @author Max Kovpak <max_kovpak@hotmail.com>
  * @url www.max-kovpak.com
  * @date 24.05.2015
  * */
-abstract class BaseEntity implements EntityInterface
+abstract class Entity implements EntityInterface
 {
 
     /** @var string */
@@ -121,6 +123,14 @@ abstract class BaseEntity implements EntityInterface
     public function configureFilterFields()
     {
         //filter fields definition
+    }
+
+    /**
+     * @inheritdoc
+     * */
+    public static function routesMap(Router $router, $name, array $parameters)
+    {
+        //set your custom routes here
     }
 
 }

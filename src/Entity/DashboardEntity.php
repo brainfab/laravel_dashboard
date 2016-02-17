@@ -9,7 +9,7 @@ use SmallTeam\Dashboard\Controller\DashboardController;
  * @url www.max-kovpak.com
  * @date 25.05.2015
  * */
-class DashboardEntity extends BaseEntity
+class DashboardEntity extends Entity
 {
 
     protected $name = 'Dashboard';
