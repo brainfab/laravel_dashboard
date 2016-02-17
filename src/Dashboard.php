@@ -54,7 +54,7 @@ class Dashboard implements DashboardInterface
 
         $this->dashboard_alias = $dashboard_alias;
 
-        $this->set('entity', $current->entity);
+        $this->set('entity', data_get($current, 'entity'));
 
         $prefix = $this->get('prefix', '/');
 
