@@ -16,4 +16,6 @@ class DashboardEntity extends Entity
 
     protected $controller = DashboardController::class;
 
+    protected $icon = 'fa-dashboard';
+
 }
