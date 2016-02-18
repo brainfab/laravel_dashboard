@@ -8,6 +8,14 @@
               </span>
             </div>
         </form>
-        <ul class="sidebar-menu"></ul>
+        <ul class="sidebar-menu">
+            @foreach(app('dashboard')->getMenuBuilder() as $menuItem)
+                <li class="{{$menuItem->isActive() ? 'active' : ''}}">
+                    <a href="{{$menuItem->getLink()}}">
+                        <i class="fa {{$menuItem->getIcon()}}"></i> <span>{{$menuItem->getName()}}</span>
+                    </a>
+                </li>
+            @endforeach
+        </ul>
     </section>
 </aside>

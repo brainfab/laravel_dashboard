@@ -24,10 +24,11 @@ abstract class Entity implements EntityInterface
     /** @var array */
     protected $order_by;
 
+    /** @var string */
+    protected $icon;
+
     /**
-     * Get entity name
-     *
-     * @return string|null
+     * @inheritdoc
      * */
     public function getName()
     {
@@ -40,6 +41,23 @@ abstract class Entity implements EntityInterface
     public function setName($name)
     {
         $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @inheritdoc
+     * */
+    public function getIcon()
+    {
+        return $this->icon;
+    }
+
+    /**
+     * @inheritdoc
+     * */
+    public function setIcon($icon)
+    {
+        $this->icon = $icon;
         return $this;
     }
 

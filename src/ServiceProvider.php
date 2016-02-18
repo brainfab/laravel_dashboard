@@ -1,5 +1,6 @@
 <?php namespace SmallTeam\Dashboard;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use SmallTeam\Dashboard\Routing\RoutesMapper;
 
@@ -47,8 +48,27 @@ class ServiceProvider extends BaseServiceProvider
         $router->middleware('dashboard.auth', 'SmallTeam\Dashboard\Middleware\Authenticate');
         $router->middleware('dashboard.guest', 'SmallTeam\Dashboard\Middleware\Guest');
 
-        /** Register dashboard routes */
         $dashboards = config('dashboard.dashboards');
+
+        foreach ($dashboards as $dashboard_alias => $dashboard) {
+            if (!isset($dashboard['entities']['index'])) {
+                $dashboards[$dashboard_alias]['entities']['index'] = \SmallTeam\Dashboard\Entity\DashboardEntity::class;
+            }
+
+            foreach ($dashboard['entities'] as $entity_name => $entity_class) {
+                $service = 'dashboard.' . $dashboard_alias . '.' . $entity_name;
+
+                $entity = app($entity_class);
+
+                app()->bind($service, function () use ($entity) {
+                    return $entity;
+                });
+            }
+        }
+
+        config(['dashboard.dashboards' => $dashboards]);
+
+        /** Register dashboard routes */
         $mapper = new RoutesMapper($dashboards);
         $mapper->map();
     }

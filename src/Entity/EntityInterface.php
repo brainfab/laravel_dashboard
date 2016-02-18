@@ -27,6 +27,22 @@ interface EntityInterface
     public function setName($name);
 
     /**
+     * Get entity icon.
+     *
+     * @return string|null
+     * */
+    public function getIcon();
+
+    /**
+     * Set entity icon.
+     *
+     * @param string $icon
+     *
+     * @return EntityInterface
+     * */
+    public function setIcon($icon);
+
+    /**
      * Get model name
      *
      * @return string|null

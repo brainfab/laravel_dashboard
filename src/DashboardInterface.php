@@ -1,5 +1,6 @@
 <?php namespace SmallTeam\Dashboard;
 
+use Illuminate\Support\Collection;
 use SmallTeam\Dashboard\Entity\EntityInterface;
 
 /**
@@ -44,6 +45,13 @@ interface DashboardInterface
      * @return string
      * */
     public function getName();
+
+    /**
+     * Get dashboard entities collection.
+     *
+     * @return Collection
+     * */
+    public function getEntities();
 
     /**
      * Get dashboard short name

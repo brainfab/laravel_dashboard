@@ -2,7 +2,9 @@
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use SmallTeam\Dashboard\Entity\EntityInterface;
+use SmallTeam\Menu\MenuBuilder;
 
 /**
  * Dashboard
@@ -22,6 +24,12 @@ class Dashboard implements DashboardInterface
 
     /** @var EntityInterface */
     protected $entity;
+
+    /** @var Collection */
+    protected $entities;
+
+    /** @var MenuBuilder */
+    protected $menu_builder;
 
     /**
      * Dashboard constructor
@@ -65,6 +73,9 @@ class Dashboard implements DashboardInterface
 
         if (!app()->runningInConsole() && $dashboard_alias === null) {
             abort('Dashboard not found for current route', 404);
+        } elseif($dashboard_alias === null) {
+            $this->booted = true;
+            return;
         }
 
         $this->dashboard_alias = $dashboard_alias;
@@ -86,6 +97,9 @@ class Dashboard implements DashboardInterface
 
         $this->setCurrentLocale($locale);
         app()->setLocale($locale);
+
+        $this->menu_builder = new MenuBuilder($this);
+        $this->menu_builder->build();
 
         $this->booted = true;
     }
@@ -114,11 +128,38 @@ class Dashboard implements DashboardInterface
     }
 
     /**
+     * @return MenuBuilder
+     */
+    public function getMenuBuilder()
+    {
+        return $this->menu_builder;
+    }
+
+    /**
      * @inheritdoc
      * */
     public function getName()
     {
         return $this->get('name');
+    }
+
+    /**
+     * @inheritdoc
+     * */
+    public function getEntities()
+    {
+        if ($this->entities === null) {
+            $entities = $this->get('entities');
+
+            $this->entities = new Collection();
+
+            foreach ($entities as $entity_name => $entity_class) {
+                $service = 'dashboard.' . $this->getAlias() . '.' . $entity_name;
+                $this->entities->put($entity_name, app($service));
+            }
+        }
+
+        return $this->entities;
     }
 
     /**

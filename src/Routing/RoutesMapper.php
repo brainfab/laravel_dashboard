@@ -52,10 +52,6 @@ class RoutesMapper
 
             $data['dashboard_alias'] = $dashboard_alias;
 
-            if (!isset($data['entities']['index'])) {
-                $data['entities']['index'] = \SmallTeam\Dashboard\Entity\DashboardEntity::class;
-            }
-
             \Route::group([
                 'middleware' => 'web',
                 'namespace' => $data['namespace'],
@@ -68,7 +64,7 @@ class RoutesMapper
                     $prefix = $name === 'index' ? '/' : $name;
 
                     /** @var Entity\EntityInterface $entity */
-                    $entity = app($entity_class_name);
+                    $entity = app('dashboard.' . $data['dashboard_alias'] . '.' . $name);
 
                     $controller = $entity->getController();
                     $controller = $controller === null ? $data['base_list_controller'] : $controller;
@@ -77,10 +73,6 @@ class RoutesMapper
                     $arguments = [
                         $router
                     ];
-
-                    app()->bind('dashboard.' . $data['dashboard_alias'] . '.' . $name, function () use ($entity) {
-                        return $entity;
-                    });
 
                     if (is_a($controller, CRUDControllerInterface::class, true)) {
                         call_user_func_array([$self, 'mapCRUDRoutes'], $arguments);
