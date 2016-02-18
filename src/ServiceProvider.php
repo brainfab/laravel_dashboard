@@ -52,7 +52,7 @@ class ServiceProvider extends BaseServiceProvider
 
         foreach ($dashboards as $dashboard_alias => $dashboard) {
             if (!isset($dashboard['entities']['index'])) {
-                $dashboard['entities']['index'] = \SmallTeam\Dashboard\Entity\DashboardEntity::class;
+                $dashboard['entities'] = array_merge(['index' => \SmallTeam\Dashboard\Entity\DashboardEntity::class], $dashboard['entities']);
             }
 
             foreach ($dashboard['entities'] as $entity_name => $entity_class) {
