@@ -13,8 +13,6 @@ use SmallTeam\Dashboard\Routing\Router;
 interface ControllerInterface
 {
 
-    public function __construct();
-
     /**
      * Get dashboard application
      *

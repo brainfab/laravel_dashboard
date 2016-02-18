@@ -22,15 +22,15 @@ class AuthController extends Controller
     /** @var bool */
     protected $guarded = false;
 
-    public function __construct(Dashboard $dashboard, Guard $auth = null, Registrar $registrar = null)
+    public function __construct(Guard $auth = null, Registrar $registrar = null)
     {
-        parent::__construct($dashboard);
+        parent::__construct();
 
         $this->auth = $auth;
         $this->registrar = $registrar;
 
-        $this->redirectTo = $dashboard->url();
-        $this->loginPath = $dashboard->url('login');
+        $this->redirectTo = app('dashboard')->url();
+        $this->loginPath = app('dashboard')->url('login');
 
         $this->middleware('dashboard.guest', ['except' => 'getLogout']);
     }
