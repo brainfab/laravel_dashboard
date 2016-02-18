@@ -169,7 +169,7 @@ class MenuBuilder implements Arrayable, Jsonable, JsonSerializable, Countable, I
      * */
     public function toArray()
     {
-        $this->items->toArray();
+        return $this->items->toArray();
     }
 
     /**
