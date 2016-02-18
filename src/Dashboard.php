@@ -4,7 +4,7 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use SmallTeam\Dashboard\Entity\EntityInterface;
-use SmallTeam\Menu\MenuBuilder;
+use SmallTeam\Dashboard\Menu\MenuBuilder;
 
 /**
  * Dashboard
