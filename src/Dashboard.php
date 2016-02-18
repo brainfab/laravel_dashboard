@@ -2,6 +2,7 @@
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
+use SmallTeam\Dashboard\Entity\EntityInterface;
 
 /**
  * Dashboard
@@ -18,6 +19,9 @@ class Dashboard implements DashboardInterface
 
     /** @var string */
     protected $dashboard_alias;
+
+    /** @var EntityInterface */
+    protected $entity;
 
     /**
      * Dashboard constructor
@@ -50,7 +54,7 @@ class Dashboard implements DashboardInterface
 
             if ($is_dashboard) {
                 $dashboard_alias = data_get($as_arr, 1);
-                $this->set('entity', app($as));
+                $this->entity = app($as);
             }
         }
 
@@ -149,7 +153,7 @@ class Dashboard implements DashboardInterface
      * */
     public function getEntity()
     {
-        return $this->get('entity');
+        return $this->entity;
     }
 
     /**
