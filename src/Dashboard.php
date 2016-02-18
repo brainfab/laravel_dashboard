@@ -54,7 +54,12 @@ class Dashboard implements DashboardInterface
 
             if ($is_dashboard) {
                 $dashboard_alias = data_get($as_arr, 1);
-                $this->entity = app($as);
+
+                try {
+                    $this->entity = app($as);
+                } catch (\ReflectionException $e) {
+                    $this->entity = null;
+                }
             }
         }
 
