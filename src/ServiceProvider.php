@@ -52,7 +52,7 @@ class ServiceProvider extends BaseServiceProvider
 
         foreach ($dashboards as $dashboard_alias => $dashboard) {
             if (!isset($dashboard['entities']['index'])) {
-                $dashboards[$dashboard_alias]['entities']['index'] = \SmallTeam\Dashboard\Entity\DashboardEntity::class;
+                $dashboard['entities']['index'] = \SmallTeam\Dashboard\Entity\DashboardEntity::class;
             }
 
             foreach ($dashboard['entities'] as $entity_name => $entity_class) {
@@ -64,6 +64,8 @@ class ServiceProvider extends BaseServiceProvider
                     return $entity;
                 });
             }
+
+            $dashboards[$dashboard_alias] = $dashboard;
         }
 
         config(['dashboard.dashboards' => $dashboards]);
