@@ -1,4 +1,4 @@
-<?php namespace SmallTeam\Menu;
+<?php namespace SmallTeam\Dashboard\Menu;
 
 use Illuminate\Support\Collection;
 
