@@ -75,13 +75,7 @@ class RoutesMapper
 
                     $router = Router::create($entity, $controller, $prefix, $name);
                     $arguments = [
-                        $router, $name, [
-                            'namespace' => $data['namespace'],
-                            'prefix' => $data['prefix'],
-                            'domain' => $data['domain'],
-                            'entity' => $entity,
-                            'controller' => $controller
-                        ]
+                        $router
                     ];
 
                     app()->bind('dashboard.' . $data['dashboard_alias'] . '.' . $name, function () use ($entity) {
@@ -133,12 +127,10 @@ class RoutesMapper
      * Map CRUD routes.
      *
      * @param Router $router
-     * @param string $name Entity name.
-     * @param array $parameters
      *
      * @return void
      * */
-    protected function mapCRUDRoutes(Router $router, $name, array $parameters)
+    protected function mapCRUDRoutes(Router $router)
     {
         $router->get('/', 'index');
 
@@ -157,27 +149,23 @@ class RoutesMapper
      * Map Single Form routes.
      *
      * @param Router $router
-     * @param string $name Entity name.
-     * @param array $parameters
      *
      * @return void
      * */
-    protected function mapSingleFormRoutes(Router $router, $name, array $parameters)
+    protected function mapSingleFormRoutes(Router $router)
     {
-        $router->get($name, 'edit');
-        $router->put($name, 'update');
+        $router->get('/', 'edit');
+        $router->put('/', 'update');
     }
 
     /**
      * Map Dashboard routes.
      *
      * @param Router $router
-     * @param string $name Entity name.
-     * @param array $parameters
      *
      * @return void
      * */
-    protected function mapDashboardRoutes(Router $router, $name, array $parameters)
+    protected function mapDashboardRoutes(Router $router)
     {
         $router->get('/', 'index');
     }

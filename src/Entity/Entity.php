@@ -128,7 +128,7 @@ abstract class Entity implements EntityInterface
     /**
      * @inheritdoc
      * */
-    public static function routesMap(Router $router, $name, array $parameters)
+    public static function routesMap(Router $router)
     {
         //set your custom routes here
     }

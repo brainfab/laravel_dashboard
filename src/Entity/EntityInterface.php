@@ -106,11 +106,9 @@ interface EntityInterface
      * Init controller routes
      *
      * @param Router $router
-     * @param string $name Entity name.
-     * @param array $parameters
      *
      * @return void
      * */
-    public static function routesMap(Router $router, $name, array $parameters);
+    public static function routesMap(Router $router);
 
 }
